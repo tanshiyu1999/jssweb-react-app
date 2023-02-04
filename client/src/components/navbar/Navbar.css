@@ -1,0 +1,120 @@
+.nav-main {
+    padding: 5px;
+    width: 100vw;
+    height: 60px;
+    background-color: pink;
+    
+    display: flex;
+    flex-direction: row;
+
+    position: fixed;
+    top:0;
+}
+
+
+
+li {
+    list-style: none;
+}
+
+
+.nav-spacer-center {
+    /* background: pink; */
+    flex-grow: 5;
+}
+
+.nav-spacer-side {
+    /* background: plum; */
+    flex-grow: 1;
+}
+
+.nav-menu {
+    /* background-color: azure; */
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    background-color: pink;
+}
+
+.nav-item {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+    flex-shrink: 0;
+    transition: 0.3s ease;
+}
+
+.nav-item:hover {
+    color:dodgerblue;
+    cursor: pointer;
+}
+
+.nav-org-logo {
+    height: 50px;
+    width: 50px;
+}
+
+.nav-burger {
+    display: none;
+    position: relative;
+    bottom: 38px;
+    left: 45vw;
+    cursor: pointer;
+    margin: auto;
+}
+
+.nav-burger-bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 20px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+}
+
+
+@media(max-width: 768px) {
+    .nav-spacer-center {
+        display: none;
+    }
+
+    .nav-spacer-side {
+        display: none;
+    }
+
+    .nav-main {
+        flex-direction: column;
+        align-items:center;
+    }
+
+    .nav-burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .nav-menu {
+        display: none;
+        margin: 0px;
+        padding: 0px;
+        flex-direction: column;
+        width: 100vw;
+        align-items: center;
+        background-color: red;
+        position: relative;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-item {
+        padding: 0.5rem 1rem;
+    }
+    
+
+}
+

@@ -1,0 +1,30 @@
+.landing {
+    height: 100vh;
+    width: 100vw;
+    border: 1px solid red;
+    overflow: hidden;
+    overflow-y: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+}
+
+.landing-img {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+}
+
+.landing-icons {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
