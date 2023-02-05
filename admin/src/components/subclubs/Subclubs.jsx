@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
+import './Subclubs.css'
 
 const fileSelected = () => {
   return null;
@@ -13,6 +14,8 @@ const handleSubmit = (e) => {
 
 function Subclubs() {
 
+  let listItem = null;
+
   const [file, setFile] = useState();
 
   const [textData, setTextData] = useState({
@@ -22,6 +25,8 @@ function Subclubs() {
   });
 
   const { name, url, desc } = textData;
+
+  const [subclubsData, setsubclubsData] = useState([]); 
 
   const onChange = (e) => {
     setTextData({ ...textData, [e.target.name]: e.target.value })
@@ -40,19 +45,18 @@ function Subclubs() {
       // console.log(formData)
 
       await axios.post("http://localhost:3000/subclubs", formData, { headers: {'Content-Type': 'multipart/form-data'}});
-      
-      // const response = await fetch("http://localhost:3000/subclubs", {
-      //     method: "POST",
-      //     headers: {"Content-Type": "multipart/form-data"},
-      //     body: JSON.stringify(formData)
-      // });
 
-      // just upload image to cloud, cloud returns me the bloody url
-      // i use the bloody url and push it into my database. 
 
-      
+
+      await axios.get("http://localhost:3000/subclubs")
+                 .then(res => {
+                  setsubclubsData(res.data);
+                 })
+                 .catch(err => {
+                  console.log(err.message)
+                 })
+
     } catch (err) {
-      console.log("Here at Subclubs")
       console.error(err.message);
     }
   }
@@ -62,6 +66,52 @@ function Subclubs() {
     setFile(file)
   }
 
+  useEffect( () => {
+    const fetchData = async () => {
+      await axios.get("http://localhost:3000/subclubs")
+                  .then(res => {
+                    console.log("hello")
+                    setsubclubsData(res.data);
+                  })
+                  .catch(err => {
+                    console.log(err.message)
+                  })
+    }
+    fetchData().catch(console.error);
+
+
+
+    if (subclubsData != []) {
+      listItem = subclubsData.map((data) => {
+        console.log("here")
+        return <h1>test</h1>
+      });
+    }
+  }, []);
+
+  const list =  <h1>test</h1>
+
+
+
+ 
+
+
+  const numbers = [1, 2, 3, 4, 5];
+
+
+
+
+
+
+
+  // console.log(subclubsData[1]);
+
+
+
+
+ 
+
+
   return (
     <div>
       <form onSubmit={handleSubmit} style={{width:650}} className="flex flex-col space-y-5 px-5 py-14">
@@ -69,9 +119,15 @@ function Subclubs() {
         <input type="text" placeholder='url' name="url" value={url} onChange={e => onChange(e)} ></input>
         <input type="text" placeholder='description' name="desc" value={desc} onChange={e => onChange(e)} ></input>
         <input onChange={fileSelected} type="file" name="image" accept="image/*"></input>
-
         <button type="submit">Submit</button>
       </form>
+    
+      { listItem != null &&
+        <div>{listItem}</div>
+      }
+
+      {list}
+
     </div>
   );
 }

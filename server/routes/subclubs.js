@@ -1,10 +1,18 @@
-const {S3Client, PutObjectCommand} = require("@aws-sdk/client-s3");
 const router = require("express").Router();
 const pool = require("../db");
 const multer = require('multer');
-const crypto = require('crypto')
+const crypto = require('crypto');
 require("dotenv").config();
-const sharp = require('sharp')
+const sharp = require('sharp');
+
+const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+
+
+
+
+
+
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
@@ -26,9 +34,9 @@ const randomImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex'
 
 router.post("/", upload.single('image'), async (req, res) => {
     try {
-        console.log("req.body", req.body);
-        console.log("---------------------------------------")
-        console.log("req.file", req.file);
+        // console.log("req.body", req.body);
+        // console.log("---------------------------------------")
+        // console.log("req.file", req.file);
 
         // resize image
         const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1080, fit:"contain" }).toBuffer();
@@ -53,9 +61,32 @@ router.post("/", upload.single('image'), async (req, res) => {
         res.json(newSubclub);
     } catch (err) {
         console.error(err.message);
-        res.status(500).send("Server Error")
+        res.status(500).send("Server Error");
     }
 });
+
+router.get("/", async (req, res) => {
+    try {
+        const subclubs = await pool.query("SELECT * FROM subclubs");
+        // console.log(subclubs.rows)
+
+        for (const subclub of subclubs.rows) {
+            const getObjectParams = {
+                Bucket: bucketName,
+                Key: subclub.subclub_img,
+            }
+            const command = new GetObjectCommand(getObjectParams);
+            const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+            subclub.imageUrl = url;
+        }
+        
+        res.send(subclubs.rows)
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+})
 
 
 module.exports = router;
