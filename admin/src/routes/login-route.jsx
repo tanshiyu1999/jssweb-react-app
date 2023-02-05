@@ -17,9 +17,11 @@ function LoginRoute(props) {
     const { email, password } = inputs;
 
     const onChange = (e) => {
+  
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
 
+    
     const onSubmitForm = async (e) => {
         e.preventDefault();
         try {
@@ -41,8 +43,6 @@ function LoginRoute(props) {
                 props.setAuth(false);
                 toast.error(parseRes);
             }
-
-            
         } catch (err) {
             console.error(err.message)            
         }

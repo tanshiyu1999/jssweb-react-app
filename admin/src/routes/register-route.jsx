@@ -24,6 +24,9 @@ function RegisterRoute(props) {
             const password = inputs.password;
             const name = inputs.name;
             const body = {email, password, name};
+            console.log(body);
+            console.log("------------------------")
+            console.log(JSON.stringify(body))
 
             const response = await fetch(
                 "http://localhost:3000/auth/register", {

@@ -22,16 +22,17 @@ CREATE TABLE users (
     user_password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE subclubs {
+CREATE TABLE subclubs (
     subclub_id SERIAL PRIMARY KEY,
     subclub_name VARCHAR(255) NOT NULL,
     subclub_url VARCHAR(255),
     subclub_desc TEXT,
-    subclub_img 
-
-};
+    subclub_img TEXT
+);
 
 
 
 
 INSERT INTO users (user_name, user_email, user_password) VALUES ('henry', 'henry@gmail.com', 'henry123');
+
+DELETE FROM subclubs WHERE subclub_name = 'Test';
