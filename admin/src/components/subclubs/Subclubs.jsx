@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
 import './Subclubs.css'
+import SubclubItem from "./SubclubItem"
 
 const fileSelected = () => {
   return null;
@@ -10,11 +11,8 @@ const handleSubmit = (e) => {
   e.preventDefault();
 }
 
-
-
 function Subclubs() {
 
-  let listItem = null;
 
   const [file, setFile] = useState();
 
@@ -26,7 +24,10 @@ function Subclubs() {
 
   const { name, url, desc } = textData;
 
-  const [subclubsData, setsubclubsData] = useState([]); 
+  const [subclubsData, setSubclubsData] = useState([]); 
+
+
+
 
   const onChange = (e) => {
     setTextData({ ...textData, [e.target.name]: e.target.value })
@@ -46,11 +47,9 @@ function Subclubs() {
 
       await axios.post("http://localhost:3000/subclubs", formData, { headers: {'Content-Type': 'multipart/form-data'}});
 
-
-
       await axios.get("http://localhost:3000/subclubs")
                  .then(res => {
-                  setsubclubsData(res.data);
+                  setSubclubsData(res.data);
                  })
                  .catch(err => {
                   console.log(err.message)
@@ -66,51 +65,35 @@ function Subclubs() {
     setFile(file)
   }
 
+
+
   useEffect( () => {
-    const fetchData = async () => {
-      await axios.get("http://localhost:3000/subclubs")
+    const fetchData = () => {
+      axios.get("http://localhost:3000/subclubs")
                   .then(res => {
-                    console.log("hello")
-                    setsubclubsData(res.data);
+                    // console.log("-------start--------")
+                    // console.log(res.data);
+                    // console.log(subclubsData)
+                    // console.log("--------end--------")
+                    setSubclubsData([...res.data]);
+                    // console.log(subclubsData);
                   })
                   .catch(err => {
                     console.log(err.message)
                   })
     }
-    fetchData().catch(console.error);
+    fetchData();
 
-
-
-    if (subclubsData != []) {
-      listItem = subclubsData.map((data) => {
-        console.log("here")
-        return <h1>test</h1>
-      });
-    }
-  }, []);
-
-  const list =  <h1>test</h1>
-
-
-
- 
-
-
-  const numbers = [1, 2, 3, 4, 5];
-
-
-
-
-
-
-
-  // console.log(subclubsData[1]);
-
-
-
-
- 
-
+  }, [subclubsData].length);
+  
+  const listItems = subclubsData.map((data) => {
+    return <SubclubItem key={data.subclub_id} 
+                        name={data.subclub_name} 
+                        desc={data.subclub_desc} 
+                        url={data.imageUrl} 
+                        cluburl={data.subclub_url} 
+                        imgName={data.subclub_img}  />
+  });
 
   return (
     <div>
@@ -121,12 +104,10 @@ function Subclubs() {
         <input onChange={fileSelected} type="file" name="image" accept="image/*"></input>
         <button type="submit">Submit</button>
       </form>
-    
-      { listItem != null &&
-        <div>{listItem}</div>
-      }
 
-      {list}
+      {listItems}
+
+
 
     </div>
   );

@@ -5,14 +5,8 @@ const crypto = require('crypto');
 require("dotenv").config();
 const sharp = require('sharp');
 
-const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
-
-
-
-
-
-
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
@@ -39,7 +33,7 @@ router.post("/", upload.single('image'), async (req, res) => {
         // console.log("req.file", req.file);
 
         // resize image
-        const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1080, fit:"contain" }).toBuffer();
+        const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1080, fit:"contain", background: "transparent" }).toBuffer();
 
         const imageName = randomImageName()
         const params = {
@@ -85,6 +79,31 @@ router.get("/", async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
+    }
+})
+
+router.delete("/", async (req, res) => {
+    try {
+
+        const params = {
+            Bucket: bucketName,
+            Key: req.body.url,
+        }
+
+        const command = new DeleteObjectCommand(params);
+        await s3.send(command);
+
+
+        await pool.query(
+            "DELETE FROM subclubs where subclub_img = $1", 
+            [req.body.url]
+        );
+
+
+        res.send("Image Deleted");
+    } catch (err) {
+        console.error(err.message)  ;
+        res.status(500).send("Server Error")
     }
 })
 
