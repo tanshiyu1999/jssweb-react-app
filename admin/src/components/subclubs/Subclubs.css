@@ -1,12 +1,65 @@
-.subclub-item {
+.subclub-route-container {
+    width: 100%;
+    background-color: pink;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: aliceblue;
 }
 
-.item-image {
-    aspect-ratio: 1 / 1;
-    width: 200px;
+.form-submit-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
+
+.form-submit-input * {
+    margin: 5px;
+}
+
+.subclub {
+    display: flex;
+    flex-direction: column;
+    justify-content: space;
+    align-items: center;
+    overflow: hidden;
+}
+
+.subclub-container {
+    display: flex;
+    flex-direction: row;
+    background-color: aliceblue;
+    overflow: auto;
+    width: 80vw;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.subclub-item {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: pink;
+    overflow-x: auto;
+    margin: 5px;
+
+}
+
+.subclub-item img{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    background-color: pink;
+    margin: 10px;
+}
+
+.subclub-item p {
+    width: 100%;    
+}
+
+.subclub-text {
+    width: 80vw;
+}
+

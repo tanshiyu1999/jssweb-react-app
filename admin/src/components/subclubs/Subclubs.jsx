@@ -3,13 +3,6 @@ import axios from 'axios'
 import './Subclubs.css'
 import SubclubItem from "./SubclubItem"
 
-const fileSelected = () => {
-  return null;
-}
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-}
 
 function Subclubs() {
 
@@ -48,21 +41,49 @@ function Subclubs() {
       await axios.post("http://localhost:3000/subclubs", formData, { headers: {'Content-Type': 'multipart/form-data'}});
 
       await axios.get("http://localhost:3000/subclubs")
-                 .then(res => {
-                  setSubclubsData(res.data);
-                 })
-                 .catch(err => {
-                  console.log(err.message)
-                 })
+        .then(res => {
+        setSubclubsData(res.data);
+        })
+        .catch(err => {
+        console.log(err.message)
+        })
 
     } catch (err) {
       console.error(err.message);
     }
   }
 
+
+
   const fileSelected = event => {
     const file = event.target.files[0];
     setFile(file)
+  }
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        "http://localhost:3000/subclubs", {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+              url: e.target.name,
+            })
+        }
+      );
+      await axios.get("http://localhost:3000/subclubs")
+        .then(res => {
+        setSubclubsData(res.data);
+        })
+        .catch(err => {
+        console.log(err.message)
+        })
+            
+    } catch (err) {
+      console.error(err.message)
+    }
   }
 
 
@@ -87,26 +108,34 @@ function Subclubs() {
   }, [subclubsData].length);
   
   const listItems = subclubsData.map((data) => {
-    return <SubclubItem key={data.subclub_id} 
+    return <SubclubItem className="subclub-item"
+                        key={data.subclub_id} 
                         name={data.subclub_name} 
                         desc={data.subclub_desc} 
                         url={data.imageUrl} 
                         cluburl={data.subclub_url} 
-                        imgName={data.subclub_img}  />
+                        imgName={data.subclub_img}
+                        handleDelete={handleDelete}  />
   });
 
+  
+
   return (
-    <div>
-      <form onSubmit={handleSubmit} style={{width:650}} className="flex flex-col space-y-5 px-5 py-14">
+    <div className="subclub-route-container">
+      <form onSubmit={handleSubmit} style={{width:650}} className="form-submit-input">
         <input type="text" placeholder='name' name="name" value={name} onChange={e => onChange(e)} ></input>
         <input type="text" placeholder='url' name="url" value={url} onChange={e => onChange(e)} ></input>
-        <input type="text" placeholder='description' name="desc" value={desc} onChange={e => onChange(e)} ></input>
+        <textarea type="text" placeholder='description' name="desc" value={desc} onChange={e => onChange(e)} ></textarea>
         <input onChange={fileSelected} type="file" name="image" accept="image/*"></input>
         <button type="submit">Submit</button>
       </form>
 
-      {listItems}
+      <div className="subclub-container">
+        {listItems}
+      </div>
+      
 
+  
 
 
     </div>
