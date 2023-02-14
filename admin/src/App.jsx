@@ -68,6 +68,13 @@ function App() {
     return null;
   }
 
+  const subclubsLoader = async () => {
+    if (isAuthenticated) {
+      return null;
+    }
+    return redirect("/login");
+  }
+
 
   const router = createBrowserRouter([
     {
@@ -94,7 +101,7 @@ function App() {
     { 
       path: "subclubs",
       element: <SubclubsRoute setAuth={setAuth} />,
-      // loader: subclubsLoader,
+      loader: subclubsLoader,
     },
   ]);
 
