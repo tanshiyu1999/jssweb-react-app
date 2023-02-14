@@ -15,12 +15,14 @@ import LoginRoute from "./routes/login-route"
 import DashboardRoute from "./routes/dashboard-route"
 import RegisterRoute from "./routes/register-route"
 import SubclubsRoute from "./routes/subclubs-route"
+import { loaderInput as subclubLoaderInput } from "./components/subclubs/Subclubs"
+import { action as subclubsItemAction } from "./components/subclubs/SubclubItem"
 
 
 
 function App() {
-  const notify = () => toast("Wow so easy!");
 
+  /* -------------------- Authentication Start -------------------- */
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = (boolean) => {
@@ -47,6 +49,9 @@ function App() {
     isAuth()
   })
 
+  /* -------------------- Authentication End -------------------- */
+
+  /* -------------------- Loaders Start -------------------- */
   const loginLoader = async () => {
     if (isAuthenticated) {
       return redirect("/dashboard");
@@ -70,10 +75,13 @@ function App() {
 
   const subclubsLoader = async () => {
     if (isAuthenticated) {
-      return null;
+      return subclubLoaderInput();
     }
     return redirect("/login");
   }
+
+  /* -------------------- Loaders End -------------------- */
+  
 
 
   const router = createBrowserRouter([
@@ -102,6 +110,7 @@ function App() {
       path: "subclubs",
       element: <SubclubsRoute setAuth={setAuth} />,
       loader: subclubsLoader,
+      // action: subclubsItemAction,
     },
   ]);
 
