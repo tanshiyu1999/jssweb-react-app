@@ -9,6 +9,7 @@ import {
   Link 
 } from "react-router-dom"
 
+
 let uploadFile = null;
 
 function Subclubs() {
@@ -57,10 +58,12 @@ function Subclubs() {
         <input type="text" placeholder='url' name="url" value={url} onChange={e => onChange(e)} ></input>
         <textarea type="text" placeholder='description' name="desc" value={desc} onChange={e => onChange(e)} ></textarea>
         <input onChange={fileSelected} type="file" name="image" accept="image/*" required></input>
-        <button type="submit">Submit</button>
+        <button type="submit" name="intent" value='add'>Submit</button>
       </Form>
 
-      <Outlet />
+      <Outlet> 
+        
+      </Outlet>
 
       <div className="subclub-container">
         {listItems}
@@ -78,15 +81,29 @@ export default Subclubs
 export async function action({request}) {
   try {
     const data = await request.formData();
-    data.append("image", uploadFile);
-    await axios.post("http://localhost:3000/subclubs", 
-      data, 
-      { headers: {'Content-Type': 'multipart/form-data'}
-    });
-    return null;
+    let intent = data.get('intent');
+    if (intent === 'add') {
+      data.append("image", uploadFile);
+        await axios.post("http://localhost:3000/subclubs", 
+          data, 
+          { headers: {'Content-Type': 'multipart/form-data'}}
+        )
+    } else if (intent === 'delete') {
+      let imgName = data.get('imgName')
+      const res = await fetch(
+        "http://localhost:3000/subclubs", {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+              url: imgName,
+            })
+        }
+      );
+    }
   } catch (err) {
     console.error(err.message);
   }
+  return null;
 }
 /* -------------------- Action End -------------------- */
 

@@ -21,7 +21,6 @@ import {
   loaderInput as subclubLoaderInput, 
   action as subclubsAction 
 } from "./components/subclubs/Subclubs"
-import { action as subclubsItemAction } from "./components/subclubs/SubclubItem"
 
 
 
@@ -86,6 +85,18 @@ function App() {
   }
 
   /* -------------------- Loaders End -------------------- */
+
+  // const testAction = async ({request}) => {
+  //   const data = await request.formData();
+  //   let intent = data.get('intent');
+  //   if (intent === 'add') {
+  //     subclubsAction();
+  //   } else if (intent === 'delete') {
+  //     subclubsItemAction();
+  //   }
+  //   return null;
+    
+  // }
   
 
   /* -------------------- Router Start -------------------- */
@@ -116,13 +127,6 @@ function App() {
       element: <SubclubsRoute setAuth={setAuth} />,
       loader: subclubsLoader,
       action: subclubsAction,
-      children: [
-        {
-          path: "",
-          element: <SubclubItem />
-        }
-
-      ]
     },
   ]);
   /* -------------------- Router End -------------------- */
