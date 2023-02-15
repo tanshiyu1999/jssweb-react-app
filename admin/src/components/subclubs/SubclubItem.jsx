@@ -19,5 +19,26 @@ function SubclubItem(props) {
 
 export default SubclubItem
 
-
+// export async function action({request}) {
+//   try {
+//     let data = await request.formData();
+//     let intent = data.get('intent');
+//     let imgName = data.get('imgName')
+//     console.log(imgName)
+//     if (intent === 'delete') {
+//       const res = await fetch(
+//         "http://localhost:3000/subclubs", {
+//             method: "DELETE",
+//             headers: {"Content-Type": "application/json"},
+//             body: JSON.stringify({
+//               url: imgName,
+//             })
+//         }
+//       );
+//     }
+//   } catch (err) {
+//     console.error(err.message)
+//   }
+//   return null;
+// }
 
