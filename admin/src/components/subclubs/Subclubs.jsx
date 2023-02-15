@@ -10,6 +10,7 @@ import {
 } from "react-router-dom"
 
 
+
 let uploadFile = null;
 
 function Subclubs() {
@@ -61,13 +62,10 @@ function Subclubs() {
         <button type="submit" name="intent" value='add'>Submit</button>
       </Form>
 
-      <Outlet> 
-        
-      </Outlet>
-
       <div className="subclub-container">
         {listItems}
       </div>
+      <Outlet />
     </div>
   );
 }
@@ -84,10 +82,10 @@ export async function action({request}) {
     let intent = data.get('intent');
     if (intent === 'add') {
       data.append("image", uploadFile);
-        await axios.post("http://localhost:3000/subclubs", 
-          data, 
-          { headers: {'Content-Type': 'multipart/form-data'}}
-        )
+      await axios.post("http://localhost:3000/subclubs", 
+        data, 
+        { headers: {'Content-Type': 'multipart/form-data'}}
+      )
     } else if (intent === 'delete') {
       let imgName = data.get('imgName')
       const res = await fetch(
