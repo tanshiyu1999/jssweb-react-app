@@ -15,7 +15,12 @@ import LoginRoute from "./routes/login-route"
 import DashboardRoute from "./routes/dashboard-route"
 import RegisterRoute from "./routes/register-route"
 import SubclubsRoute from "./routes/subclubs-route"
-import { loaderInput as subclubLoaderInput } from "./components/subclubs/Subclubs"
+import SubclubItem from "./components/subclubs/SubclubItem"
+import Test from "./components/subclubs/Test"
+import { 
+  loaderInput as subclubLoaderInput, 
+  action as subclubsAction 
+} from "./components/subclubs/Subclubs"
 import { action as subclubsItemAction } from "./components/subclubs/SubclubItem"
 
 
@@ -83,7 +88,7 @@ function App() {
   /* -------------------- Loaders End -------------------- */
   
 
-
+  /* -------------------- Router Start -------------------- */
   const router = createBrowserRouter([
     {
       path: "/",
@@ -97,7 +102,7 @@ function App() {
       loader: loginLoader,
     },
     {
-      path: "/dashboard",
+      path: "dashboard",
       element: <DashboardRoute setAuth={setAuth} />,
       loader: dashboardLoader,
     },
@@ -110,9 +115,17 @@ function App() {
       path: "subclubs",
       element: <SubclubsRoute setAuth={setAuth} />,
       loader: subclubsLoader,
-      // action: subclubsItemAction,
+      action: subclubsAction,
+      children: [
+        {
+          path: "",
+          element: <SubclubItem />
+        }
+
+      ]
     },
   ]);
+  /* -------------------- Router End -------------------- */
 
   return (
     <div>

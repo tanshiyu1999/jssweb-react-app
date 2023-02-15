@@ -13,8 +13,6 @@ function SubclubsRoute(props) {
             <Navbar />
             <h1>Subclubs</h1>
             <Subclubs />
-
-
         </div>
     );
 }

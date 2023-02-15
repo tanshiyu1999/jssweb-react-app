@@ -8,12 +8,12 @@ function SubclubItem(props) {
   url = props.imgName;
   return (
     <div className="subclub-item" >
+      <p>is it here</p>
       <Form method="post" action="./">
         <img name="hello" src={props.url} alt="" className="item-image" />
         <h3>{props.name}</h3>
         <p>{props.desc}</p>
-        <button onClick={props.handleDelete} name={props.imgName} >Delete</button>
-        <button type="submit">New</button>
+        <button type="submit">Action Delete</button>
       </Form>
     </div>
   )
@@ -23,7 +23,7 @@ export default SubclubItem
 
 export async function action() {
   try {
-    const response = await fetch(
+    const res = await fetch(
       "http://localhost:3000/subclubs", {
           method: "DELETE",
           headers: {"Content-Type": "application/json"},

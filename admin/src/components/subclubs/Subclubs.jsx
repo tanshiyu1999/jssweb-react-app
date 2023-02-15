@@ -3,9 +3,13 @@ import axios from 'axios'
 import './Subclubs.css'
 import SubclubItem from "./SubclubItem"
 import { useLoaderData } from "react-router-dom"
-import { Form } from "react-router-dom"
+import { 
+  Form, 
+  Outlet, 
+  Link 
+} from "react-router-dom"
 
-
+let uploadFile = null;
 
 function Subclubs() {
 
@@ -27,28 +31,10 @@ function Subclubs() {
     setTextData({ ...textData, [e.target.name]: e.target.value })
   }
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("image", file);
-  //     formData.append("name", name);
-  //     formData.append("url", url);
-  //     formData.append("desc", desc);
-
-  //     // console.log(formData)
-
-  //     await axios.post("http://localhost:3000/subclubs", formData, { headers: {'Content-Type': 'multipart/form-data'}});
-
-  //   } catch (err) {
-  //     console.error(err.message);
-  //   }
-  // }
-
   const fileSelected = event => {
     const file = event.target.files[0];
     setFile(file)
+    uploadFile = file;
   }
 
   
@@ -70,14 +56,15 @@ function Subclubs() {
         <input type="text" placeholder='name' name="name" value={name} onChange={e => onChange(e)} ></input>
         <input type="text" placeholder='url' name="url" value={url} onChange={e => onChange(e)} ></input>
         <textarea type="text" placeholder='description' name="desc" value={desc} onChange={e => onChange(e)} ></textarea>
-        <input onChange={fileSelected} type="file" name="image" accept="image/*"></input>
+        <input onChange={fileSelected} type="file" name="image" accept="image/*" required></input>
         <button type="submit">Submit</button>
       </Form>
+
+      <Outlet />
 
       <div className="subclub-container">
         {listItems}
       </div>
-
     </div>
   );
 }
@@ -86,24 +73,22 @@ function Subclubs() {
 
 export default Subclubs
 
+
+/* -------------------- Action Start -------------------- */
 export async function action({request}) {
   try {
     const data = await request.formData();
-    console.log(data)
-
-    // const formData = new FormData();
-    // formData.append("image", file);
-    // formData.append("name", name);
-    // formData.append("url", url);
-    // formData.append("desc", desc);
-
-    // console.log(formData)
-    // await axios.post("http://localhost:3000/subclubs", formData, { headers: {'Content-Type': 'multipart/form-data'}});
+    data.append("image", uploadFile);
+    await axios.post("http://localhost:3000/subclubs", 
+      data, 
+      { headers: {'Content-Type': 'multipart/form-data'}
+    });
+    return null;
   } catch (err) {
     console.error(err.message);
   }
 }
-
+/* -------------------- Action End -------------------- */
 
 /* -------------------- Loader Start -------------------- */
 export async function loaderInput() {
@@ -118,8 +103,6 @@ export async function loaderInput() {
   } catch (err) {
     console.error(err.message);
   }
- 
 }
-
 /* -------------------- Loader End -------------------- */
 
