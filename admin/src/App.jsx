@@ -15,12 +15,18 @@ import LoginRoute from "./routes/login-route"
 import DashboardRoute from "./routes/dashboard-route"
 import RegisterRoute from "./routes/register-route"
 import SubclubsRoute from "./routes/subclubs-route"
+import SubclubItem from "./components/subclubs/SubclubItem"
+import Test from "./components/subclubs/Test"
+import { 
+  loaderInput as subclubLoaderInput, 
+  action as subclubsAction 
+} from "./components/subclubs/Subclubs"
 
 
 
 function App() {
-  const notify = () => toast("Wow so easy!");
 
+  /* -------------------- Authentication Start -------------------- */
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = (boolean) => {
@@ -47,6 +53,9 @@ function App() {
     isAuth()
   })
 
+  /* -------------------- Authentication End -------------------- */
+
+  /* -------------------- Loaders Start -------------------- */
   const loginLoader = async () => {
     if (isAuthenticated) {
       return redirect("/dashboard");
@@ -70,12 +79,27 @@ function App() {
 
   const subclubsLoader = async () => {
     if (isAuthenticated) {
-      return null;
+      return subclubLoaderInput();
     }
     return redirect("/login");
   }
 
+  /* -------------------- Loaders End -------------------- */
 
+  // const testAction = async ({request}) => {
+  //   const data = await request.formData();
+  //   let intent = data.get('intent');
+  //   if (intent === 'add') {
+  //     subclubsAction();
+  //   } else if (intent === 'delete') {
+  //     subclubsItemAction();
+  //   }
+  //   return null;
+    
+  // }
+  
+
+  /* -------------------- Router Start -------------------- */
   const router = createBrowserRouter([
     {
       path: "/",
@@ -89,7 +113,7 @@ function App() {
       loader: loginLoader,
     },
     {
-      path: "/dashboard",
+      path: "dashboard",
       element: <DashboardRoute setAuth={setAuth} />,
       loader: dashboardLoader,
     },
@@ -102,8 +126,10 @@ function App() {
       path: "subclubs",
       element: <SubclubsRoute setAuth={setAuth} />,
       loader: subclubsLoader,
+      action: subclubsAction,
     },
   ]);
+  /* -------------------- Router End -------------------- */
 
   return (
     <div>
