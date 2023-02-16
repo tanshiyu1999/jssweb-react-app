@@ -4,23 +4,25 @@ import {
   redirect
 } from "react-router-dom";
 import './App.css'
-import React, { useState, useEffect } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 // Routes
 import Root from "./routes/root"
-import ErrorPage from "./routes/error-page";
+import ErrorPage from "./routes/error-page"
 import LoginRoute from "./routes/login-route"
 import DashboardRoute from "./routes/dashboard-route"
 import RegisterRoute from "./routes/register-route"
 import SubclubsRoute from "./routes/subclubs-route"
-import SubclubItem from "./components/subclubs/SubclubItem"
-import Test from "./components/subclubs/Test"
 import { 
   loaderInput as subclubLoaderInput, 
   action as subclubsAction 
 } from "./components/subclubs/Subclubs"
+import EditSubclub, {
+  loader as editSubclubLoader,
+  action as editSubclubAction,
+} from "./components/subclubs/EditSubclub"
 
 
 
@@ -86,18 +88,6 @@ function App() {
 
   /* -------------------- Loaders End -------------------- */
 
-  // const testAction = async ({request}) => {
-  //   const data = await request.formData();
-  //   let intent = data.get('intent');
-  //   if (intent === 'add') {
-  //     subclubsAction();
-  //   } else if (intent === 'delete') {
-  //     subclubsItemAction();
-  //   }
-  //   return null;
-    
-  // }
-  
 
   /* -------------------- Router Start -------------------- */
   const router = createBrowserRouter([
@@ -127,6 +117,14 @@ function App() {
       element: <SubclubsRoute setAuth={setAuth} />,
       loader: subclubsLoader,
       action: subclubsAction,
+      children: [
+        {
+          path: ":subclubId/edit",
+          element: <EditSubclub />,
+          loader: editSubclubLoader,
+          action: editSubclubAction,
+        }
+      ]
     },
   ]);
   /* -------------------- Router End -------------------- */

@@ -28,10 +28,6 @@ const randomImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex'
 
 router.post("/", upload.single('image'), async (req, res) => {
     try {
-        // console.log("req.body", req.body);
-        // console.log("---------------------------------------")
-        // console.log("req.file", req.file);
-
         // resize image
         const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1080, fit:"contain", background: "transparent" }).toBuffer();
 
@@ -59,6 +55,40 @@ router.post("/", upload.single('image'), async (req, res) => {
     }
 });
 
+router.patch("/", upload.single('image'), async (req, res) => {
+    try {
+        // console.log(req.body.image)
+        if (req.body.image != "") {
+            const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1080, fit:"contain", background: "transparent" }).toBuffer();
+            const imageName = req.body.aws
+            const params = {
+                Bucket: bucketName,
+                Key: imageName,
+                Body: buffer,
+                ContentType: req.file.mimetype
+            }
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
+        }
+
+
+        const updatedSubclub = await pool.query(
+            `UPDATE subclubs 
+             SET subclub_name = $1,
+                 subclub_url = $2,
+                 subclub_desc = $3
+             WHERE subclub_img = $4;`,
+             [req.body.name, req.body.url, req.body.desc, req.body.aws] 
+        );
+
+        res.json(updatedSubclub);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+
 router.get("/", async (req, res) => {
     try {
         const subclubs = await pool.query("SELECT * FROM subclubs");
@@ -84,21 +114,16 @@ router.get("/", async (req, res) => {
 
 router.delete("/", async (req, res) => {
     try {
-
         const params = {
             Bucket: bucketName,
             Key: req.body.url,
         }
-
         const command = new DeleteObjectCommand(params);
         await s3.send(command);
-
-
         await pool.query(
             "DELETE FROM subclubs where subclub_img = $1", 
             [req.body.url]
         );
-
 
         res.send("Image Deleted");
     } catch (err) {
@@ -106,6 +131,8 @@ router.delete("/", async (req, res) => {
         res.status(500).send("Server Error")
     }
 })
+
+
 
 
 module.exports = router;

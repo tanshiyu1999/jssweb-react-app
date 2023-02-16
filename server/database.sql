@@ -30,9 +30,16 @@ CREATE TABLE subclubs (
     subclub_img TEXT
 );
 
-
-
-
 INSERT INTO users (user_name, user_email, user_password) VALUES ('henry', 'henry@gmail.com', 'henry123');
 
 DELETE FROM subclubs WHERE subclub_name = 'Test';
+
+-- Updating Table
+UPDATE subclubs 
+SET subclub_name = new test name
+SET subclub_url = new url name
+SET subclub_desc = new desc
+SET subclub_img = new image
+WHERE subclub_img = the weird link id
+
+
