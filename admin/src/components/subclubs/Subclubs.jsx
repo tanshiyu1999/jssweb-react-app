@@ -8,6 +8,7 @@ import {
   Outlet, 
   Link 
 } from "react-router-dom"
+import { TextField, Input, Button } from '@mui/material';
 
 
 
@@ -20,9 +21,9 @@ function Subclubs() {
   const [file, setFile] = useState();
 
   const [textData, setTextData] = useState({
-    name: "NAME FIELD",
-    url: "URL FIELD",
-    desc: "DESC FIELD"
+    name: "",
+    url: "",
+    desc: ""
   });
 
   const { name, url, desc } = textData;
@@ -55,11 +56,56 @@ function Subclubs() {
   return (
     <div className="subclub-route-container">
       <Form method="post" style={{width:650}} className="form-submit-input">
-        <input type="text" placeholder='name' name="name" value={name} onChange={e => onChange(e)} ></input>
-        <input type="text" placeholder='url' name="url" value={url} onChange={e => onChange(e)} ></input>
-        <textarea type="text" placeholder='description' name="desc" value={desc} onChange={e => onChange(e)} ></textarea>
-        <input onChange={fileSelected} type="file" name="image" accept="image/*" required></input>
-        <button type="submit" name="intent" value='add'>Submit</button>
+        <TextField 
+          type="text" 
+          name="name" 
+          value={name} 
+          onChange={e => onChange(e)} 
+          label="Subclub Name" 
+          variant="outlined"
+        />
+        <TextField 
+          type="text" 
+          name="url" 
+          value={url} 
+          onChange={e => onChange(e)} 
+          label='Subclub URL' 
+          variant="outlined"
+        />
+        <TextField 
+          type="text"  
+          name="desc" 
+          value={desc} 
+          onChange={e => onChange(e)} 
+          label='Description' 
+          variant="outlined" 
+          multiline rows={4} 
+          maxRows="5"
+        />
+
+        {/* <Button variant="contained" component="label">
+          Upload
+        </Button> */}
+
+        <input 
+            hidden
+            label='Subclub Image' 
+            onChange={fileSelected} 
+            type="file" 
+            name="image" 
+            accept="image/*"     
+            required
+        />
+
+        <Button 
+          type="submit" 
+          name="intent" 
+          value='add'
+          color="success"
+          variant="contained"
+        >
+          Submit
+        </Button>
       </Form>
 
       <div className="subclub-container">

@@ -1,5 +1,6 @@
 import React from "react"
 import { Form, Link } from "react-router-dom"
+import { Button } from "@mui/material"
 
 // makes the image url a global variable
 
@@ -11,8 +12,8 @@ function SubclubItem(props) {
         <h3>{props.name}</h3>
         <p>{props.desc}</p>
         <input type="text" name="imgName" value={props.imgName} className="to-hide" readOnly ></input>
-        <Link to={`./${props.imgName}/edit`}>Edit</Link>
-        <button type="submit" name="intent" value='delete'>Action Delete</button>
+        <Button component={Link} to={`./${props.imgName}/edit`} variant="contained">Edit</Button>
+        <Button type="submit" name="intent" value='delete' variant="contained" color="error">Action Delete</Button>
       </Form>
     </div>
   )

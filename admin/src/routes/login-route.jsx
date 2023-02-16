@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
 function LoginRoute(props) {
 
     const [inputs, setInputs] = useState({
@@ -52,6 +53,7 @@ function LoginRoute(props) {
 
     return (
         <div className="login">
+            <Navbar />
             <h1>Login</h1>
             <form onSubmit={onSubmitForm}>
                 <input 

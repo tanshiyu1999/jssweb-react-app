@@ -6,6 +6,8 @@ import { useLoaderData, redirect } from "react-router-dom"
 import { 
   Form, 
 } from "react-router-dom"
+import Button from '@mui/material/Button';
+
 
 
 
@@ -44,8 +46,8 @@ function EditSubclub() {
             <input type="text" placeholder='url' name="url" value={url} onChange={e => onChange(e)} ></input>
             <textarea type="text" placeholder='description' name="desc" value={desc} onChange={e => onChange(e)} ></textarea>
             <input type="text" name="aws" value={loaderData.subclub_img} className="to-hide" readOnly />
-            <button name="intent" value="cancel">Cancel</button>
-            <button name="intent" value="update">Update</button>
+            <Button type="submit" name="intent" value="cancel" variant="outlined" >Cancel</Button>
+            <Button type="submit" name="intent" value="update" variant="contained" >Update</Button>
         </Form>
     </div>
   );
