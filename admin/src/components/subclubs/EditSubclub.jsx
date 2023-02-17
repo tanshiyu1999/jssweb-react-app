@@ -66,9 +66,7 @@ export async function action({request}) {
             data, 
             { headers: {'Content-Type': 'multipart/form-data'}}
         )
-        
         return redirect("/subclubs")
-
       } else if (intent === 'cancel') {
         return redirect("/subclubs")
       }

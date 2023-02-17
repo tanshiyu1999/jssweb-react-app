@@ -36,10 +36,10 @@ DELETE FROM subclubs WHERE subclub_name = 'Test';
 
 -- Updating Table
 UPDATE subclubs 
-SET subclub_name = new test name
-SET subclub_url = new url name
-SET subclub_desc = new desc
-SET subclub_img = new image
+SET subclub_name = new test name,
+subclub_url = new url name,
+subclub_desc = new desc,
+subclub_img = new image,
 WHERE subclub_img = the weird link id
 
 
