@@ -45,8 +45,9 @@ function DashboardRoute(props) {
 
             <Link to="/subclubs">Go to subclub</Link>
             <br/>
+            <Link to="/eventupdate">Go to event update</Link>
+            <br/>
             
-
             <button className="btn btn-primary" onClick={e => logout(e)}>Logout</button>
 
         </div>

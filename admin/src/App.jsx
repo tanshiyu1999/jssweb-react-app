@@ -15,6 +15,8 @@ import LoginRoute from "./routes/login-route"
 import DashboardRoute from "./routes/dashboard-route"
 import RegisterRoute from "./routes/register-route"
 import SubclubsRoute from "./routes/subclubs-route"
+import EventUpdateRoute from "./routes/event-update-route";
+
 import { 
   loaderInput as subclubLoaderInput, 
   action as subclubsAction 
@@ -23,6 +25,8 @@ import EditSubclub, {
   loader as editSubclubLoader,
   action as editSubclubAction,
 } from "./components/subclubs/EditSubclub"
+import { action as eventUpdateAction } from "./components/eventUpdate/EventUpdateForm"
+import { loaderInput as eventUpdateLoaderInput } from "./components/eventUpdate/EventUpdate";
 
 
 
@@ -86,6 +90,13 @@ function App() {
     return redirect("/login");
   }
 
+  const eventUpdateLoader = async () => {
+    if (isAuthenticated) {
+      return eventUpdateLoaderInput();
+    }
+    return redirect('/login');
+  };
+
   /* -------------------- Loaders End -------------------- */
 
 
@@ -125,6 +136,12 @@ function App() {
           action: editSubclubAction,
         }
       ]
+    },
+    { 
+      path: "eventupdate",
+      element: <EventUpdateRoute setAuth={setAuth} />,
+      loader: eventUpdateLoader,
+      action: eventUpdateAction
     },
   ]);
   /* -------------------- Router End -------------------- */

@@ -18,8 +18,8 @@ app.use("/dashboard", require("./routes/dashboard"))
 // subclub route
 app.use("/subclubs", require("./routes/subclubs"))
 
-
-
+// eventUpdate route
+app.use("/eventUpdate", require("./routes/eventUpdate"))
 
 app.listen(3000, () => {
     console.log("service is listening on port 3000");
