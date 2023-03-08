@@ -27,7 +27,10 @@ import EditSubclub, {
 } from "./components/subclubs/EditSubclub"
 import { action as eventUpdateAction } from "./components/eventUpdate/EventUpdateForm"
 import { loaderInput as eventUpdateLoaderInput } from "./components/eventUpdate/EventUpdate";
-
+import EditEvent, {
+  loader as editEventLoader,
+  action as editEventAction
+} from "./components/eventUpdate/EditEvent";
 
 
 function App() {
@@ -141,7 +144,15 @@ function App() {
       path: "eventupdate",
       element: <EventUpdateRoute setAuth={setAuth} />,
       loader: eventUpdateLoader,
-      action: eventUpdateAction
+      action: eventUpdateAction,
+      children: [
+        {
+          path: ":eventId/edit",
+          element: <EditEvent />,
+          loader: editEventLoader,
+          action: editEventAction
+        }
+      ]
     },
   ]);
   /* -------------------- Router End -------------------- */

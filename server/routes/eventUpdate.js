@@ -29,8 +29,7 @@ const randomImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex'
 router.post("/", upload.single('image'), async (req, res) => {
     try {
         // resize image
-        console.log(req.body);
-
+        console.log(req.body)
         const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1080, fit:"contain", background: "transparent" }).toBuffer();
 
         const imageName = randomImageName()
@@ -50,45 +49,46 @@ router.post("/", upload.single('image'), async (req, res) => {
         );
         
 
-        res.json(newEvent);
+        // res.json(newEvent);
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
     }
 });
 
-// router.patch("/", upload.single('image'), async (req, res) => {
-//     try {
-//         // console.log(req.body.image)
-//         if (req.body.image != "") {
-//             const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1080, fit:"contain", background: "transparent" }).toBuffer();
-//             const imageName = req.body.aws
-//             const params = {
-//                 Bucket: bucketName,
-//                 Key: imageName,
-//                 Body: buffer,
-//                 ContentType: req.file.mimetype
-//             }
-//             const command = new PutObjectCommand(params);
-//             await s3.send(command);
-//         }
+router.patch("/", upload.single('image'), async (req, res) => {
+    try {
+        console.log(req.body);
+        // console.log(req.body.image)
+        // if (req.body.image != "") {
+        //     const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1080, fit:"contain", background: "transparent" }).toBuffer();
+        //     const imageName = req.body.aws
+        //     const params = {
+        //         Bucket: bucketName,
+        //         Key: imageName,
+        //         Body: buffer,
+        //         ContentType: req.file.mimetype
+        //     }
+        //     const command = new PutObjectCommand(params);
+        //     await s3.send(command);
+        // }
 
 
-//         const updatedSubclub = await pool.query(
-//             `UPDATE subclubs 
-//              SET subclub_name = $1,
-//                  subclub_url = $2,
-//                  subclub_desc = $3
-//              WHERE subclub_img = $4;`,
-//              [req.body.name, req.body.url, req.body.desc, req.body.aws] 
-//         );
+        // const updatedSubclub = await pool.query(
+        //     `UPDATE subclubs 
+        //      SET subclub_name = $1,
+        //          subclub_url = $2,
+        //          subclub_desc = $3
+        //      WHERE subclub_img = $4;`,
+        //      [req.body.name, req.body.url, req.body.desc, req.body.aws] 
+        // );
 
-//         res.json(updatedSubclub);
-//     } catch (err) {
-//         console.error(err.message);
-//         res.status(500).send("Server Error");
-//     }
-// });
+        // res.json(updatedSubclub);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
 
 
 // Put this bad boy into a loader
@@ -96,7 +96,6 @@ router.post("/", upload.single('image'), async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         const events = await pool.query("SELECT * FROM event");
-        console.log(events.rows)
 
         for (const event of events.rows) {
             const getObjectParams = {

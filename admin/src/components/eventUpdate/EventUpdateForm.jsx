@@ -23,7 +23,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 let uploadFile = null;
-let selectedEventType = '';
 
 function EventUpdateForm() {
 
@@ -53,7 +52,6 @@ function EventUpdateForm() {
 
   const handleEventType = (event) => {
     setEventType(event.target.value);
-    selectedEventType = event.target.value;
   };  
 
   return (
@@ -73,6 +71,7 @@ function EventUpdateForm() {
             <Select
               labelId="event-type-select-label"
               id="event-type-select"
+              name="eventType"
               value={eventType}
               label="Event Type"
               onChange={handleEventType}
@@ -135,7 +134,6 @@ function EventUpdateForm() {
 
 export default EventUpdateForm
 
-
 /* -------------------- Action Start -------------------- */
 export async function action({request}) {
   try {
@@ -143,7 +141,6 @@ export async function action({request}) {
     let intent = data.get('intent');
     if (intent === 'add') {
       data.append("image", uploadFile);
-      data.append("eventType", selectedEventType);
       await axios.post("http://localhost:3000/eventUpdate", 
         data, 
         { headers: {'Content-Type': 'multipart/form-data'}}

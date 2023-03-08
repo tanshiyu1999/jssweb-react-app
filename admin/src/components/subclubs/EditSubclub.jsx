@@ -80,6 +80,7 @@ export async function action({request}) {
   /* -------------------- Loader Start -------------------- */
 export async function loader({params}) {
   try {
+    // console.log(params)
     let output = null;
     const res = await fetch("http://localhost:3000/subclubs")
       .then(res => res.json())

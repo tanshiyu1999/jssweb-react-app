@@ -1,4 +1,4 @@
-import { React, useRef } from "react"
+import { React, useRef, createContext, useState } from "react"
 import './Event.css'
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -6,29 +6,52 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import EventCard from "./EventCard.jsx"
 import backgroundImg from './assets/img/background.jpg';
 import EventUpdateForm from "./EventUpdateForm";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Outlet } from "react-router-dom";
+import EventInfo from "./EventInfo";
 
+let currentInfo = null;
+export const InfoContext = createContext();
 
 function EventUpdate() {
 
   const loaderData = useLoaderData();
-  console.log(loaderData);
 
-  const numbers = [1, 2, 3, 4, 5];
-  const listItems = numbers.map((number) =>
-    <div>
-      <EventCard number={number} key={number.toString()} />
-    </div>
-    
-  );
+  const [currentInfo, setCurrentInfo] = useState(loaderData[0]);
+  // console.log(new Date(loaderData[0].event_start_date).getTime()); <-- use this data to wack the technology.
 
 
+  const updateInfo = (str) => {
+    for (let i = 0; i < loaderData.length; i++) {
+      if (loaderData[i].event_img == str) {
+        setCurrentInfo(loaderData[i]);
+        break;
+      }
+    }
+  }
+
+  const eventsCards = loaderData.map((event) => {
+    return (
+      <EventCard 
+        key={event.event_img} 
+        image={event.event_img}
+        title={event.event_title}
+        type={event.event_type}
+        eventStart={event.event_start_date}
+        eventEnd={event.event_end_date}
+        updateInfo={updateInfo}
+      />
+      )
+  });
+
+
+
+  
   return (
-    <div className="event">
+    <div className="event">     
       <EventUpdateForm/>
-      <div className="event-carousell">
+      {/* <div className="event-carousell">
         EVENT CAROUSELL
-      </div>
+      </div> */}
       <div className="event-main">
         <nav className="event-nav">
           <div className="event-nav-item">All</div>
@@ -39,16 +62,18 @@ function EventUpdate() {
           <div className="event-nav-item">BnS</div>
           <div className="event-nav-item">Sub-Club</div>
         </nav>
+
         <div className="event-content">
-          {/* <div className="event-content-card-container">
-            {listItems}
-          </div> */}
-          <div className="event-content-writeup-container">
-            <img src={backgroundImg} alt="" className="event-content-writeup-img" />
-            <div className="event-content-writeup"><span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore dolores deserunt aperiam tenetur soluta facilis, totam, nesciunt dolorem magnam voluptate minima? Ratione, excepturi? Repellendus quos fugiat, reprehenderit accusantium ad eligendi! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus, molestiae? Quam expedita tenetur tempora culpa inventore blanditiis, maiores perferendis incidunt optio? Cumque ipsam deleniti praesentium autem molestias. Amet, consequatur facere!</span></div>
+          <div className="event-content-card-container">
+            {eventsCards}
           </div>
-        </div>
+          <InfoContext.Provider value={currentInfo} >
+            <EventInfo />
+          </InfoContext.Provider>
+        </div>  
       </div>
+
+      <Outlet />
     </div>
   )
 }
@@ -72,3 +97,23 @@ export async function loaderInput() {
   }
 }
 /* -------------------- Loader End -------------------- */
+
+
+/* -------------------- Action Start -------------------- */
+export async function action({request}) {
+  try {
+    const data = await request.formData();
+    let intent = data.get('intent');
+    if (intent === 'add') {
+      data.append("image", uploadFile);
+      await axios.post("http://localhost:3000/eventUpdate", 
+        data, 
+        { headers: {'Content-Type': 'multipart/form-data'}}
+      )
+    } 
+  } catch (err) {
+    console.error(err.message);
+  }
+  return null;
+}
+/* -------------------- Action End -------------------- */
