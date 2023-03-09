@@ -9,9 +9,11 @@ import EventUpdateForm from "./AddEvent";
 import { useLoaderData, Outlet, Link } from "react-router-dom";
 import EventInfo from "./EventInfo";
 import { Button } from "@mui/material";
+import { eventTypeParser } from "./script/parser";
 
 let currentInfo = null;
 export const InfoContext = createContext();
+export const FilteredEventContext = createContext();
 
 function EventUpdate() {
 
@@ -30,23 +32,43 @@ function EventUpdate() {
     }
   }
 
-  const eventsCards = loaderData.map((event) => {
+
+  const changeCurrentType = (e) => {
+    setCurrentType(e.target.getAttribute('name'));
+  }
+  
+  const [currentType, setCurrentType] = useState("all");
+
+
+  const eventTypes = ["All", "Flagship", "Monthly", "University Visit", "Book Club", "BnS", "Subclub"];
+  const typesCard = eventTypes.map((type) => {
     return (
-      <EventCard 
-        key={event.event_img} 
-        image={event.event_img}
-        title={event.event_title}
-        type={event.event_type}
-        eventStart={event.event_start_date}
-        eventEnd={event.event_end_date}
-        updateInfo={updateInfo}
-      />
-      )
+      <div className="event-nav-item" name={eventTypeParser(type)} key={eventTypeParser(type)} onClick={changeCurrentType}>{type}</div>
+    );
+  })
+
+
+  const eventsCards = loaderData.map((event) => {
+    if (currentType == "all" || currentType == event.event_type) {
+      return (
+        <EventCard 
+          key={event.event_img} 
+          image={event.event_img}
+          title={event.event_title}
+          type={event.event_type}
+          eventStart={event.event_start_date}
+          eventEnd={event.event_end_date}
+          updateInfo={updateInfo}
+        />
+        )
+    }
+
   });
 
-
-
   
+
+
+
   return (
     <div className="event">  
       <Button component={Link} to="./addevent" variant="contained">Add Event</Button>
@@ -56,13 +78,7 @@ function EventUpdate() {
       </div> */}
       <div className="event-main">
         <nav className="event-nav">
-          <div className="event-nav-item">All</div>
-          <div className="event-nav-item">Flagship</div>
-          <div className="event-nav-item">Monthly</div>
-          <div className="event-nav-item">University Visit</div>
-          <div className="event-nav-item">Book Club</div>
-          <div className="event-nav-item">BnS</div>
-          <div className="event-nav-item">Sub-Club</div>
+          {typesCard}
         </nav>
 
         <div className="event-content">
@@ -124,3 +140,14 @@ export async function action({request}) {
   return null;
 }
 /* -------------------- Action End -------------------- */
+
+
+
+
+{/* <MenuItem value='flagship'>Flagship</MenuItem>
+    <MenuItem value='monthly'>Monthly</MenuItem>
+    <MenuItem value='university-visit'>University Visit</MenuItem>
+    <MenuItem value='book-club'>Book Club</MenuItem>
+    <MenuItem value='bns'>BnS</MenuItem>
+    <MenuItem value='subclub'>Subclubs</MenuItem> 
+*/}
