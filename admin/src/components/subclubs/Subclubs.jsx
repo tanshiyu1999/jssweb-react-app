@@ -80,7 +80,6 @@ function Subclubs() {
           label='Description' 
           variant="outlined" 
           multiline rows={4} 
-          maxRows="5"
         />
 
         {/* <Button variant="contained" component="label">
