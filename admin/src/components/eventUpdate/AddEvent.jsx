@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
 import './Event.css'
-import { useLoaderData } from "react-router-dom"
 import { 
   Form, 
   Outlet, 
@@ -21,17 +20,18 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { redirect } from "react-router-dom"
 
 let uploadFile = null;
 
-function EventUpdateForm() {
+function AddEvent() {
 
   const [file, setFile] = useState();
 
   const [textData, setTextData] = useState({
-    title: "Meow1",
-    url: "Meow2",
-    desc: "Meow3"
+    title: "The Title",
+    url: "The URL",
+    desc: "The Description"
   });
 
   const { title, url, desc } = textData;
@@ -56,7 +56,6 @@ function EventUpdateForm() {
 
   return (
       <div className="subclub-route-container">
-
         <Form method="post" style={{width:650}} className="form-submit-input">
           <TextField 
             type="text" 
@@ -115,16 +114,9 @@ function EventUpdateForm() {
               accept="image/*"     
               required
           />
-
-          <Button 
-            type="submit" 
-            name="intent" 
-            value='add'
-            color="success"
-            variant="contained"
-          >
-            Submit
-          </Button>
+          <Button type="submit" component={Link} to="/eventUpdate" variant="outlined">Cancel</Button>
+          <Button type="submit" name="intent" value='add'color="success" variant="contained">Submit</Button>
+ 
         </Form>
       </div>
 
@@ -132,7 +124,7 @@ function EventUpdateForm() {
   );
 }
 
-export default EventUpdateForm
+export default AddEvent
 
 /* -------------------- Action Start -------------------- */
 export async function action({request}) {
@@ -145,6 +137,8 @@ export async function action({request}) {
         data, 
         { headers: {'Content-Type': 'multipart/form-data'}}
       )
+      console.log("to direct")
+      return redirect("/eventUpdate");
     } 
   } catch (err) {
     console.error(err.message);

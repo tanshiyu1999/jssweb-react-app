@@ -5,9 +5,10 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import EventCard from "./EventCard.jsx"
 import backgroundImg from './assets/img/background.jpg';
-import EventUpdateForm from "./EventUpdateForm";
-import { useLoaderData, Outlet } from "react-router-dom";
+import EventUpdateForm from "./AddEvent";
+import { useLoaderData, Outlet, Link } from "react-router-dom";
 import EventInfo from "./EventInfo";
+import { Button } from "@mui/material";
 
 let currentInfo = null;
 export const InfoContext = createContext();
@@ -17,7 +18,7 @@ function EventUpdate() {
   const loaderData = useLoaderData();
 
   const [currentInfo, setCurrentInfo] = useState(loaderData[0]);
-  // console.log(new Date(loaderData[0].event_start_date).getTime()); <-- use this data to wack the technology.
+  // console.log(new Date(loaderData[0].event_start_date).getTime()); <-- use this data to the sorting algo
 
 
   const updateInfo = (str) => {
@@ -47,8 +48,9 @@ function EventUpdate() {
 
   
   return (
-    <div className="event">     
-      <EventUpdateForm/>
+    <div className="event">  
+      <Button component={Link} to="./addevent" variant="contained">Add Event</Button>
+
       {/* <div className="event-carousell">
         EVENT CAROUSELL
       </div> */}
@@ -104,13 +106,18 @@ export async function action({request}) {
   try {
     const data = await request.formData();
     let intent = data.get('intent');
-    if (intent === 'add') {
-      data.append("image", uploadFile);
-      await axios.post("http://localhost:3000/eventUpdate", 
-        data, 
-        { headers: {'Content-Type': 'multipart/form-data'}}
-      )
-    } 
+    if (intent === 'delete') {
+      let imgName = data.get('imgName');
+      const res = await fetch(
+        "http://localhost:3000/eventUpdate", {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+              url: imgName,
+            })
+        }
+      );
+    }
   } catch (err) {
     console.error(err.message);
   }

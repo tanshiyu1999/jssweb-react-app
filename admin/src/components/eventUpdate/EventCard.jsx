@@ -6,10 +6,11 @@ import { Button } from "@mui/material"
 function EventCard(props) {
   return (
     <div className="event-card" onClick={() => props.updateInfo(props.image)}>
-      <Form>
+      <Form method="post" action="./">
         <p value="wewe" name= "weae">{props.title}</p>
         <p>{props.eventStart}</p>
         <p>{props.type}</p>
+        <input type="text" name="imgName" value={props.image} className="to-hide" readOnly ></input>
         <Button component={Link} to={`./${props.image}/edit`} variant="contained">Edit</Button>
         <Button type="submit" name="intent" value='delete' variant="contained" color="error">Action Delete</Button>
       </Form>
@@ -18,5 +19,7 @@ function EventCard(props) {
 }
 
 export default EventCard
+
+
 
 

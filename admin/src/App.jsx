@@ -25,8 +25,13 @@ import EditSubclub, {
   loader as editSubclubLoader,
   action as editSubclubAction,
 } from "./components/subclubs/EditSubclub"
-import { action as eventUpdateAction } from "./components/eventUpdate/EventUpdateForm"
-import { loaderInput as eventUpdateLoaderInput } from "./components/eventUpdate/EventUpdate";
+import AddEvent, {
+  action as addEventAction
+} from "./components/eventUpdate/AddEvent";
+import { 
+  loaderInput as eventUpdateLoaderInput,
+  action as eventUpdateAction
+} from "./components/eventUpdate/EventUpdate";
 import EditEvent, {
   loader as editEventLoader,
   action as editEventAction
@@ -151,6 +156,11 @@ function App() {
           element: <EditEvent />,
           loader: editEventLoader,
           action: editEventAction
+        },
+        {
+          path: "addevent",
+          element: <AddEvent />,
+          action: addEventAction
         }
       ]
     },

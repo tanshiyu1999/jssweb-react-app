@@ -49,7 +49,7 @@ router.post("/", upload.single('image'), async (req, res) => {
         );
         
 
-        // res.json(newEvent);
+        res.json(newEvent);
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
@@ -58,32 +58,35 @@ router.post("/", upload.single('image'), async (req, res) => {
 
 router.patch("/", upload.single('image'), async (req, res) => {
     try {
-        console.log(req.body);
-        // console.log(req.body.image)
-        // if (req.body.image != "") {
-        //     const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1080, fit:"contain", background: "transparent" }).toBuffer();
-        //     const imageName = req.body.aws
-        //     const params = {
-        //         Bucket: bucketName,
-        //         Key: imageName,
-        //         Body: buffer,
-        //         ContentType: req.file.mimetype
-        //     }
-        //     const command = new PutObjectCommand(params);
-        //     await s3.send(command);
-        // }
+        if (req.body.image != "") {
+            const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1980, fit:"contain", background: "transparent" }).toBuffer();
+            const imageName = req.body.aws
+            const params = {
+                Bucket: bucketName,
+                Key: imageName,
+                Body: buffer,
+                ContentType: req.file.mimetype
+            }
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
+        }
+
+        console.log(req.body.title)
+        console.log(req.body.aws)
 
 
-        // const updatedSubclub = await pool.query(
-        //     `UPDATE subclubs 
-        //      SET subclub_name = $1,
-        //          subclub_url = $2,
-        //          subclub_desc = $3
-        //      WHERE subclub_img = $4;`,
-        //      [req.body.name, req.body.url, req.body.desc, req.body.aws] 
-        // );
-
-        // res.json(updatedSubclub);
+        const updatedEvent = await pool.query(
+            `UPDATE event 
+             SET event_title = $1,
+                 event_type = $2,
+                 event_description = $3,
+                 event_start_date = $4,
+                 event_end_date = $5,
+                 event_link = $6
+             WHERE event_img = $7;`,
+             [req.body.title, req.body.eventType, req.body.desc, req.body.startDate, req.body.endDate, req.body.url, req.body.aws] 
+        );
+        res.json(updatedEvent);
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
@@ -115,25 +118,25 @@ router.get("/", async (req, res) => {
     }
 })
 
-// router.delete("/", async (req, res) => {
-//     try {
-//         const params = {
-//             Bucket: bucketName,
-//             Key: req.body.url,
-//         }
-//         const command = new DeleteObjectCommand(params);
-//         await s3.send(command);
-//         await pool.query(
-//             "DELETE FROM subclubs where subclub_img = $1", 
-//             [req.body.url]
-//         );
+router.delete("/", async (req, res) => {
+    try {
+        const params = {
+            Bucket: bucketName,
+            Key: req.body.url,
+        }
+        const command = new DeleteObjectCommand(params);
+        await s3.send(command);
+        await pool.query(
+            "DELETE FROM event where event_img = $1", 
+            [req.body.url]
+        );
 
-//         res.send("Image Deleted");
-//     } catch (err) {
-//         console.error(err.message)  ;
-//         res.status(500).send("Server Error")
-//     }
-// })
+        res.send("Image Deleted");
+    } catch (err) {
+        console.error(err.message)  ;
+        res.status(500).send("Server Error")
+    }
+})
 
 
 

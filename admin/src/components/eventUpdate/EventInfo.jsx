@@ -9,12 +9,16 @@ function EventInfo() {
     return (
         <div className="event-content">
             <div className="event-content-writeup-container">
-                <img src={currentInfo.imageUrl} alt="" className="event-content-writeup-img" />
-                <div className="event-content-writeup">
-                    <span>
-                        {currentInfo.event_description}
-                    </span>
-                </div>
+                { currentInfo && 
+                    <img src={currentInfo.imageUrl} alt="" className="event-content-writeup-img" /> 
+                }
+                { currentInfo && 
+                    <div className="event-content-writeup">
+                        <span>
+                            {currentInfo.event_description}
+                        </span>
+                    </div> 
+                }
                 
             </div>
         </div>

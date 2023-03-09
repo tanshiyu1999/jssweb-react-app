@@ -67,6 +67,7 @@ function EditEvent() {
 
           <input type="date" name="startDate" value={startDate} onChange={e => onChange(e)} required />
           <input type="date" name="endDate" value={endDate} onChange={e => onChange(e)} required />
+          <input type="text" name="aws"  className="to-hide" value={loaderData.event_img} readOnly />
           <Button type="submit" name="intent" value="cancel" variant="outlined" >Cancel</Button>
           <Button type="submit" name="intent" value="update" variant="contained" >Update</Button>
         </Form>
