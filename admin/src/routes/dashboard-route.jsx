@@ -47,6 +47,8 @@ function DashboardRoute(props) {
             <br/>
             <Link to="/eventupdate">Go to event update</Link>
             <br/>
+            <Link to="/logistic">Go to logistic</Link>
+            <br/>
             
             <button className="btn btn-primary" onClick={e => logout(e)}>Logout</button>
 

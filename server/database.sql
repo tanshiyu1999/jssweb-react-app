@@ -6,11 +6,26 @@ CREATE TABLE event (
     event_id SERIAL PRIMARY KEY,
     event_title varchar(100),
     event_type varchar(50),
-    event_descryption text,
+    event_description text,
     event_date date,
     event_link text,
     event_img text
 );
+
+CREATE TABLE logistic (
+    logistic_id SERIAL PRIMARY KEY,
+    logistic_name VARCHAR(100),
+    logistic_type VARCHAR(50),
+    logistic_description TEXT,
+    logistic_location TEXT,
+    logistic_quantity INT,
+    logistic_status TEXT,
+    logistic_borrowed_by VARCHAR(100),
+    logistic_borrow_from DATE,
+    logistic_borrow_to DATE,
+    logistic_img TEXT
+);
+
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
  

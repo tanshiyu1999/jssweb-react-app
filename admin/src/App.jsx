@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react"
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-// Routes
+/* -------------------- Routes Import Start -------------------- */
 import Root from "./routes/root"
 import ErrorPage from "./routes/error-page"
 import LoginRoute from "./routes/login-route"
@@ -16,7 +16,9 @@ import DashboardRoute from "./routes/dashboard-route"
 import RegisterRoute from "./routes/register-route"
 import SubclubsRoute from "./routes/subclubs-route"
 import EventUpdateRoute from "./routes/event-update-route";
+/* -------------------- Routes Import End -------------------- */
 
+/* -------------------- Subclubs Import Start -------------------- */
 import { 
   loaderInput as subclubLoaderInput, 
   action as subclubsAction 
@@ -25,6 +27,9 @@ import EditSubclub, {
   loader as editSubclubLoader,
   action as editSubclubAction,
 } from "./components/subclubs/EditSubclub"
+/* -------------------- Subclubs Import End -------------------- */
+
+/* -------------------- Event Import Start -------------------- */
 import AddEvent, {
   action as addEventAction
 } from "./components/eventUpdate/AddEvent";
@@ -36,6 +41,21 @@ import EditEvent, {
   loader as editEventLoader,
   action as editEventAction
 } from "./components/eventUpdate/EditEvent";
+/* -------------------- Event Import End -------------------- */
+
+/* -------------------- Logistics Import Start -------------------- */
+import Logistic, {
+  loader as logisticLoader
+} from "./components/logistic/Logistic";
+import AddLogistic, {
+  action as addLogisticAction
+} from "./components/logistic/AddLogistic";
+import EditLogistic, {
+  action as editLogisticAction,
+  loader as editLogisticLoader
+} from "./components/logistic/EditLogistic";
+/* -------------------- Logistics Import End -------------------- */
+
 
 
 function App() {
@@ -160,10 +180,28 @@ function App() {
         {
           path: "addevent",
           element: <AddEvent />,
-          action: addEventAction
+          action: addEventAction,
         }
       ]
     },
+    {
+      path: "logistic",
+      element: <Logistic setAuth={setAuth} />,
+      loader: logisticLoader,
+      children: [
+        {
+          path: "addlogistic",
+          element: <AddLogistic />,
+          action: addLogisticAction
+        },
+        {
+          path: ":logisticId/editLogistic",
+          element: <EditLogistic />,
+          action: editLogisticAction,
+          loader: editLogisticLoader
+        }
+      ]
+    }
   ]);
   /* -------------------- Router End -------------------- */
 

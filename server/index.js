@@ -21,6 +21,9 @@ app.use("/subclubs", require("./routes/subclubs"))
 // eventUpdate route
 app.use("/eventUpdate", require("./routes/eventUpdate"))
 
+// logistic route
+app.use("/logistic", require("./routes/logistic"))
+
 app.listen(3000, () => {
     console.log("service is listening on port 3000");
 })
