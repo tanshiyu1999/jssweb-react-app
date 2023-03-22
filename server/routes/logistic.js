@@ -87,18 +87,18 @@ router.patch("/", upload.single('image'), async (req, res) => {
 
 
 
-        const updateLogistic = await pool.query(
-            `UPDATE event 
-             SET logistic_name = $1,
-                 logistic_description = $2,
-                 logistic_location = $3,
-                 logistic_quantity = $4,
-                 logistic_status = $5,
-                 logistic_img = $6
-             WHERE logistic_id = $7;`,
-             [req.body.title, req.body.eventType, req.body.desc, req.body.startDate, req.body.endDate, req.body.url, req.body.aws].map(el => maybe(el))
-        );
-        // res.json(updateLogistic);
+        // const updateLogistic = await pool.query(
+        //     `UPDATE event 
+        //      SET logistic_name = $1,
+        //          logistic_description = $2,
+        //          logistic_location = $3,
+        //          logistic_quantity = $4,
+        //          logistic_status = $5,
+        //          logistic_img = $6
+        //      WHERE logistic_id = $7;`,
+        //      [req.body.title, req.body.eventType, req.body.desc, req.body.startDate, req.body.endDate, req.body.url, req.body.aws].map(el => maybe(el))
+        // );
+        res.json();
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");

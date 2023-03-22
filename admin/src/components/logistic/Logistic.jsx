@@ -4,6 +4,7 @@ import AddLogistic from "./AddLogistic";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
 import { useLoaderData, Outlet, Link } from "react-router-dom";
+import GridView from "./GridView";
 
 
 function Logistic() {
@@ -13,10 +14,11 @@ function Logistic() {
           <Button component={Link} to="./addlogistic" variant="contained">Add Logistics</Button>
           <Outlet />
           <TableView logisticData={logisticData} />
+          <GridView logisticData={logisticData} />
+
       </Box>
   )
 }
-
 
 export default Logistic
 

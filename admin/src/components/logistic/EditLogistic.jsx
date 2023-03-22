@@ -10,7 +10,13 @@ import { TextField, Input, Button } from '@mui/material';
 
 import { redirect, useLocation, useNavigate, Navigate } from "react-router-dom"
 import { Box }  from '@mui/material';
-import { bgcolor } from '@mui/system';
+
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+
+
 
 let uploadFile = null;
 
@@ -31,10 +37,10 @@ function EditLogistic() {
     location: logisticData.logistic_location,
     desc: logisticData.logistic_description,
     quantity: logisticData.logistic_quantity,
+    borrowedBy: logisticData.logistic_borrowed_by,
   });
 
-  const { name, location, desc, quantity } = textData;
-
+  const { name, location, desc, quantity, borrowedBy } = textData;
 
   const onChange = (e) => {
     setTextData({ ...textData, [e.target.name]: e.target.value })
@@ -45,6 +51,16 @@ function EditLogistic() {
     setFile(file)
     uploadFile = file;
   }
+
+  const [borrowFrom, setBorrowFrom] = useState(dayjs('2014-08-18T21:11:54'));
+  const handleBorrowForm = (newValue) => {
+    setBorrowFrom(newValue);
+  };
+
+  const [borrowTo, setBorrowTo] = useState(dayjs('2014-08-18T21:11:54'));
+  const handleBorrowTo = (newValue) => {
+    setBorrowTo(newValue);
+  };
 
   return (
     <Box sx={{bgcolor: "pink"}}>
@@ -60,12 +76,30 @@ function EditLogistic() {
             </span>
         </Button>
 
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <MobileDatePicker
+            label="Borrow From"
+            inputFormat="DD/MM/YYYY"
+            value={borrowFrom}
+            onChange={handleBorrowForm}
+            renderInput={(params) => <TextField {...params} />}
+          />
+          <MobileDatePicker
+            label="Borrow To"
+            inputFormat="DD/MM/YYYY"
+            value={borrowTo}
+            onChange={handleBorrowTo}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
+
+        <input type="text" name="borrowTo" value={borrowTo} className="to-hide" readOnly ></input>
+        <input type="text" name="borrowFrom" value={borrowFrom} className="to-hide" readOnly ></input>
         <input type="text" name="logisticId" value={logisticData.logistic_id} className="to-hide" readOnly ></input>
         <input type="text" name="logisticImg" value={logisticData.logistic_img} className="to-hide" readOnly ></input>
 
         <Button type="submit" component={Link} to="/logistic" variant="outlined">Cancel</Button>
         <Button type="submit" name="intent" value='update'color="success" variant="contained">Submit</Button>
-
       </Form>
     </Box>
     );
