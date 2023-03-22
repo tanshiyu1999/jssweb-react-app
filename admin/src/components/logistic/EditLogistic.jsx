@@ -8,7 +8,7 @@ import {
 } from "react-router-dom"
 import { TextField, Input, Button } from '@mui/material';
 
-import { redirect, useLocation, useNavigate } from "react-router-dom"
+import { redirect, useLocation, useNavigate, Navigate } from "react-router-dom"
 import { Box }  from '@mui/material';
 import { bgcolor } from '@mui/system';
 
@@ -17,17 +17,12 @@ let uploadFile = null;
 function EditLogistic() {
   const { state } = useLocation();
   const logisticData = state;
-  console.log(logisticData)
-  const navigate = useNavigate();
+
   if (!logisticData) {
-    console.log("empty")
-    navigate('/logistic')
-    redirect('/logistic')
+    return <Navigate to="/logistic" replace />;
   }
-  redirect('/logistic')
+
   
-
-
 
   const [file, setFile] = useState();
 
@@ -65,6 +60,9 @@ function EditLogistic() {
             </span>
         </Button>
 
+        <input type="text" name="logisticId" value={logisticData.logistic_id} className="to-hide" readOnly ></input>
+        <input type="text" name="logisticImg" value={logisticData.logistic_img} className="to-hide" readOnly ></input>
+
         <Button type="submit" component={Link} to="/logistic" variant="outlined">Cancel</Button>
         <Button type="submit" name="intent" value='update'color="success" variant="contained">Submit</Button>
 
@@ -97,14 +95,4 @@ export async function action({request}) {
   }
 /* -------------------- Action End -------------------- */
 
-/* -------------------- Loader Start -------------------- */
-export async function loader({params}) {
-  try {
 
-
-  } catch (err) {
-    console.error(err.message);
-  }
-  return null;
-}
-/* -------------------- Loader End -------------------- */

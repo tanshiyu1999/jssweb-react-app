@@ -52,7 +52,6 @@ import AddLogistic, {
 } from "./components/logistic/AddLogistic";
 import EditLogistic, {
   action as editLogisticAction,
-  loader as editLogisticLoader
 } from "./components/logistic/EditLogistic";
 /* -------------------- Logistics Import End -------------------- */
 
@@ -198,7 +197,6 @@ function App() {
           path: ":logisticId/editLogistic",
           element: <EditLogistic />,
           action: editLogisticAction,
-          loader: editLogisticLoader
         }
       ]
     }

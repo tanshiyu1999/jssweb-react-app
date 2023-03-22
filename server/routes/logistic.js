@@ -71,9 +71,10 @@ router.post("/", upload.single('image'), async (req, res) => {
 
 router.patch("/", upload.single('image'), async (req, res) => {
     try {
+        console.log(req.body)
         // if (req.body.image != "") {
         //     const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1980, fit:"contain", background: "transparent" }).toBuffer();
-        //     const imageName = req.body.aws
+        //     const imageName = req.body.logisticImg
         //     const params = {
         //         Bucket: bucketName,
         //         Key: imageName,
@@ -84,21 +85,20 @@ router.patch("/", upload.single('image'), async (req, res) => {
         //     await s3.send(command);
         // }
 
-        console.log(req.body)
 
 
-        // const updatedEvent = await pool.query(
-        //     `UPDATE event 
-        //      SET event_title = $1,
-        //          event_type = $2,
-        //          event_description = $3,
-        //          event_start_date = $4,
-        //          event_end_date = $5,
-        //          event_link = $6
-        //      WHERE event_img = $7;`,
-        //      [req.body.title, req.body.eventType, req.body.desc, req.body.startDate, req.body.endDate, req.body.url, req.body.aws] 
-        // );
-        // res.json(updatedEvent);
+        const updateLogistic = await pool.query(
+            `UPDATE event 
+             SET logistic_name = $1,
+                 logistic_description = $2,
+                 logistic_location = $3,
+                 logistic_quantity = $4,
+                 logistic_status = $5,
+                 logistic_img = $6
+             WHERE logistic_id = $7;`,
+             [req.body.title, req.body.eventType, req.body.desc, req.body.startDate, req.body.endDate, req.body.url, req.body.aws].map(el => maybe(el))
+        );
+        // res.json(updateLogistic);
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
