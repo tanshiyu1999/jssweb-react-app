@@ -43,11 +43,11 @@ function DashboardRoute(props) {
             <Navbar />
             <p>DASHBOARD {name}</p>
 
-            <Link to="/subclubs">Go to subclub</Link>
+            <Link to="/subclubs">Go to Subclub</Link>
             <br/>
-            <Link to="/eventupdate">Go to event update</Link>
+            <Link to="/eventupdate">Go to Event Update</Link>
             <br/>
-            <Link to="/logistic">Go to logistic</Link>
+            <Link to="/logistic">Go to Logistic</Link>
             <br/>
             <Link to="/treasuryReimbursement">Go to Treasury Reimbursement</Link>
             <br/>
