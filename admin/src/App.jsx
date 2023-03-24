@@ -45,7 +45,8 @@ import EditEvent, {
 
 /* -------------------- Logistics Import Start -------------------- */
 import Logistic, {
-  loader as logisticLoader
+  loader as logisticLoader,
+  action as logisticAction
 } from "./components/logistic/Logistic";
 import AddLogistic, {
   action as addLogisticAction
@@ -187,6 +188,7 @@ function App() {
       path: "logistic",
       element: <Logistic setAuth={setAuth} />,
       loader: logisticLoader,
+      action: logisticAction,
       children: [
         {
           path: "addlogistic",

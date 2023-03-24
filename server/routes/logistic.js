@@ -5,6 +5,7 @@ const crypto = require('crypto');
 require("dotenv").config();
 const sharp = require('sharp');
 const maybe = require('../scripts/maybe')
+const noDate = require('../scripts/noDate')
 
 const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
@@ -71,34 +72,39 @@ router.post("/", upload.single('image'), async (req, res) => {
 
 router.patch("/", upload.single('image'), async (req, res) => {
     try {
-        console.log(req.body)
-        // if (req.body.image != "") {
-        //     const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1980, fit:"contain", background: "transparent" }).toBuffer();
-        //     const imageName = req.body.logisticImg
-        //     const params = {
-        //         Bucket: bucketName,
-        //         Key: imageName,
-        //         Body: buffer,
-        //         ContentType: req.file.mimetype
-        //     }
-        //     const command = new PutObjectCommand(params);
-        //     await s3.send(command);
-        // }
+        // console.log(req.body)
+        if (req.body.image != "") {
+            const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1980, fit:"contain", background: "transparent" }).toBuffer();
+            const imageName = req.body.logisticImg
+            const params = {
+                Bucket: bucketName,
+                Key: imageName,
+                Body: buffer,
+                ContentType: req.file.mimetype
+            }
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
+        }
 
 
 
-        // const updateLogistic = await pool.query(
-        //     `UPDATE event 
-        //      SET logistic_name = $1,
-        //          logistic_description = $2,
-        //          logistic_location = $3,
-        //          logistic_quantity = $4,
-        //          logistic_status = $5,
-        //          logistic_img = $6
-        //      WHERE logistic_id = $7;`,
-        //      [req.body.title, req.body.eventType, req.body.desc, req.body.startDate, req.body.endDate, req.body.url, req.body.aws].map(el => maybe(el))
-        // );
-        res.json();
+        const updateLogistic = await pool.query(
+            `UPDATE logistic 
+             SET logistic_name = $1,
+                 logistic_description = $2,
+                 logistic_location = $3,
+                 logistic_quantity = $4,
+                 logistic_status = $5,
+                 logistic_img = $6,
+                 logistic_borrowed_by = $7,
+                 logistic_borrow_from = $8,
+                 logistic_borrow_to = $9
+             WHERE logistic_id = $10;`,
+             [req.body.name, req.body.desc, req.body.location, req.body.quantity, req.body.status, req.body.logisticImg, req.body.borrowedBy, noDate(req.body.borrowFrom), noDate(req.body.borrowTo), req.body.logisticId]
+        );
+
+
+        res.json(updateLogistic);
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error");
@@ -133,24 +139,45 @@ router.get("/", async (req, res) => {
     }
 })
 
-// router.delete("/", async (req, res) => {
-//     try {
-//         const params = {
-//             Bucket: bucketName,
-//             Key: req.body.url,
-//         }
-//         const command = new DeleteObjectCommand(params);
-//         await s3.send(command);
-//         await pool.query(
-//             "DELETE FROM event where event_img = $1", 
-//             [req.body.url]
-//         );
+router.delete("/", async (req, res) => {
+    try {
+        console.log(req.body)
+        if (req.body.url != '') {
+            const params = {
+                Bucket: bucketName,
+                Key: req.body.url,
+            }
+            const command = new DeleteObjectCommand(params);
+            await s3.send(command);
+        }
 
-//         res.send("Image Deleted");
-//     } catch (err) {
-//         console.error(err.message)  ;
-//         res.status(500).send("Server Error")
-//     }
-// })
+
+        await pool.query(
+            "DELETE FROM logistic WHERE logistic_id = $1", 
+            [req.body.logisticId]
+        );
+
+        res.send("Image Deleted");
+    } catch (err) {
+        console.error(err.message)  ;
+        res.status(500).send("Server Error")
+    }
+})
 
 module.exports = router;
+
+
+
+        // CREATE TABLE logistic (
+        //   logistic_id SERIAL PRIMARY KEY,
+        //   logistic_name VARCHAR(100),
+        //   logistic_type VARCHAR(50),
+        //   logistic_description TEXT,
+        //   logistic_location TEXT,
+        //   logistic_quantity INT,
+        //   logistic_status TEXT,
+        //   logistic_borrowed_by VARCHAR(100),
+        //   logistic_borrow_from DATE,
+        //   logistic_borrow_to DATE,
+        //   logistic_img TEXT
+        // );

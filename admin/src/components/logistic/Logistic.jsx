@@ -9,13 +9,13 @@ import GridView from "./GridView";
 
 function Logistic() {
   const logisticData = useLoaderData();
+  console.log(logisticData)
   return (
       <Box padding={2}>
           <Button component={Link} to="./addlogistic" variant="contained">Add Logistics</Button>
           <Outlet />
           <TableView logisticData={logisticData} />
           <GridView logisticData={logisticData} />
-
       </Box>
   )
 }
@@ -41,25 +41,28 @@ export async function loader() {
   /* -------------------- Loader End -------------------- */
 
   /* -------------------- Action Start -------------------- */
-// export async function action({request}) {
-//     try {
-//       const data = await request.formData();
-//       let intent = data.get('intent');
-//       if (intent === 'delete') {
-//         let imgName = data.get('imgName');
-//         const res = await fetch(
-//           "http://localhost:3000/logistic", {
-//               method: "DELETE",
-//               headers: {"Content-Type": "application/json"},
-//               body: JSON.stringify({
-//                 url: imgName,
-//               })
-//           }
-//         );
-//       }
-//     } catch (err) {
-//       console.error(err.message);
-//     }
-//     return null;
-//   }
+export async function action({request}) {
+    try {
+      const data = await request.formData();
+      let intent = data.get('intent');
+
+      // Delete is in TableView & GridView
+      if (intent === 'delete') {
+        let imgName = data.get('imgName');
+        const res = await fetch(
+          "http://localhost:3000/logistic", {
+              method: "DELETE",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify({
+                url: data.get('awsName'),
+                logisticId: data.get('logisticId')
+              })
+          }
+        );
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+    return null;
+  }
   /* -------------------- Action End -------------------- */

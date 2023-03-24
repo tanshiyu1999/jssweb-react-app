@@ -71,8 +71,7 @@ router.patch("/", upload.single('image'), async (req, res) => {
             await s3.send(command);
         }
 
-        console.log(req.body.title)
-        console.log(req.body.aws)
+        console.log(req.body)
 
 
         const updatedEvent = await pool.query(
