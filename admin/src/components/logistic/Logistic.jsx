@@ -9,7 +9,7 @@ import GridView from "./GridView";
 
 function Logistic() {
   const logisticData = useLoaderData();
-  console.log(logisticData)
+  // console.log(logisticData)
   return (
       <Box padding={2}>
           <Button component={Link} to="./addlogistic" variant="contained">Add Logistics</Button>

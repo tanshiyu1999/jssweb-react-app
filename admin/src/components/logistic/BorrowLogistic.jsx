@@ -25,7 +25,7 @@ import { maybe } from './script/maybe';
 
 let uploadFile = null;
 
-function EditLogistic() {
+function BorrowLogistic() {
   const { state } = useLocation();
   const logisticData = state;
   console.log(logisticData)
@@ -91,10 +91,7 @@ function EditLogistic() {
             <MenuItem value='Loaned Out'>Loaned Out</MenuItem>
           </Select>
         </FormControl>
-
         <TextField type="text" name="borrowedBy" value={borrowedBy} onChange={e => onChange(e)} label='Borrowed By' variant="outlined" />
-
-
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MobileDatePicker
             label="Borrow From"
@@ -111,7 +108,7 @@ function EditLogistic() {
             renderInput={(params) => <TextField {...params} error={false} />}
           />
         </LocalizationProvider>
-
+        
         <input type="text" name="borrowTo" value={borrowTo} className="to-hide" readOnly ></input>
         <input type="text" name="borrowFrom" value={borrowFrom} className="to-hide" readOnly ></input>
         <input type="text" name="logisticId" value={logisticData.logistic_id} className="to-hide" readOnly ></input>
@@ -124,7 +121,7 @@ function EditLogistic() {
     );
 }
 
-export default EditLogistic;
+export default BorrowLogistic;
 
 /* -------------------- Action Start -------------------- */
 export async function action({request}) {
@@ -151,6 +148,7 @@ export async function action({request}) {
 /* -------------------- Loader Start -------------------- */
 export async function loader() {
   try {
+    console.log("Edit Logistic Loaded")
     return "Edit Logistics Loaded";
   } catch (err) {
     console.error(err.message);

@@ -42,9 +42,6 @@ function AddLogistic() {
     uploadFile = file;
   }
 
-
-  
-
   return (
     <Box sx={{bgcolor: "pink"}}>
       <Form method="post" style={{width:650}} className="form-submit-input">

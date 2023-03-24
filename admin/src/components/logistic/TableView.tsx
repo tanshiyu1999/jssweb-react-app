@@ -18,6 +18,11 @@ export default function TableView({logisticData}) {
         Edit
       </Button>
     )},
+    { field: 'Borrow', headerName: 'Borrow', width: 150, renderCell: (params) => ( 
+      <Button component={Link} to={`./${params.id}/borrowLogistic`} state={logisticData[params.id]} variant="contained">
+        Borrow
+      </Button>
+    )},
     { field: 'Delete', headerName: 'Delete', width: 150, renderCell: (params) => ( 
       <Form method="delete" action="./">
         <input type="text" name="awsName" value={logisticData[params.id].logistic_img} className="to-hide" readOnly ></input>

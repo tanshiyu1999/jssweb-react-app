@@ -53,8 +53,20 @@ import AddLogistic, {
 } from "./components/logistic/AddLogistic";
 import EditLogistic, {
   action as editLogisticAction,
+  loader as editLogisticLoader
 } from "./components/logistic/EditLogistic";
+
+import BorrowLogistic, {
+  loader as borrowLogisticLoader,
+  action as borrowLogisticAction
+} from "./components/logistic/BorrowLogistic";
 /* -------------------- Logistics Import End -------------------- */
+
+/* -------------------- Treasury Reimbursement Import Start -------------------- */
+import TreasuryReimbursement from "./components/treasuryReimbursement/TreasuryReimbursement";
+
+
+/* -------------------- Treasury Reimbursement Import End -------------------- */
 
 
 
@@ -199,8 +211,21 @@ function App() {
           path: ":logisticId/editLogistic",
           element: <EditLogistic />,
           action: editLogisticAction,
-        }
+          loader: editLogisticLoader
+        },
+        {
+          path: ":borrowLogisticId/borrowLogistic",
+          element: <BorrowLogistic />,
+          loader: borrowLogisticLoader,
+          action: borrowLogisticAction
+        },
       ]
+    },
+    {
+      path: "treasuryReimbursement",
+      element: <TreasuryReimbursement setAuth={setAuth} />,
+      // loader: logisticLoader,
+      // action: logisticAction,
     }
   ]);
   /* -------------------- Router End -------------------- */
