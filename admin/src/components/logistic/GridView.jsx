@@ -3,14 +3,40 @@ import { addIndex } from './script/addIndex';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Box } from "@mui/system";
+import GridCard from './GridCard';
+import placeholder from '../../assets/placeholder.png'
 
 export default function GridView({logisticData}) {
 
   addIndex(logisticData);
+
+
+  const listItems = logisticData.map((data) => {
+
+    return <GridCard 
+              data={data} 
+              key={data.logistic_id} 
+              notFound={placeholder}
+            />
+  }
+    
+  ); 
+
+  
+
   
   return (
-    <Box>
-        Gird View
+    <Box 
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        bgcolor: 'green',
+        width: '100%',
+        flexWrap: 'wrap'
+      
+      }}
+    >
+      {listItems}
     </Box>
   );
 }

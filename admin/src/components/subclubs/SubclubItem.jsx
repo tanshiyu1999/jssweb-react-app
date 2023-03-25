@@ -2,6 +2,7 @@ import React from "react"
 import { Form, Link } from "react-router-dom"
 import { Button } from "@mui/material"
 
+
 // makes the image url a global variable
 
 function SubclubItem(props) {

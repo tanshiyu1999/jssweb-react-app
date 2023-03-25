@@ -1,14 +1,32 @@
 import * as React from 'react';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { 
+  DataGrid, 
+  GridRowsProp, 
+  GridColDef, 
+  GridToolbarQuickFilter,
+  GridToolbarExport,
+  GridToolbarContainer,
+} from '@mui/x-data-grid';
 import { addIndex } from './script/addIndex';
 import { Button } from '@mui/material';
 import { Link, Form } from 'react-router-dom';
+import { Box } from '@mui/system';
 
 
 export default function TableView({logisticData}) {
 
   addIndex(logisticData);
   // console.log(logisticData)
+
+
+  function TableToolBar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarExport />
+        <GridToolbarQuickFilter />
+      </GridToolbarContainer>
+    );
+  }
   
   const rows: GridRowsProp = logisticData
   
@@ -35,11 +53,20 @@ export default function TableView({logisticData}) {
     { field: 'logistic_name', headerName: 'Item', width: 150 },
     { field: 'logistic_quantity', headerName: 'Quantity', width: 150 },
     { field: 'logistic_description', headerName: 'Description', width: 150 },
-    { field: 'logistic_location', headerName: 'Location', width: 150},
+    { field: 'logistic_location', headerName: 'Location', width: 150, editable: true},
     { field: 'logistic_status', headerName: 'Status', width: 150}
   ];
+
+
   return (
-    <DataGrid autoHeight rows={rows} columns={columns} />
+    <>
+      <DataGrid 
+        autoHeight 
+        rows={rows} 
+        columns={columns} 
+        slots={{ toolbar: TableToolBar }}
+      />
+    </>
   );
 }
 

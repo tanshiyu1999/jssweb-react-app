@@ -28,7 +28,6 @@ let uploadFile = null;
 function EditLogistic() {
   const { state } = useLocation();
   const logisticData = state;
-  console.log(logisticData)
   // console.log(logisticData);
 
 
@@ -36,7 +35,6 @@ function EditLogistic() {
     return <Navigate to="/logistic" replace />;
   }
 
-  
 
   const [file, setFile] = useState();
 
@@ -52,6 +50,9 @@ function EditLogistic() {
   const { name, location, desc, quantity, borrowedBy, status } = textData;
 
   const onChange = (e) => {
+    console.log(e.target.name)
+    console.log(e.target.value)
+    console.log({...textData})
     setTextData({ ...textData, [e.target.name]: e.target.value })
   }
 
@@ -70,6 +71,10 @@ function EditLogistic() {
   const handleBorrowTo = (newValue) => {
     setBorrowTo(new Date().toISOString(newValue.$d).slice(0,10));
   };
+
+  // useEffect(() => {
+  //   setTextData(logisticData)
+  // }, logisticData)
 
   return (
     <Box sx={{bgcolor: "pink"}}>
