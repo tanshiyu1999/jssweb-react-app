@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { Button } from "@mui/material";
 import { useLoaderData, Outlet, Link } from "react-router-dom";
 
-function TreasuryReimbursement() {
+function Reimbursement() {
   // const logisticData = useLoaderData();
   // console.log(logisticData)
   return (
@@ -14,7 +14,7 @@ function TreasuryReimbursement() {
   )
 }
 
-export default TreasuryReimbursement
+export default Reimbursement
 
 
 // /* -------------------- Loader Start -------------------- */
