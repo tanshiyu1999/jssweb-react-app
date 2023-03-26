@@ -114,30 +114,30 @@ router.post("/", upload.single('image'), async (req, res) => {
 
 // Put this bad boy into a loader
 // The data should load when the page renders hehexd
-// router.get("/", async (req, res) => {
-//     try {
-//         const logisticData = await pool.query("SELECT * FROM logistic");
+router.get("/", async (req, res) => {
+    try {
+        const reimbursementData = await pool.query("SELECT * FROM reimbursement");
       
 
-//         for (const logistic of logisticData.rows) {
-//             if (!(logistic.logistic_img == '')) {
-//                 const getObjectParams = {
-//                     Bucket: bucketName,
-//                     Key: logistic.logistic_img,
-//                 }
-//                 const command = new GetObjectCommand(getObjectParams);
-//                 const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
-//                 logistic.imageUrl = url;
-//             }
-//         }
+        for (const reimbursement of reimbursementData.rows) {
+            if (!(reimbursement.reimbursement_aws_ref == '')) {
+                const getObjectParams = {
+                    Bucket: bucketName,
+                    Key: reimbursement.reimbursement_aws_ref,
+                }
+                const command = new GetObjectCommand(getObjectParams);
+                const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+                reimbursement.imageUrl = url;
+            }
+        }
         
-//         res.send(logisticData.rows)
+        res.send(reimbursementData.rows)
 
-//     } catch (err) {
-//         console.error(err.message);
-//         res.status(500).send("Server Error");
-//     }
-// })
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+})
 
 // router.delete("/", async (req, res) => {
 //     try {
