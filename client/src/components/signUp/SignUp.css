@@ -1,0 +1,21 @@
+.signup-container {
+    background-color: pink;
+
+}
+
+.signup-instruction-container {
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.signup-instruction-container > * {
+    border: 1px black solid;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
