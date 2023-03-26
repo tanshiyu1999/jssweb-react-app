@@ -9,14 +9,16 @@ function ImageToPdf({reimbursementData}) {
   const exportImage = () => {
     const doc = new jsPDF();
     doc.setFontSize(20);
+    let pageCount = 1;
     reimbursementData.forEach( data => {
       doc.text(data.reimbursement_receipt_ref, 35, 25);
       doc.addImage(data.imageUrl, "JPEG", 15, 40, 180, 180);
+      doc.addPage();
+      pageCount++;
     })
+    doc.deletePage(pageCount)
     doc.save("test.pdf")
   }
-
-  
 
   return (
     <Button variant="outlined" onClick={exportImage} >
