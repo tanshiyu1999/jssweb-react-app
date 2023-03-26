@@ -64,6 +64,9 @@ import BorrowLogistic, {
 
 /* -------------------- Treasury Reimbursement Import Start -------------------- */
 import Reimbursement from "./components/reimbursement/Reimbursement";
+import AddReimbursement, {
+  action as addReimbursementAction,
+} from "./components/reimbursement/AddReimbursement";
 
 
 /* -------------------- Treasury Reimbursement Import End -------------------- */
@@ -226,6 +229,13 @@ function App() {
       element: <Reimbursement setAuth={setAuth} />,
       // loader: logisticLoader,
       // action: logisticAction,
+      children: [
+        {
+          path: "addReimbursement",
+          element: <AddReimbursement />,
+          action: addReimbursementAction,
+        }
+      ]
     }
   ]);
   /* -------------------- Router End -------------------- */

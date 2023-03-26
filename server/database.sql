@@ -26,6 +26,18 @@ CREATE TABLE logistic (
     logistic_img TEXT
 );
 
+CREATE TABLE reimbursement (
+    reimbursement_id SERIAL PRIMARY KEY,
+    reimbursement_receipt_ref VARCHAR(100),
+    reimbursement_to VARCHAR(50),
+    reimbursement_item VARCHAR(100),
+    reimbursement_purpose TEXT,
+    reimbursement_cost REAL,
+    reimbursement_quantity INT,
+    reimbursement_remark TEXT,
+    reimbursement_aws_ref TEXT
+);
+
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
  

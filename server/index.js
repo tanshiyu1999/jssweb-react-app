@@ -25,7 +25,7 @@ app.use("/eventUpdate", require("./routes/eventUpdate"))
 app.use("/logistic", require("./routes/logistic"))
 
 // treasure reimbursement
-// app.use("/treasuryReimbursement", require("./routes/treasuryReimbursement"))
+app.use("/reimbursement", require("./routes/reimbursement"))
 
 app.listen(3000, () => {
     console.log("service is listening on port 3000");

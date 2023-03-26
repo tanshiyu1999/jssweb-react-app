@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
 import { useLoaderData, Outlet, Link } from "react-router-dom";
+import AddReimbursement from "./AddReimbursement";
 
 function Reimbursement() {
   // const logisticData = useLoaderData();
   // console.log(logisticData)
   return (
       <Box padding={2}>
-        HELLO
+        <Button component={Link} to="./addReimbursement" variant="contained">Add Reimbursement</Button>
+        <Outlet />
  
       </Box>
   )
