@@ -18,16 +18,18 @@ function SignUp() {
         <div className="signup-instruction-container">
 
           <div className="local-student-container">
-            <h4>Non Exchange Students</h4>
-            <p>Follow the instruction on <a href="https:www.google.com">NUSync</a></p>
-
-            <p>Then, fill in the form below:</p>
-
-            
+            <div className="local-student-spacetainer">
+              <h4>Non Exchange Students</h4>
+              <p>Step 1: Click Join in</p>
+              <a className="form-link" href="">NUSync</a>
+              <p>Step 2: fill in the form below:</p>
+              <a className="form-link" href="">SignUp Form</a>
+            </div>
           </div>
 
           <div className="exchange-student-container">
-            Exchange Student
+            <h4>Exchange Students</h4>
+            
           </div>
         </div>
 
@@ -37,15 +39,11 @@ function SignUp() {
         </div>
 
         <div className="faq-container">
-          <h4>FAQ:</h4>
+          <h4>Frequently Asked Questions</h4>
           <div className="Q&A-container">
             <p>Question</p>
             <p>Answer</p>
           </div>
-        </div>
-
-        <div className="bottom-graphic">
-          <p>meow</p>
         </div>
 
     </div>
