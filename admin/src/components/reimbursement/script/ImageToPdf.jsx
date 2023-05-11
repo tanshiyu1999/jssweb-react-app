@@ -4,7 +4,7 @@ import { useLoaderData, Outlet, Link } from "react-router-dom";
 import { jsPDF } from "jspdf";
 
 function ImageToPdf({reimbursementData}) {
-  console.log(reimbursementData)
+  // console.log(reimbursementData)
 
   const exportImage = () => {
     const doc = new jsPDF();

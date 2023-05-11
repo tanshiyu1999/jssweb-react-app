@@ -7,46 +7,60 @@ import {
 } from "react-router-dom"
 import { TextField, Input, Button } from '@mui/material';
 
+import { redirect, useLocation, useNavigate, Navigate } from "react-router-dom"
+import { Box, Stack }  from '@mui/material';
+
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { redirect } from "react-router-dom"
-import { Box, Stack }  from '@mui/material';
-import { bgcolor } from '@mui/system';
+import { maybe } from './script/maybe';
+
+
 
 let uploadFile = null;
 
-function AddReimbursement() {
+function EditReimbursement() {
+  const { state } = useLocation();
+  const reimbursementData = state;
+  // console.log(reimbursementData);
 
-  const [file, setFile] = useState();
+  if (!reimbursementData) {
+    return <Navigate to="/reimbursement" replace />;
+  }
+
 
   const [textData, setTextData] = useState({
-    receiptRef: "Receipt Reference",
-    item: "The item",
-    purpose: "Item purpose",
-    cost: '5544',
-    quantity: "214124",
-    remark: 'this is a remark',
-    reimburseTo: "shiyty"
+    receiptRef: maybe(reimbursementData.reimbursement_receipt_ref),
+    item: maybe(reimbursementData.reimbursement_item),
+    purpose: maybe(reimbursementData.reimbursement_purpose),
+    cost: maybe(reimbursementData.reimbursement_cost),
+    quantity: maybe(reimbursementData.reimbursement_quantity),
+    remark: maybe(reimbursementData.reimbursement_remark),
+    reimburseTo: maybe(reimbursementData.reimbursement_to)
   });
 
   const { receiptRef, item, purpose, cost, quantity, remark, reimburseTo } = textData;
-
 
   const onChange = (e) => {
     setTextData({ ...textData, [e.target.name]: e.target.value })
   }
 
+  const [file, setFile] = useState();
+
   const fileSelected = event => {
     const file = event.target.files[0];
-    setFile(file)
+    setFile(file);
     uploadFile = file;
   }
 
   return (
     <Box sx={{bgcolor: "pink"}}>
-      <Form method="post" style={{width:650}}>
+      <Form method="post" style={{width:650}} action='.'>
         <Stack
           sx={{
             display:'flex',
@@ -68,11 +82,15 @@ function AddReimbursement() {
 
             <TextField type="text" name="remark" value={remark} onChange={e => onChange(e)} label='Remark' variant="outlined" multiline rows={4} />
 
-            <TextField type={"file"} onChange={fileSelected} name="image" inputProps={{accept:"image/*"}} required />
+            <TextField type={"file"} onChange={fileSelected} name="image" inputProps={{accept:"image/*"}} />
+
+            <input type="text" name="reimbursementId" value={reimbursementData.reimbursement_id} className="to-hide" readOnly ></input>
+
+            <input type="text" name="aws_ref" value={reimbursementData.reimbursement_aws_ref} className="to-hide" readOnly ></input>
 
             <Button type="submit" component={Link} to="/reimbursement" variant="outlined">Cancel</Button>
             
-            <Button type="submit" name="intent" value='add'color="success" variant="contained">Submit</Button>
+            <Button type="submit" name="intent" value='update'color="success" variant="contained">Submit</Button>
         </Stack>
 
       </Form>
@@ -80,21 +98,23 @@ function AddReimbursement() {
     );
 }
 
-export default AddReimbursement
+export default EditReimbursement;
+
+
 
 /* -------------------- Action Start -------------------- */
 export async function action({request}) {
-  console.log("hello")
   try {
     const data = await request.formData();
     let intent = data.get('intent');
-    if (intent === 'add') {
-      data.append("image", uploadFile);
-      await axios.post("http://localhost:3000/reimbursement", 
-        data, 
-        { headers: {'Content-Type': 'multipart/form-data'}}
+    console.log(intent);
+    if (intent === 'update') {
+      if (uploadFile) {data.append("image", uploadFile)}
+      await axios.patch("http://localhost:3000/reimbursement", 
+          data, 
+          { headers: {'Content-Type': 'multipart/form-data'}}
       )
-      return redirect("/reimbursement");
+      return redirect("/reimbursement")
     } 
   } catch (err) {
     console.error(err.message);
@@ -102,3 +122,15 @@ export async function action({request}) {
   return null;
 }
 /* -------------------- Action End -------------------- */
+
+/* -------------------- Loader Start -------------------- */
+export async function loader() {
+try {
+  return "Edit Logistics Loaded";
+} catch (err) {
+  console.error(err.message);
+  return null;
+}
+}
+/* -------------------- Loader End -------------------- */
+

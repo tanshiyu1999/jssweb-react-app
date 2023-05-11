@@ -70,46 +70,70 @@ router.post("/", upload.single('image'), async (req, res) => {
     }
 });
 
-// router.patch("/", upload.single('image'), async (req, res) => {
-//     try {
-//         // console.log(req.body)
-//         if (req.body.image != "") {
-//             const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1980, fit:"contain", background: "transparent" }).toBuffer();
-//             const imageName = req.body.logisticImg
-//             const params = {
-//                 Bucket: bucketName,
-//                 Key: imageName,
-//                 Body: buffer,
-//                 ContentType: req.file.mimetype
-//             }
-//             const command = new PutObjectCommand(params);
-//             await s3.send(command);
-//         }
+router.patch("/", upload.single('image'), async (req, res) => {
+    try {
+        // console.log(req.body)
+        if (req.body.image != "") {
+            const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1980, fit:"contain", background: "transparent" }).toBuffer();
+            const imageName = req.body.aws_ref;
+            const params = {
+                Bucket: bucketName,
+                Key: imageName,
+                Body: buffer,
+                ContentType: req.file.mimetype
+            }
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
+        }
 
 
 
-//         const updateLogistic = await pool.query(
-//             `UPDATE logistic 
-//              SET logistic_name = $1,
-//                  logistic_description = $2,
-//                  logistic_location = $3,
-//                  logistic_quantity = $4,
-//                  logistic_status = $5,
-//                  logistic_img = $6,
-//                  logistic_borrowed_by = $7,
-//                  logistic_borrow_from = $8,
-//                  logistic_borrow_to = $9
-//              WHERE logistic_id = $10;`,
-//              [req.body.name, req.body.desc, req.body.location, req.body.quantity, req.body.status, req.body.logisticImg, req.body.borrowedBy, noDate(req.body.borrowFrom), noDate(req.body.borrowTo), req.body.logisticId]
-//         );
+        const updateReimbursement = await pool.query(
+            `UPDATE reimbursement 
+             SET reimbursement_receipt_ref = $1,
+                 reimbursement_to = $2,
+                 reimbursement_item = $3,
+                 reimbursement_purpose = $4,
+                 reimbursement_cost = $5,
+                 reimbursement_quantity = $6,
+                 reimbursement_remark = $7
+             WHERE reimbursement_id = $8;`,
+             [req.body.receiptRef, req.body.reimburseTo, req.body.item, req.body.purpose, maybe(req.body.cost), req.body.quantity, req.body.remark, req.body.reimbursementId]
+        );
+
+        console.log("wat")
 
 
-//         res.json(updateLogistic);
-//     } catch (err) {
-//         console.error(err.message);
-//         res.status(500).send("Server Error");
-//     }
-// });
+
+        res.json(updateReimbursement);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+
+router.patch("/reimburse", async (req, res) => {
+    try {
+        // console.log(req.body);
+
+        const reimbursing = await pool.query(
+            `UPDATE reimbursement 
+             SET reimbursement_reimbursed = true
+             WHERE reimbursement_id = $1;`,
+             [req.body.reimbursementId]
+        );
+
+
+        res.json(reimbursing);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+
+
 
 
 // Put this bad boy into a loader
@@ -139,29 +163,31 @@ router.get("/", async (req, res) => {
     }
 })
 
-// router.delete("/", async (req, res) => {
-//     try {
-//         console.log(req.body)
-//         if (req.body.url != '') {
-//             const params = {
-//                 Bucket: bucketName,
-//                 Key: req.body.url,
-//             }
-//             const command = new DeleteObjectCommand(params);
-//             await s3.send(command);
-//         }
+router.delete("/", async (req, res) => {
+    try {
+        console.log(req.body)
 
 
-//         await pool.query(
-//             "DELETE FROM logistic WHERE logistic_id = $1", 
-//             [req.body.logisticId]
-//         );
+        if (req.body.url != '') {
+            const params = {
+                Bucket: bucketName,
+                Key: req.body.url,
+            }
+            const command = new DeleteObjectCommand(params);
+            await s3.send(command);
+        }
 
-//         res.send("Image Deleted");
-//     } catch (err) {
-//         console.error(err.message)  ;
-//         res.status(500).send("Server Error")
-//     }
-// })
+
+        await pool.query(
+            "DELETE FROM reimbursement WHERE reimbursement_id = $1", 
+            [req.body.reimbursementId]
+        );
+
+        res.send("Image Deleted");
+    } catch (err) {
+        console.error(err.message)  ;
+        res.status(500).send("Server Error")
+    }
+})
 
 module.exports = router;

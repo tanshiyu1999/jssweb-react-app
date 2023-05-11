@@ -41,6 +41,7 @@ export async function loader() {
   /* -------------------- Loader End -------------------- */
 
   /* -------------------- Action Start -------------------- */
+  // For this to work, have to import it back into App.jsx and import it into the router.
 export async function action({request}) {
     try {
       const data = await request.formData();

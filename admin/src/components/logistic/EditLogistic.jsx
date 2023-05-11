@@ -50,9 +50,9 @@ function EditLogistic() {
   const { name, location, desc, quantity, borrowedBy, status } = textData;
 
   const onChange = (e) => {
-    console.log(e.target.name)
-    console.log(e.target.value)
-    console.log({...textData})
+    // console.log(e.target.name)
+    // console.log(e.target.value)
+    // console.log({...textData})
     setTextData({ ...textData, [e.target.name]: e.target.value })
   }
 

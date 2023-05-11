@@ -7,7 +7,7 @@ import TableView from "./TableView";
 
 function Reimbursement() {
   const reimbursementData = useLoaderData();
-  console.log(reimbursementData)
+  // console.log(reimbursementData)
   return (
       <Box padding={2}>
         <Button component={Link} to="./addReimbursement" variant="contained">Add Reimbursement</Button>
@@ -37,29 +37,39 @@ export async function loader() {
   }
   /* -------------------- Loader End -------------------- */
 
-//   /* -------------------- Action Start -------------------- */
-// export async function action({request}) {
-//     try {
-//       const data = await request.formData();
-//       let intent = data.get('intent');
+  /* -------------------- Action Start -------------------- */
+export async function action({request}) {
 
-//       // Delete is in TableView & GridView
-//       if (intent === 'delete') {
-//         let imgName = data.get('imgName');
-//         const res = await fetch(
-//           "http://localhost:3000/logistic", {
-//               method: "DELETE",
-//               headers: {"Content-Type": "application/json"},
-//               body: JSON.stringify({
-//                 url: data.get('awsName'),
-//                 logisticId: data.get('logisticId')
-//               })
-//           }
-//         );
-//       }
-//     } catch (err) {
-//       console.error(err.message);
-//     }
-//     return null;
-//   }
-//   /* -------------------- Action End -------------------- */
+    try {
+      const data = await request.formData();
+      let intent = data.get('intent');
+
+      if (intent === 'reimburse') {
+        const res = await fetch(
+          "http://localhost:3000/reimbursement/reimburse", {
+              method: "PATCH",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify({
+                reimbursementId: data.get('reimbursement_id')
+              })
+          }
+        );
+      } else if (intent === 'delete') {
+        let imgName = data.get('imgName');
+        const res = await fetch(
+          "http://localhost:3000/reimbursement", {
+              method: "DELETE",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify({
+                url: data.get('awsName'),
+                reimbursementId: data.get('reimbursementId')
+              })
+          }
+        );
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+    return null;
+  }
+  /* -------------------- Action End -------------------- */

@@ -7,6 +7,8 @@ import './App.css'
 import React, { useState, useEffect } from "react"
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { createTheme, ThemeProvider, styled, responsiveFontSizes } from '@mui/material/styles';
+
 
 /* -------------------- Routes Import Start -------------------- */
 import Root from "./routes/root"
@@ -16,6 +18,10 @@ import DashboardRoute from "./routes/dashboard-route"
 import RegisterRoute from "./routes/register-route"
 import SubclubsRoute from "./routes/subclubs-route"
 import EventUpdateRoute from "./routes/event-update-route";
+import LogisticRoute from "./routes/logistic-route"
+import ReimbursementRoute from "./routes/reimbursement-route"
+import SponsorsRoute from "./routes/sponsors-route" 
+
 /* -------------------- Routes Import End -------------------- */
 
 /* -------------------- Subclubs Import Start -------------------- */
@@ -65,13 +71,48 @@ import BorrowLogistic, {
 /* -------------------- Treasury Reimbursement Import Start -------------------- */
 import Reimbursement, {
   loader as reimbursementLoader,
+  action as reimbursementAction,
 } from "./components/reimbursement/Reimbursement";
 import AddReimbursement, {
   action as addReimbursementAction,
 } from "./components/reimbursement/AddReimbursement";
 
+import EditReimbursement, {
+  action as editReimbursementAction,
+  loader as editReimbursementLoader
+} from "./components/reimbursement/EditReimbursement";
 
 /* -------------------- Treasury Reimbursement Import End -------------------- */
+
+
+/* -------------------- Sponsors Import Start -------------------- */
+import AddSponsor, {
+  action as addSponsorAction
+} from "./components/sponsors/AddSponsor"
+
+import Sponsors, {
+  loader as sponsorsLoader,
+} from "./components/sponsors/Sponsors"
+
+import EditSponsor, {
+  action as editSponsorAction,
+} from "./components/sponsors/EditSponsor"
+
+
+/* -------------------- Sponsors Import Start -------------------- */
+
+
+
+/* -------------------- Theme Making Start -------------------- */
+
+const theme = createTheme({
+  typography: {
+    fontSize: 20
+  }
+});
+
+/* -------------------- Theme Making End -------------------- */
+
 
 
 
@@ -203,7 +244,7 @@ function App() {
     },
     {
       path: "logistic",
-      element: <Logistic setAuth={setAuth} />,
+      element: <LogisticRoute setAuth={setAuth} />,
       loader: logisticLoader,
       action: logisticAction,
       children: [
@@ -228,14 +269,36 @@ function App() {
     },
     {
       path: "reimbursement",
-      element: <Reimbursement setAuth={setAuth} />,
+      element: <ReimbursementRoute setAuth={setAuth} />,
       loader: reimbursementLoader,
-      // action: logisticAction,
+      action: reimbursementAction,
       children: [
         {
           path: "addReimbursement",
           element: <AddReimbursement />,
           action: addReimbursementAction,
+        },
+        {
+          path: ":reimbursementId/editReimbursement",
+          element: <EditReimbursement />,
+          action: editReimbursementAction,
+        }
+      ]
+    },
+    {
+      path: "sponsors",
+      element: <SponsorsRoute setAuth={setAuth} />,
+      loader: sponsorsLoader,
+      children: [
+        {
+          path: "addSponsor",
+          element: <AddSponsor />,
+          action: addSponsorAction,
+        },
+        {
+          path: ":sponsorId/editSponsor",
+          element: <EditSponsor />,
+          action: editSponsorAction
         }
       ]
     }
@@ -244,7 +307,9 @@ function App() {
 
   return (
     <div>
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
       <ToastContainer />
     </div>
   )
