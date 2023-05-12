@@ -92,6 +92,7 @@ import AddSponsor, {
 
 import Sponsors, {
   loader as sponsorsLoader,
+  action as sponsorsAction
 } from "./components/sponsors/Sponsors"
 
 import EditSponsor, {
@@ -289,6 +290,7 @@ function App() {
       path: "sponsors",
       element: <SponsorsRoute setAuth={setAuth} />,
       loader: sponsorsLoader,
+      action: sponsorsAction,
       children: [
         {
           path: "addSponsor",

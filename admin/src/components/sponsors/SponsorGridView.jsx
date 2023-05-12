@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Box } from "@mui/system";
 import SponsorGridCard from './SponsorGridCard';
@@ -38,18 +38,55 @@ export default function SponsorGridView({sponsorsData}) {
             />
   }); 
 
+  const goldCard = goldSponsors.map((data) => {
+    return <SponsorGridCard 
+              data={data} 
+              key={data.sponsor_id}
+            />
+  }); 
+
   return (
     <Box 
       sx={{
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         bgcolor: 'pink',
         width: '100%',
         flexWrap: 'wrap'
       
       }}
     >
-      {platinumCard}
+      <Stack>
+        <Typography>Platinum Sponsors</Typography>
+        <Stack
+          sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              bgcolor: 'grey',
+              width: '100%',
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}
+        >
+          {platinumCard}
+        </Stack>
+      </Stack>
+
+      <Stack>
+        <Typography>Gold Sponsors</Typography>
+        <Stack
+          sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              bgcolor: 'red',
+              width: '100%',
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}
+        >
+          {goldCard}
+        </Stack>
+      </Stack>
     </Box>
   );
 }

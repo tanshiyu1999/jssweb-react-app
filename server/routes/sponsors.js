@@ -6,6 +6,8 @@ require("dotenv").config();
 const sharp = require('sharp');
 const maybe = require('../scripts/maybe')
 const noDate = require('../scripts/noDate')
+const isImgUrl = require('../scripts/isImgUrl')
+
 
 const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
@@ -33,14 +35,14 @@ const randomImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex'
 router.post("/", upload.single('image'), async (req, res) => {
     try {
 
-        console.log(req.body)
+        // console.log(req.body)
         if (req.body.image[0] == '') {
             req.body.image = null;
         } else {
             req.body.image = req.body.image[0];
         }
         if (req.body.image) {
-            console.log("here")
+            // console.log("here")
             const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1080, fit:"contain", background: "transparent" }).toBuffer();
             const imageName = randomImageName()
             const params = {
@@ -74,67 +76,44 @@ router.post("/", upload.single('image'), async (req, res) => {
     }
 });
 
-// router.patch("/", upload.single('image'), async (req, res) => {
-//     try {
-//         // console.log(req.body)
-//         if (req.body.image != "") {
-//             const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1980, fit:"contain", background: "transparent" }).toBuffer();
-//             const imageName = req.body.aws_ref;
-//             const params = {
-//                 Bucket: bucketName,
-//                 Key: imageName,
-//                 Body: buffer,
-//                 ContentType: req.file.mimetype
-//             }
-//             const command = new PutObjectCommand(params);
-//             await s3.send(command);
-//         }
+router.patch("/", upload.single('image'), async (req, res) => {
+    try {
+        // console.log(req.body)
+        if (req.body.image != "") {
+            const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1980, fit:"contain", background: "transparent" }).toBuffer();
+            const imageName = req.body.logoAwsRef;
+            const params = {
+                Bucket: bucketName,
+                Key: imageName,
+                Body: buffer,
+                ContentType: req.file.mimetype
+            }
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
+        }
 
 
 
-//         const updateReimbursement = await pool.query(
-//             `UPDATE reimbursement 
-//              SET reimbursement_receipt_ref = $1,
-//                  reimbursement_to = $2,
-//                  reimbursement_item = $3,
-//                  reimbursement_purpose = $4,
-//                  reimbursement_cost = $5,
-//                  reimbursement_quantity = $6,
-//                  reimbursement_remark = $7
-//              WHERE reimbursement_id = $8;`,
-//              [req.body.receiptRef, req.body.reimburseTo, req.body.item, req.body.purpose, maybe(req.body.cost), req.body.quantity, req.body.remark, req.body.reimbursementId]
-//         );
+        const updateSponsorData = await pool.query(
+            `UPDATE sponsors 
+                SET sponsor_tier = $1,
+                    sponsor_logo_aws_ref = $2,
+                    sponsor_name = $3,
+                    sponsor_description = $4,
+                    sponsor_link_text_1 = $5,
+                    sponsor_link_1 = $6
+             WHERE sponsor_id = $7;`,
+             [req.body.sponsorTier, req.body.logoAwsRef, req.body.sponsorName, maybe(req.body.sponsorDesc), maybe(req.body.sponsorLinkName1), maybe(req.body.sponsorUrl1), req.body.sponsorId]
+        );
 
-//         console.log("wat")
-
-
-
-//         res.json(updateReimbursement);
-//     } catch (err) {
-//         console.error(err.message);
-//         res.status(500).send("Server Error");
-//     }
-// });
+        res.json("updatedSponsor");
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
 
 
-// router.patch("/reimburse", async (req, res) => {
-//     try {
-//         // console.log(req.body);
-
-//         const reimbursing = await pool.query(
-//             `UPDATE reimbursement 
-//              SET reimbursement_reimbursed = true
-//              WHERE reimbursement_id = $1;`,
-//              [req.body.reimbursementId]
-//         );
-
-
-//         res.json(reimbursing);
-//     } catch (err) {
-//         console.error(err.message);
-//         res.status(500).send("Server Error");
-//     }
-// });
 
 
 
@@ -167,31 +146,31 @@ router.get("/", async (req, res) => {
     }
 })
 
-// router.delete("/", async (req, res) => {
-//     try {
-//         console.log(req.body)
+router.delete("/", async (req, res) => {
+    try {
+        console.log(req.body)
 
 
-//         if (req.body.url != '') {
-//             const params = {
-//                 Bucket: bucketName,
-//                 Key: req.body.url,
-//             }
-//             const command = new DeleteObjectCommand(params);
-//             await s3.send(command);
-//         }
+        if (req.body.url != '') {
+            const params = {
+                Bucket: bucketName,
+                Key: req.body.url,
+            }
+            const command = new DeleteObjectCommand(params);
+            await s3.send(command);
+        }
 
 
-//         await pool.query(
-//             "DELETE FROM reimbursement WHERE reimbursement_id = $1", 
-//             [req.body.reimbursementId]
-//         );
+        await pool.query(
+            "DELETE FROM sponsors WHERE sponsor_id = $1", 
+            [req.body.sponsorId]
+        );
 
-//         res.send("Image Deleted");
-//     } catch (err) {
-//         console.error(err.message)  ;
-//         res.status(500).send("Server Error")
-//     }
-// })
+        res.send("Image Deleted");
+    } catch (err) {
+        console.error(err.message)  ;
+        res.status(500).send("Server Error")
+    }
+})
 
 module.exports = router;

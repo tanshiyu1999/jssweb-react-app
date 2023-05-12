@@ -11,11 +11,9 @@ export default function SponsorGridCard({data}) {
     const [imageExist, setImageExist] = useState(false);
 
     useEffect(() => {
+        // useEffect act before mounting
         isImage(data.imageUrl).then(value => setImageExist(value));
     });
-
-    // console.log(data)
-
 
     return (
 
@@ -49,7 +47,6 @@ export default function SponsorGridCard({data}) {
                     <input type="text" name="sponsorId" value={data.sponsor_id} className="to-hide" readOnly ></input>
                     <Button type="submit" name="intent" value='delete' color="error" variant="contained">Delete</Button>  
                 </Form>
-                
             </Box>
         </Box>
     );

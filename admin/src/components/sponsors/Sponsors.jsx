@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
 import { useLoaderData, Outlet, Link } from "react-router-dom";
 import SponsorGridView from "./SponsorGridView"
+import isImage from "./script/isImage"
 
 function Sponsors() {
   const sponsorsData = useLoaderData();
+
   return (
       <Box padding={2}>
         <Button component={Link} to="./addSponsor" variant="contained">Add Sponsor</Button>
@@ -37,29 +39,28 @@ export async function loader() {
 /* -------------------- Loader End -------------------- */
 
 /* -------------------- Action Start -------------------- */
-// For this to work, have to import it back into App.jsx and import it into the router.
-// export async function action({request}) {
-//   try {
-//     const data = await request.formData();
-//     let intent = data.get('intent');
+export async function action({request}) {
+  try {
+    const data = await request.formData();
+    let intent = data.get('intent');
 
-//     // Delete is in TableView & GridView
-//     if (intent === 'delete') {
-//       let imgName = data.get('imgName');
-//       const res = await fetch(
-//         "http://localhost:3000/logistic", {
-//             method: "DELETE",
-//             headers: {"Content-Type": "application/json"},
-//             body: JSON.stringify({
-//               url: data.get('awsName'),
-//               logisticId: data.get('logisticId')
-//             })
-//         }
-//       );
-//     }
-//   } catch (err) {
-//     console.error(err.message);
-//   }
-//   return null;
-// }
+    // Delete is in TableView & GridView
+    if (intent === 'delete') {
+      let awsName = data.get('awsName');
+      const res = await fetch(
+        "http://localhost:3000/sponsors", {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+              url: data.get('awsName'),
+              sponsorId: data.get('sponsorId')
+            })
+        }
+      );
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+  return null;
+}
 /* -------------------- Action End -------------------- */

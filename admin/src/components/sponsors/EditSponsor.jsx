@@ -16,12 +16,12 @@ import Select from '@mui/material/Select';
 import { maybe } from './script/maybe'
 
 
-let uploadFile = null;
+let uploadLogo = null;
 
 function EditSponsor() {
   const { state } = useLocation();
   const sponsorsData = state;
-//   console.log(sponsorsData)
+  // console.log(sponsorsData)
 
   if (!sponsorsData) {
     return <Navigate to="/sponsors" replace />;
@@ -89,6 +89,10 @@ function EditSponsor() {
 
             <TextField type={"file"} onChange={handleLogoSelected} name="image" inputProps={{accept:"image/*"}} />
 
+            <input type="text" name="sponsorId" value={sponsorsData.sponsor_id} className="to-hide" readOnly ></input>
+
+            <input type="text" name="logoAwsRef" value={sponsorsData.sponsor_logo_aws_ref} className="to-hide" readOnly ></input>
+
             <Button type="submit" component={Link} to="/sponsors" variant="outlined">Cancel</Button>
             
             <Button type="submit" name="intent" value='update'color="success" variant="contained">Submit</Button>
@@ -108,15 +112,15 @@ export async function action({request}) {
       const data = await request.formData();
       let intent = data.get('intent');
       if (intent === 'update') {
-        console.log("Editting Logistics")
-        if (uploadFile) {data.append("image", uploadFile)}
-        await axios.patch("http://localhost:3000/logistic", 
+        console.log("Editting Sponsor")
+        if (uploadLogo) {data.append("image", uploadLogo)}
+        await axios.patch("http://localhost:3000/sponsors", 
             data, 
             { headers: {'Content-Type': 'multipart/form-data'}}
         )
-        return redirect("/logistic")
+        return redirect("/sponsors")
       } else if (intent === 'cancel') {
-        return redirect("/logistic")
+        return redirect("/sponsors")
       }
     } catch (err) {
       console.error(err.message);

@@ -22,17 +22,13 @@ function AddSponsor() {
   const [file, setFile] = useState();
 
   const [textData, setTextData] = useState({
-    name: "Sponsor's name",
-    description: "Sponsor's description",
-    linkName1: 'First Link Name',
-    linkUrl1: "First Link Url",
-    linkName2: 'Second Link Name',
-    linkUrl2: "Second Link Url",    
-    linkName3: 'Third Link Name',
-    linkUrl3: "Third Link Url",
+    sponsorName: "Sponsor's name",
+    sponsorDesc: "Sponsor's description",
+    sponsorLinkName1: 'First Link Name',
+    sponsorUrl1: "First Link Url",
   });
 
-  const { name, description, linkName1, linkUrl1, linkName2, linkUrl2, linkName3, linkUrl3 } = textData;
+  const { sponsorName, sponsorDesc, sponsorLinkName1, sponsorUrl1} = textData;
 
 
   const onChange = (e) => {
@@ -74,15 +70,16 @@ function AddSponsor() {
                 </Select>
             </FormControl>
 
-            <TextField type="text" name="sponsorName" value={name} onChange={e => onChange(e)} label='Sponsor Name' variant="outlined" />
+            <TextField type="text" name="sponsorName" value={sponsorName} onChange={e => onChange(e)} label='Sponsor Name' variant="outlined" />
         
-            <TextField type="text" name="sponsorDesc" value={description} onChange={e => onChange(e)} label='Sponsor Description' variant="outlined" />
+            <TextField type="text" name="sponsorDesc" value={sponsorDesc} onChange={e => onChange(e)} label='Sponsor Description' variant="outlined" />
             
-            <TextField type="text" name="sponsorLinkName1" value={linkName1} onChange={e => onChange(e)} label='Sponsor Link' variant="outlined" />
+            <TextField type="text" name="sponsorLinkName1" value={sponsorLinkName1} onChange={e => onChange(e)} label='Sponsor Link' variant="outlined" />
 
-            <TextField type="text" name="sponsorUrl1" value={linkUrl1} onChange={e => onChange(e)} label='Sponsor URL 1' variant="outlined" />
+            <TextField type="text" name="sponsorUrl1" value={sponsorUrl1} onChange={e => onChange(e)} label='Sponsor URL 1' variant="outlined" />
 
             <TextField type={"file"} onChange={handleLogoSelected} name="image" inputProps={{accept:"image/*"}} required />
+
 
             <Button type="submit" component={Link} to="/sponsors" variant="outlined">Cancel</Button>
             
