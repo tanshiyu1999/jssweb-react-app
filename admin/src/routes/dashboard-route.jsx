@@ -40,7 +40,6 @@ function DashboardRoute(props) {
 
     return (
         <div className="login">
-            <Navbar />
             <p>DASHBOARD {name}</p>
 
             <Link to="/subclubs">Go to Subclub</Link>

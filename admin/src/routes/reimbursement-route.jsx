@@ -11,7 +11,6 @@ import Reimbursement from "../components/reimbursement/Reimbursement"
 function ReimbursementRoute(props) {
     return (
         <div className="">
-            <Navbar />
             <h1>Reimbursement</h1>
             <Reimbursement />
         </div>

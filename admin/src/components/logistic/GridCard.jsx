@@ -6,7 +6,7 @@ import { Box } from "@mui/system";
 import { Form } from 'react-router-dom';
 
 export default function GridCard({data, notFound}) {
-    console.log(data)
+    // console.log(data)
 
     
     return (

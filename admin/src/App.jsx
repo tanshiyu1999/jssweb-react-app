@@ -1,13 +1,20 @@
 import {
   createBrowserRouter,
   RouterProvider,
-  redirect
+  redirect,
+  Route
 } from "react-router-dom";
-import './App.css'
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { createTheme, ThemeProvider, styled, responsiveFontSizes } from '@mui/material/styles';
+import { Box } from "@mui/material";
+
+
+/* -------------------- Importing Theme Relevant Library Start -------------------- */
+import { useSelector } from "react-redux"; 
+import { themeSettings } from "./theme.js";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+/* -------------------- Importing Theme Relevant Library End -------------------- */
 
 
 /* -------------------- Routes Import Start -------------------- */
@@ -100,24 +107,16 @@ import EditSponsor, {
 } from "./components/sponsors/EditSponsor"
 
 
-/* -------------------- Sponsors Import Start -------------------- */
-
-
-
-/* -------------------- Theme Making Start -------------------- */
-
-const theme = createTheme({
-  typography: {
-    fontSize: 20
-  }
-});
-
-/* -------------------- Theme Making End -------------------- */
-
+/* -------------------- Sponsors Import End -------------------- */
 
 
 
 function App() {
+  const mode = useSelector((state) => state.global.mode);
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
+
+
 
   /* -------------------- Authentication Start -------------------- */
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -193,126 +192,129 @@ function App() {
       path: "/",
       element: <Root />,
       errorElement: <ErrorPage />,
-    
-    },
-    {
-      path: "login",
-      element: <LoginRoute setAuth={setAuth} />,
-      loader: loginLoader,
-    },
-    {
-      path: "dashboard",
-      element: <DashboardRoute setAuth={setAuth} />,
-      loader: dashboardLoader,
-    },
-    { 
-      path: "register",
-      element: <RegisterRoute setAuth={setAuth} />,
-      loader: registerLoader,
-    },
-    { 
-      path: "subclubs",
-      element: <SubclubsRoute setAuth={setAuth} />,
-      loader: subclubsLoader,
-      action: subclubsAction,
       children: [
         {
-          path: ":subclubId/edit",
-          element: <EditSubclub />,
-          loader: editSubclubLoader,
-          action: editSubclubAction,
+          path: "login",
+          element: <LoginRoute setAuth={setAuth} />,
+          loader: loginLoader,
+        },
+        {
+          path: "dashboard",
+          element: <DashboardRoute setAuth={setAuth} />,
+          loader: dashboardLoader,
+        },
+        { 
+          path: "register",
+          element: <RegisterRoute setAuth={setAuth} />,
+          loader: registerLoader,
+        },
+        { 
+          path: "subclubs",
+          element: <SubclubsRoute setAuth={setAuth} />,
+          loader: subclubsLoader,
+          action: subclubsAction,
+          children: [
+            {
+              path: ":subclubId/edit",
+              element: <EditSubclub />,
+              loader: editSubclubLoader,
+              action: editSubclubAction,
+            }
+          ]
+        },
+        { 
+          path: "eventupdate",
+          element: <EventUpdateRoute setAuth={setAuth} />,
+          loader: eventUpdateLoader,
+          action: eventUpdateAction,
+          children: [
+            {
+              path: ":eventId/edit",
+              element: <EditEvent />,
+              loader: editEventLoader,
+              action: editEventAction
+            },
+            {
+              path: "addevent",
+              element: <AddEvent />,
+              action: addEventAction,
+            }
+          ]
+        },
+        {
+          path: "logistic",
+          element: <LogisticRoute setAuth={setAuth} />,
+          loader: logisticLoader,
+          action: logisticAction,
+          children: [
+            {
+              path: "addlogistic",
+              element: <AddLogistic />,
+              action: addLogisticAction
+            },
+            {
+              path: ":logisticId/editLogistic",
+              element: <EditLogistic />,
+              action: editLogisticAction,
+              loader: editLogisticLoader
+            },
+            {
+              path: ":borrowLogisticId/borrowLogistic",
+              element: <BorrowLogistic />,
+              loader: borrowLogisticLoader,
+              action: borrowLogisticAction
+            },
+          ]
+        },
+        {
+          path: "reimbursement",
+          element: <ReimbursementRoute setAuth={setAuth} />,
+          loader: reimbursementLoader,
+          action: reimbursementAction,
+          children: [
+            {
+              path: "addReimbursement",
+              element: <AddReimbursement />,
+              action: addReimbursementAction,
+            },
+            {
+              path: ":reimbursementId/editReimbursement",
+              element: <EditReimbursement />,
+              action: editReimbursementAction,
+            }
+          ]
+        },
+        {
+          path: "sponsors",
+          element: <SponsorsRoute setAuth={setAuth} />,
+          loader: sponsorsLoader,
+          action: sponsorsAction,
+          children: [
+            {
+              path: "addSponsor",
+              element: <AddSponsor />,
+              action: addSponsorAction,
+            },
+            {
+              path: ":sponsorId/editSponsor",
+              element: <EditSponsor />,
+              action: editSponsorAction
+            }
+          ]
         }
       ]
     },
-    { 
-      path: "eventupdate",
-      element: <EventUpdateRoute setAuth={setAuth} />,
-      loader: eventUpdateLoader,
-      action: eventUpdateAction,
-      children: [
-        {
-          path: ":eventId/edit",
-          element: <EditEvent />,
-          loader: editEventLoader,
-          action: editEventAction
-        },
-        {
-          path: "addevent",
-          element: <AddEvent />,
-          action: addEventAction,
-        }
-      ]
-    },
-    {
-      path: "logistic",
-      element: <LogisticRoute setAuth={setAuth} />,
-      loader: logisticLoader,
-      action: logisticAction,
-      children: [
-        {
-          path: "addlogistic",
-          element: <AddLogistic />,
-          action: addLogisticAction
-        },
-        {
-          path: ":logisticId/editLogistic",
-          element: <EditLogistic />,
-          action: editLogisticAction,
-          loader: editLogisticLoader
-        },
-        {
-          path: ":borrowLogisticId/borrowLogistic",
-          element: <BorrowLogistic />,
-          loader: borrowLogisticLoader,
-          action: borrowLogisticAction
-        },
-      ]
-    },
-    {
-      path: "reimbursement",
-      element: <ReimbursementRoute setAuth={setAuth} />,
-      loader: reimbursementLoader,
-      action: reimbursementAction,
-      children: [
-        {
-          path: "addReimbursement",
-          element: <AddReimbursement />,
-          action: addReimbursementAction,
-        },
-        {
-          path: ":reimbursementId/editReimbursement",
-          element: <EditReimbursement />,
-          action: editReimbursementAction,
-        }
-      ]
-    },
-    {
-      path: "sponsors",
-      element: <SponsorsRoute setAuth={setAuth} />,
-      loader: sponsorsLoader,
-      action: sponsorsAction,
-      children: [
-        {
-          path: "addSponsor",
-          element: <AddSponsor />,
-          action: addSponsorAction,
-        },
-        {
-          path: ":sponsorId/editSponsor",
-          element: <EditSponsor />,
-          action: editSponsorAction
-        }
-      ]
-    }
   ]);
   /* -------------------- Router End -------------------- */
 
+  // console.log(theme)
+  // console.log(theme.palette.background.alt)
   return (
-    <div>
+    <div className="app">
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <RouterProvider router={router} />
       </ThemeProvider>
-      <ToastContainer />
     </div>
   )
 }

@@ -54,7 +54,6 @@ function RegisterRoute(props) {
 
     return (
         <Fragment>
-            <Navbar />
             <h1>Register</h1>
             <form onSubmit={onSubmitForm}>
                 <input 

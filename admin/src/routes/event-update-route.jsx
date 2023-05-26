@@ -11,7 +11,6 @@ import EventUpdate from "../components/eventUpdate/EventUpdate";
 function EventUpdateRoute(props) {
     return (
         <div className="ww">
-            <Navbar />
             <h1>Events</h1>
             <EventUpdate />
         </div>

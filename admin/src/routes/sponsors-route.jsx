@@ -10,7 +10,6 @@ import Sponsors from "../components//sponsors/Sponsors"
 function SponsorsRoute(props) {
     return (
         <div className="login">
-            <Navbar />
             <h1>Sponsors</h1>
             <Sponsors />
         </div>

@@ -11,7 +11,6 @@ import Logistic from "../components/logistic/Logistic"
 function LogisticRoute(props) {
     return (
         <div className="ww">
-            <Navbar />
             <h1>Logistic</h1>
             <Logistic />
         </div>

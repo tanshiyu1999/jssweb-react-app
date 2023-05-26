@@ -10,7 +10,6 @@ import Subclubs from "../components/subclubs/Subclubs"
 function SubclubsRoute(props) {
     return (
         <div className="login">
-            <Navbar />
             <h1>Subclubs</h1>
             <Subclubs />
         </div>

@@ -53,7 +53,6 @@ function LoginRoute(props) {
 
     return (
         <div className="login">
-            <Navbar />
             <h1>Login</h1>
             <form onSubmit={onSubmitForm}>
                 <input 

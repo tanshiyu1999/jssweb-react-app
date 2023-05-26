@@ -1,93 +1,104 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
-import { SearchIconWrapper, Search, StyledInputBase } from './components/NavbarSearch';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { AppBar, IconButton, InputBase, Toolbar, useTheme, Button, Box, Typography, Menu, MenuItem } from '@mui/material';
+import { LightModeOutlined, DarkModeOutlined, Menu as MenuIcon, Search, SettingsOutlined, ArrowDropDownOutlined } from '@mui/icons-material'
+import { setMode } from "../../state/index.js";
+import FlexBetween from '../reusable/FlexBetween';
 
 
+export default function Navbar({
+  user,
+  isSidebarOpen,
+  setIsSidebarOpen,
+}) {
+  // Importing Global State
+  const dispatch = useDispatch();
 
-export default function ButtonAppBar() {
+  // Importing Theme
+  const theme = useTheme();
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // For Dropdown Menu
+  const [anchorEl, setAnchorEl] = useState(null);
+  const isOpen = Boolean(anchorEl);
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar variant="dense">
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
+    <AppBar
+      sx={{
+        position: "static",
+        background: "none",
+        boxShadow: "none",
+      }}
+    >
+      <Toolbar sx={{ justifyContent: "space-between"}}>
+        {/* LEFT SIDE */}
+        <FlexBetween>
+          <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: 'none', sm: 'block' } }}
+          {/* Below is the Search Box */}
+          <FlexBetween
+            backgroundColor={theme.palette.background.alt}
+            borderRadius="9px"
+            gap="3rem"
+            p="0.1rem 1.5rem"
           >
-            JSS
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+            <InputBase placeholder="Search..." />
+            <IconButton>
+              <Search />
+            </IconButton>
+          </FlexBetween>
+        </FlexBetween>
 
-          <div>
-            <Button
-              id="basic-button"
-              aria-controls={open ? 'basic-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
-              sx={{ 
-                color: 'secondary.main',
-                bgcolor: 'success.main'
-              }}
-            >
-              Dashboard
+        {/* RIGHT SIDE */}
+        <FlexBetween gap="1.5rem">
+          <IconButton onClick={() => dispatch(setMode())}>
+            {theme.palette.mode === 'dark' ? (
+              <DarkModeOutlined sx={{ fontSize: "25px"}} />
+            ) : (
+              <LightModeOutlined sx={{ fontSize: "25px"}} />
+            )}
+          </IconButton>
+          <IconButton>
+            <SettingsOutlined sx={{ fontSize: "25px"}} />
+          </IconButton>
+
+          <FlexBetween>
+            <Button onClick={handleClick} sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", textTransform: "none", gap: "1rem"}}>
+              <Box
+                component="img"
+                alt="profile"
+                src="http://placekitten.com/200/300"
+                height="32px"
+                width="32px"
+                borderRadius="50%"
+                // objectFit crops the image to fit
+                sx={{ objectFit: "cover"}}
+              />
+              <Box textAlign="left">
+                <Typography fontWeight="bold" fontSize="0.85rem" sx={{ color: theme.palette.secondary[100]}}>
+                  {/* {user.name} */}
+                </Typography>
+                <Typography fontSize="0.75rem" sx={{ color: theme.palette.secondary[200]}}>
+                  {/* {user.occupation} */}
+                </Typography>
+              </Box>
+              <ArrowDropDownOutlined
+                sx={{ color: theme.palette.secondary[300], fontSize: "25px"}}
+              />
             </Button>
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button',
-              }}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+            {/* The menu is in the MUI documentation: https://mui.com/material-ui/react-popover/ */}
+            <Menu anchorEl={anchorEl} open={isOpen} onClose={handleClose} anchorOrigin={{ vertical: "bottom", horizontal: "center"}}>
+              <MenuItem onClick={handleClose}>Log Out</MenuItem>
             </Menu>
-          </div>
+          </FlexBetween>
 
-        </Toolbar>
-      </AppBar>
-    </Box>
+        </FlexBetween>
+      </Toolbar>
+
+    </AppBar>
+
   );
 }
