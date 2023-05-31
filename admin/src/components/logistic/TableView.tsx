@@ -8,15 +8,19 @@ import {
   GridToolbarContainer,
 } from '@mui/x-data-grid';
 import { addIndex } from './script/addIndex';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { Link, Form } from 'react-router-dom';
-import { Box } from '@mui/system';
+import { Box, maxWidth } from '@mui/system';
+import Tooltip from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+
 
 
 export default function TableView({logisticData}) {
 
   addIndex(logisticData);
-  // console.log(logisticData)
+  console.log(logisticData)
 
 
   function TableToolBar() {
@@ -50,7 +54,22 @@ export default function TableView({logisticData}) {
         </Button>
       </Form>
     )},
-    { field: 'logistic_name', headerName: 'Item', width: 150 },
+    { field: 'logistic_name', headerName: 'Item', width: 150, renderCell: (params) => (
+      <Tooltip 
+        title={
+          <Box
+            component="img"
+            sx={{
+              height: 285,
+            }}
+            alt={`${logisticData[params.id].logistic_name} image`}
+            src={logisticData[params.id].imageUrl}
+          />
+        }
+      >
+        <Typography>{logisticData[params.id].logistic_name}</Typography>
+      </Tooltip>
+    )},
     { field: 'logistic_quantity', headerName: 'Quantity', width: 150 },
     { field: 'logistic_description', headerName: 'Description', width: 150 },
     { field: 'logistic_location', headerName: 'Location', width: 150, editable: true},
@@ -65,6 +84,9 @@ export default function TableView({logisticData}) {
         rows={rows} 
         columns={columns} 
         slots={{ toolbar: TableToolBar }}
+        sx={{
+          width: "100%",
+        }}
       />
     </>
   );

@@ -28,8 +28,13 @@ import EventUpdateRoute from "./routes/event-update-route";
 import LogisticRoute from "./routes/logistic-route"
 import ReimbursementRoute from "./routes/reimbursement-route"
 import SponsorsRoute from "./routes/sponsors-route" 
+import AdminRoute from "./routes/admin-route.jsx"
 
 /* -------------------- Routes Import End -------------------- */
+
+/* -------------------- Admin Import Start -------------------- */
+/* -------------------- Admin Import End -------------------- */
+
 
 /* -------------------- Subclubs Import Start -------------------- */
 import { 
@@ -193,6 +198,10 @@ function App() {
       element: <Root />,
       errorElement: <ErrorPage />,
       children: [
+        {
+          path: "admin",
+          element: <AdminRoute sethAuth={setAuth} />,
+        },
         {
           path: "login",
           element: <LoginRoute setAuth={setAuth} />,

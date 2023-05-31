@@ -9,12 +9,11 @@ import Logistic from "../components/logistic/Logistic"
 
 
 function LogisticRoute(props) {
-    return (
-        <div className="ww">
-            <h1>Logistic</h1>
-            <Logistic />
-        </div>
-    );
+  return (
+    <>
+        <Logistic />
+    </>
+  );
 }
 
 export default LogisticRoute

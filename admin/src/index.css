@@ -9,23 +9,23 @@ body,
   font-family: "Inter", sans-serif;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 10px;
-}
+} */
 
 /* Track - means the space behind the scrollbar */
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
   background: #7a7f9d;
-}
+} */
 
 /* Handle - the scrollbar itself */
-::-webkit-scrollbar-thumb {
+/* ::-webkit-scrollbar-thumb {
   background: #21295c;
-}
+} */
 
 /* Handle on Hover - the scrollbar when it gets dragged around */
-::-webkit-scrollbar-track:hover {
+/* ::-webkit-scrollbar-track:hover {
   background: #21295c;
-}
+} */
 
 

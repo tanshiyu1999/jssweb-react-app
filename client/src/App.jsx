@@ -11,7 +11,13 @@ import SignUp from "/src/components/signUp/SignUp.jsx"
 function App() {
   return (
     <div className="App">
-      <SignUp />
+      {/* <SignUp /> */}
+      <Navbar />
+      <Landing />
+      <Event />
+      <Sponsor />
+      <SubClub />
+      
     </div>
   )
 }

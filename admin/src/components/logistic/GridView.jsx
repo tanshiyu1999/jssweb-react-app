@@ -1,43 +1,43 @@
 import * as React from 'react';
 import { addIndex } from './script/addIndex';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Box } from "@mui/system";
 import GridCard from './GridCard';
 import placeholder from '../../assets/placeholder.png'
 
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+
 export default function GridView({logisticData}) {
 
   addIndex(logisticData);
+  console.log(logisticData)
 
-
-  const listItems = logisticData.map((data) => {
-
-    return <GridCard 
-              data={data} 
-              key={data.logistic_id} 
-              notFound={placeholder}
-            />
-  }
-    
-  ); 
-
-  
-
-  
   return (
-    <Box 
+    <ImageList 
+      cols={4}
+      gap={10}
       sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        bgcolor: 'green',
-        width: '100%',
-        flexWrap: 'wrap'
-      
-      }}
-    >
-      {listItems}
-    </Box>
+        bgcolor:"pink",
+        width: "100%",
+    }}>
+      {logisticData.map((data) => (
+        <ImageListItem key={data.logistic_id}>
+          <img
+            src={data.imageUrl ? data.imageUrl : placeholder}
+            alt={`${data.logistic_name} image.`}
+            loading="lazy"
+          />
+          <ImageListItemBar
+            title={<Typography>Name: {data.logistic_name}</Typography>}
+            subtitle={<Typography>Status: {data.logistic_status}</Typography>}
+            position="below"
+          />
+        </ImageListItem>
+      ))}
+    </ImageList>
   );
 }
 

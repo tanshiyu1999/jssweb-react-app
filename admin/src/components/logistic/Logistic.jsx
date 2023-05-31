@@ -1,22 +1,51 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import TableView from "./TableView";
 import AddLogistic from "./AddLogistic";
-import { Box } from "@mui/system";
-import { Button } from "@mui/material";
+import { Box, Stack } from "@mui/system";
+import { Button, Typography } from "@mui/material";
 import { useLoaderData, Outlet, Link } from "react-router-dom";
 import GridView from "./GridView";
+import Switch from '@mui/material/Switch';
+
+
 
 
 function Logistic() {
   const logisticData = useLoaderData();
-  // console.log(logisticData)
+
+  const [isGalleryView, setisGalleryView] = React.useState(false);
+
+  const updateisGalleryView = (event) => {
+    setisGalleryView(event.target.checked);
+  };
+
+  // console.log("updated")
+
   return (
-      <Box padding={2}>
-          <Button component={Link} to="./addlogistic" variant="contained">Add Logistics</Button>
-          <Outlet />
-          <TableView logisticData={logisticData} />
-          <GridView logisticData={logisticData} />
-      </Box>
+    <Box padding={2} sx={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    }}>
+      <Typography variant="h1" sx={{m:1}}>Logistic</Typography>      
+      <Stack sx={{m:1}} display="flex" flexDirection="row" alignItems="center">
+        <Typography>Table View</Typography>
+        <Switch
+          checked={isGalleryView}
+          onChange={updateisGalleryView}
+        />
+        <Typography>Gallery View</Typography>
+      </Stack>
+      <Button sx={{m:1}} component={Link} to="./addlogistic" variant="contained">Add Logistics</Button>
+      <Outlet />
+      {
+        isGalleryView 
+          ? <GridView logisticData={logisticData} /> 
+          : <TableView logisticData={logisticData} />
+      }
+      
+      
+    </Box>
   )
 }
 

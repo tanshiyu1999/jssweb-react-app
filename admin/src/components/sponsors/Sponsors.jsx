@@ -1,16 +1,27 @@
 import { useState, useEffect } from "react";
 import { Box } from "@mui/system";
-import { Button } from "@mui/material";
+import { Button, Divider, TextField, Typography } from "@mui/material";
 import { useLoaderData, Outlet, Link } from "react-router-dom";
 import SponsorGridView from "./SponsorGridView"
 import isImage from "./script/isImage"
 
+
 function Sponsors() {
   const sponsorsData = useLoaderData();
 
+
   return (
-      <Box padding={2}>
-        <Button component={Link} to="./addSponsor" variant="contained">Add Sponsor</Button>
+      <Box 
+        padding={2} 
+        display="flex" 
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography variant="h1" sx={{ m: 5}}>Sponsors</Typography>
+        <Button sx={{width: 200}} component={Link} to="./addSponsor" variant="contained">Add Sponsor</Button>
+        <Divider />
+
         <Outlet />
         <SponsorGridView sponsorsData={sponsorsData} />
       </Box>

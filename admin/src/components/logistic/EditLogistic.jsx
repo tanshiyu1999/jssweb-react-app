@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
-import './Logistic.css'
 import { 
   Form, 
   Outlet, 
@@ -20,7 +19,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { maybe } from './script/maybe';
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 let uploadFile = null;
@@ -72,60 +75,85 @@ function EditLogistic() {
     setBorrowTo(new Date().toISOString(newValue.$d).slice(0,10));
   };
 
-  // useEffect(() => {
-  //   setTextData(logisticData)
-  // }, logisticData)
+  const [open, setOpen] = React.useState(true);
+
+
+  const handleClose = () => {
+    setOpen(false)
+  };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (open == false) {
+      navigate("/logistic");
+    }
+  }, [open]);
+
+
 
   return (
-    <Box sx={{bgcolor: "pink"}}>
-      <Form method="post" style={{width:650}} className="form-submit-input">
-        <TextField type="text" name="name" value={name} onChange={e => onChange(e)} label="Name" variant="outlined" />
-        <TextField type="text" name="location" value={location} onChange={e => onChange(e)} label='Location' variant="outlined" />  
-        <TextField type="number" name="quantity" value={quantity} onChange={e => onChange(e)} label='Quantity' variant="outlined" />
-        <TextField type="text" name="desc" value={desc} onChange={e => onChange(e)} label='Description' variant="outlined" multiline rows={4} />
-        <Button variant="contained" component="label">
-            Change Img
-            <span hidden>
-                <input onChange={fileSelected} type="file" name="image" accept="image/*" />
-            </span>
-        </Button>
-        <FormControl fullWidth>
-          <InputLabel id="status-type-select-label">Status</InputLabel>
-          <Select labelId="status-type-select-label" id="status-type-select" name="status" value={status} label="Status Type" onChange={onChange} required>
-            <MenuItem value='Available'>Available</MenuItem>
-            <MenuItem value='Loaned Out'>Loaned Out</MenuItem>
-          </Select>
-        </FormControl>
+    <Dialog 
+      open={open} 
+      onClose={handleClose}
+      fullWidth={true}
+    >
+      <DialogTitle display="flex" justifyContent="center">Add Logistic</DialogTitle>
+      <DialogContent>
+        <Box sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}>
+          <Form method="post" className="form-submit-input">
+            <TextField type="text" name="name" value={name} onChange={e => onChange(e)} label="Name" variant="outlined" />
+            <TextField type="text" name="location" value={location} onChange={e => onChange(e)} label='Location' variant="outlined" />  
+            <TextField type="number" name="quantity" value={quantity} onChange={e => onChange(e)} label='Quantity' variant="outlined" />
+            <TextField type="text" name="desc" value={desc} onChange={e => onChange(e)} label='Description' variant="outlined" multiline rows={4} />
+            <Button variant="contained" component="label">
+                Change Img
+                <span hidden>
+                    <input onChange={fileSelected} type="file" name="image" accept="image/*" />
+                </span>
+            </Button>
+            <FormControl fullWidth>
+              <InputLabel id="status-type-select-label">Status</InputLabel>
+              <Select labelId="status-type-select-label" id="status-type-select" name="status" value={status} label="Status Type" onChange={onChange} required>
+                <MenuItem value='Available'>Available</MenuItem>
+                <MenuItem value='Loaned Out'>Loaned Out</MenuItem>
+              </Select>
+            </FormControl>
 
-        <TextField type="text" name="borrowedBy" value={borrowedBy} onChange={e => onChange(e)} label='Borrowed By' variant="outlined" />
+            <TextField type="text" name="borrowedBy" value={borrowedBy} onChange={e => onChange(e)} label='Borrowed By' variant="outlined" />
 
 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <MobileDatePicker
-            label="Borrow From"
-            inputFormat="DD/MM/YYYY"
-            value={borrowFrom}
-            onChange={handleBorrowForm}
-            renderInput={(params) => <TextField {...params} error={false} />}
-          />
-          <MobileDatePicker
-            label="Borrow To"
-            inputFormat="DD/MM/YYYY"
-            value={borrowTo}
-            onChange={handleBorrowTo}
-            renderInput={(params) => <TextField {...params} error={false} />}
-          />
-        </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <MobileDatePicker
+                label="Borrow From"
+                inputFormat="DD/MM/YYYY"
+                value={borrowFrom}
+                onChange={handleBorrowForm}
+                renderInput={(params) => <TextField {...params} error={false} />}
+              />
+              <MobileDatePicker
+                label="Borrow To"
+                inputFormat="DD/MM/YYYY"
+                value={borrowTo}
+                onChange={handleBorrowTo}
+                renderInput={(params) => <TextField {...params} error={false} />}
+              />
+            </LocalizationProvider>
 
-        <input type="text" name="borrowTo" value={borrowTo} className="to-hide" readOnly ></input>
-        <input type="text" name="borrowFrom" value={borrowFrom} className="to-hide" readOnly ></input>
-        <input type="text" name="logisticId" value={logisticData.logistic_id} className="to-hide" readOnly ></input>
-        <input type="text" name="logisticImg" value={logisticData.logistic_img} className="to-hide" readOnly ></input>
+            <input type="text" name="borrowTo" value={borrowTo} className="to-hide" readOnly ></input>
+            <input type="text" name="borrowFrom" value={borrowFrom} className="to-hide" readOnly ></input>
+            <input type="text" name="logisticId" value={logisticData.logistic_id} className="to-hide" readOnly ></input>
+            <input type="text" name="logisticImg" value={logisticData.logistic_img} className="to-hide" readOnly ></input>
 
-        <Button type="submit" component={Link} to="/logistic" variant="outlined">Cancel</Button>
-        <Button type="submit" name="intent" value='update'color="success" variant="contained">Submit</Button>
-      </Form>
-    </Box>
+            <Button type="submit" component={Link} to="/logistic" variant="outlined">Cancel</Button>
+            <Button type="submit" name="intent" value='update'color="success" variant="contained">Submit</Button>
+          </Form>
+        </Box>
+      </DialogContent>
+    </Dialog>
     );
 }
 

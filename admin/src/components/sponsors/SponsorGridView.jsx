@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 import { Box } from "@mui/system";
 import SponsorGridCard from './SponsorGridCard';
 import placeholder from '../../assets/placeholder.png'
+import { useTheme } from '@emotion/react';
 
 export default function SponsorGridView({sponsorsData}) {
 
   // console.log(sponsorsData)
+
+  const theme = useTheme();
 
   let silverSponsors = [];
   let goldSponsors = [];
@@ -29,12 +32,12 @@ export default function SponsorGridView({sponsorsData}) {
     }
   })
 
-  // console.log(platinumSponsors)
 
   const platinumCard = platinumSponsors.map((data) => {
     return <SponsorGridCard 
               data={data} 
               key={data.sponsor_id}
+              theme={theme}
             />
   }); 
 
@@ -42,6 +45,14 @@ export default function SponsorGridView({sponsorsData}) {
     return <SponsorGridCard 
               data={data} 
               key={data.sponsor_id}
+              theme={theme}
+            />
+  }); 
+  const silverCard = silverSponsors.map((data) => {
+    return <SponsorGridCard 
+              data={data} 
+              key={data.sponsor_id}
+              theme={theme}
             />
   }); 
 
@@ -50,43 +61,69 @@ export default function SponsorGridView({sponsorsData}) {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        bgcolor: 'pink',
         width: '100%',
         flexWrap: 'wrap'
-      
       }}
     >
-      <Stack>
-        <Typography>Platinum Sponsors</Typography>
-        <Stack
-          sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              bgcolor: 'grey',
-              width: '100%',
-              flexWrap: 'wrap',
-              justifyContent: 'center'
-            }}
-        >
-          {platinumCard}
+      { platinumCard[0] != null &&
+        <Stack sx={{
+          m: 3,
+        }}>
+          <Typography variant="h1" align="center">Platinum Sponsors</Typography>
+          <Stack
+            sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                flexWrap: 'wrap',
+                justifyContent: 'center'
+              }}
+          >
+            {platinumCard}
+          </Stack>
         </Stack>
-      </Stack>
+      }
 
-      <Stack>
-        <Typography>Gold Sponsors</Typography>
-        <Stack
-          sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              bgcolor: 'red',
-              width: '100%',
-              flexWrap: 'wrap',
-              justifyContent: 'center'
-            }}
-        >
-          {goldCard}
+
+      { goldCard[0] != null &&
+        <Stack sx={{
+          m: 3,
+        }}>
+          <Typography variant="h1" align="center">Gold Sponsors</Typography>
+          <Stack
+            sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+              }}
+          >
+            {goldCard}
+          </Stack>
         </Stack>
-      </Stack>
+      }
+
+
+      { silverCard[0] != null &&
+        <Stack sx={{
+          m: 3,
+        }}>
+          <Typography variant="h1" align="center">Silver Sponsors</Typography>
+          <Stack
+            sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                flexWrap: 'wrap',
+                justifyContent: 'center'
+              }}
+          >
+            {silverCard}
+          </Stack>
+        </Stack>
+      }
+
     </Box>
   );
 }

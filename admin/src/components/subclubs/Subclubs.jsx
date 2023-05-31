@@ -2,13 +2,19 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios'
 import './Subclubs.css'
 import SubclubItem from "./SubclubItem"
-import { useLoaderData } from "react-router-dom"
+import { useLoaderData, useNavigate, redirect } from "react-router-dom"
 import { 
   Form, 
   Outlet, 
   Link 
 } from "react-router-dom"
-import { TextField, Input, Button } from '@mui/material';
+import { TextField, Input, Button, Box } from '@mui/material';
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 
@@ -45,31 +51,58 @@ function Subclubs() {
     return <SubclubItem className="subclub-item" key={data.subclub_id} name={data.subclub_name} desc={data.subclub_desc} url={data.imageUrl} cluburl={data.subclub_url} imgName={data.subclub_img} />
   });
 
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    console.log()
+    setOpen(false);
+  };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (open == false) {
+      navigate("/subclubs");
+    }
+  }, [open]);
+
   
 
   return (
-    <div className="subclub-route-container">
-      <Form method="post" style={{width:650}} className="form-submit-input">
-        <TextField  type="text" name="name" value={name} onChange={e => onChange(e)} label="Subclub Name" variant="outlined" />
-        <TextField type="text" name="url" value={url} onChange={e => onChange(e)} label='Subclub URL' variant="outlined" />
-        <TextField type="text" name="desc" value={desc} onChange={e => onChange(e)} label='Description' variant="outlined" multiline rows={4} />
+    <Box>
+      <Button variant="contained" onClick={handleClickOpen}>
+        Add a subclub
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Add a Subclub</DialogTitle>
+        <DialogContent>
+          <Form method="post" style={{width:650}} className="form-submit-input">
+            <TextField  type="text" name="name" value={name} onChange={e => onChange(e)} label="Subclub Name" variant="outlined" />
+            <TextField type="text" name="url" value={url} onChange={e => onChange(e)} label='Subclub URL' variant="outlined" />
+            <TextField type="text" name="desc" value={desc} onChange={e => onChange(e)} label='Description' variant="outlined" multiline rows={4} />
 
-        {/* <Button variant="contained" component="label">
-          Upload
-        </Button> */}
+            {/* <Button variant="contained" component="label">
+              Upload
+            </Button> */}
 
-        <input hidden label='Subclub Image' onChange={fileSelected} type="file" name="image" accept="image/*" required />
+            <input hidden label='Subclub Image' onChange={fileSelected} type="file" name="image" accept="image/*" required />
 
-        <Button type="submit" name="intent" value='add' color="success" variant="contained">
-          Submit
-        </Button>
-      </Form>
+            <Button type="submit" name="intent" value='add' color="success" variant="contained">
+              Submit
+            </Button>
+          </Form>
+        </DialogContent>
+      </Dialog>
 
       <div className="subclub-container">
         {listItems}
       </div>
       <Outlet />
-    </div>
+    </Box>
   );
 }
 
@@ -89,6 +122,7 @@ export async function action({request}) {
         data, 
         { headers: {'Content-Type': 'multipart/form-data'}}
       )
+      return redirect("/subclubs");
     } else if (intent === 'delete') {
       let imgName = data.get('imgName')
       const res = await fetch(
@@ -101,6 +135,7 @@ export async function action({request}) {
         }
       );
     }
+    
   } catch (err) {
     console.error(err.message);
   }

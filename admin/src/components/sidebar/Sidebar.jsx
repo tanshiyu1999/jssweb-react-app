@@ -69,8 +69,16 @@ const navItems = [
     icon: <PublicOutlined />
   },
   {
-    text: "Placeholder",
+    text: "External Facing",
     icon: null
+  },
+  {
+    text: "Money",
+    icon: <PublicOutlined />
+  },
+  {
+    text: "Help",
+    icon: <PublicOutlined />
   },
 
 ]
