@@ -75,36 +75,21 @@ function AddReimbursement() {
         <DialogTitle display="flex" justifyContent="center">Add Reimbursement</DialogTitle>
 
         <Box>
-          <Form method="post" style={{width:650}}>
-            <Stack
-              sx={{
-                display:'flex',
-                flexDirection: 'column',
-                width: "200px",
-                paddingTop: '20px'
-              }}
-            >
-                <TextField type="text" name="receiptRef" value={receiptRef} onChange={e => onChange(e)} label="Receipt Reference" variant="outlined" />
+          <Form method="post" style={{width:650}} action="./">
+            <TextField  type="text" name="name" value={name} onChange={e => onChange(e)} label="Subclub Name" variant="outlined" />
+            <TextField type="text" name="url" value={url} onChange={e => onChange(e)} label='Subclub URL' variant="outlined" />
+            <TextField type="text" name="desc" value={desc} onChange={e => onChange(e)} label='Description' variant="outlined" multiline rows={4} />
 
-                <TextField type="text" name="reimburseTo" value={reimburseTo} onChange={e => onChange(e)} label='Reimburse To' variant="outlined" />
-            
-                <TextField type="text" name="item" value={item} onChange={e => onChange(e)} label='Item' variant="outlined" />
-                
-                <TextField type="text" name="purpose" value={purpose} onChange={e => onChange(e)} label='Purpose' variant="outlined" />
+            {/* <Button variant="contained" component="label">
+              Upload
+            </Button> */}
 
-                <TextField type="number" name="cost" value={cost} onChange={e => onChange(e)} label='Cost' variant="outlined" />
+            <input hidden label='Subclub Image' onChange={fileSelected} type="file" name="image" accept="image/*" required />
+            <Button type="submit" name="intent" value="cancel" variant="outlined" >Cancel</Button>
 
-                <TextField type="number" name="quantity" value={quantity} onChange={e => onChange(e)} label='Quantity' variant="outlined" />
-
-                <TextField type="text" name="remark" value={remark} onChange={e => onChange(e)} label='Remark' variant="outlined" multiline rows={4} />
-
-                <TextField type={"file"} onChange={fileSelected} name="image" inputProps={{accept:"image/*"}} required />
-
-                <Button type="submit" component={Link} to="/reimbursement" variant="outlined">Cancel</Button>
-                
-                <Button type="submit" name="intent" value='add'color="success" variant="contained">Submit</Button>
-            </Stack>
-
+            <Button type="submit" name="intent" value='add' color="success" variant="contained">
+              Submit
+            </Button>
           </Form>
         </Box>
       </DialogContent>
@@ -116,7 +101,6 @@ export default AddReimbursement
 
 /* -------------------- Action Start -------------------- */
 export async function action({request}) {
-  console.log("hello")
   try {
     const data = await request.formData();
     let intent = data.get('intent');

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box } from "@mui/system";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useLoaderData, Outlet, Link } from "react-router-dom";
 import AddReimbursement from "./AddReimbursement";
 import TableView from "./TableView";
@@ -9,10 +9,17 @@ function Reimbursement() {
   const reimbursementData = useLoaderData();
   // console.log(reimbursementData)
   return (
-      <Box padding={2}>
-        <Button component={Link} to="./addReimbursement" variant="contained">Add Reimbursement</Button>
-        <Outlet />
+      <Box 
+        padding={2} 
+        display="flex" 
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography variant="h1" sx={{ m: 1 }}>Reimbursement</Typography>
+        <Button sx={{m: 2}} component={Link} to="./addReimbursement" variant="contained">Add Reimbursement</Button>
         <TableView reimbursementData={reimbursementData} />
+        <Outlet />
       </Box>
   )
 }

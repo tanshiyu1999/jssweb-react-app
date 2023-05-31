@@ -5,6 +5,7 @@ import { Box } from "@mui/system";
 import { Form } from "react-router-dom";
 import isImage from "./script/isImage";
 import placeholder from "../../assets/placeholder.png";
+
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -34,7 +35,6 @@ export default function SponsorGridCard({ data, theme }) {
     setOpen(false);
   };
 
-  console.log(theme.palette)
 
 
   return (

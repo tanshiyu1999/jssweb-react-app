@@ -62,7 +62,9 @@ export default function SponsorGridView({sponsorsData}) {
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       { platinumCard[0] != null &&
@@ -76,7 +78,8 @@ export default function SponsorGridView({sponsorsData}) {
                 flexDirection: 'row',
                 width: '100%',
                 flexWrap: 'wrap',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                alignItems: "center",
               }}
           >
             {platinumCard}

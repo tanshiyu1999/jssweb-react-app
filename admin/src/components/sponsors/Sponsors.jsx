@@ -12,7 +12,6 @@ function Sponsors() {
 
   return (
       <Box 
-        padding={2} 
         display="flex" 
         flexDirection="column"
         justifyContent="center"

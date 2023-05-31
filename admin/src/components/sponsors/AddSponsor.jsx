@@ -15,7 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { redirect } from "react-router-dom"
 import { Box, Stack }  from '@mui/material';
-import { bgcolor } from '@mui/system';
+import { bgcolor, useTheme } from '@mui/system';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -27,6 +27,8 @@ let uploadLogo = null;
 
 function AddSponsor() {
 
+  const theme = useTheme();
+  console.log(theme.palette.background.alt)
   
 
   const [file, setFile] = useState();
@@ -84,18 +86,20 @@ function AddSponsor() {
       <DialogContent>
         <DialogTitle display="flex" justifyContent="center">Add Sponsor</DialogTitle>
 
-        <Box sx={{bgcolor: "pink"}} display="flex" justifyContent="center">
+        <Box display="flex" justifyContent="center">
           <Form method="post">
             <Stack
               sx={{
                 display:'flex',
                 flexDirection: 'column',
                 width: "200px",
-                paddingTop: '20px'
+                paddingTop: '20px',
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-                <FormControl fullWidth>
-                    <InputLabel id="Tier Type">Sponsor Tier</InputLabel>
+                <FormControl fullWidth sx={{ mt: 1, mb: 1, width: 300 }}>
+                    <InputLabel color="neutral" id="Tier Type">Sponsor Tier</InputLabel>
                     <Select labelId="sponsor-tier-select-label" id="sponsor-tier-select" name="sponsorTier" value={tier} label="Sponsor Tier" 
                     onChange={handleTierChange} required
                     >
@@ -105,20 +109,20 @@ function AddSponsor() {
                     </Select>
                 </FormControl>
 
-                <TextField type="text" name="sponsorName" value={sponsorName} onChange={e => onChange(e)} label='Sponsor Name' variant="outlined" />
+                <TextField sx={{ mt: 1, mb: 1, width: 300 }} color="neutral" type="text" name="sponsorName" value={sponsorName} onChange={e => onChange(e)} label='Sponsor Name' variant="outlined" />
             
-                <TextField type="text" name="sponsorDesc" value={sponsorDesc} onChange={e => onChange(e)} label='Sponsor Description' variant="outlined" />
+                <TextField sx={{ mt: 1, mb: 1, width: 300 }} color="neutral" multiline rows={4} type="text" name="sponsorDesc" value={sponsorDesc} onChange={e => onChange(e)} label='Sponsor Description' variant="outlined" />
                 
-                <TextField type="text" name="sponsorLinkName1" value={sponsorLinkName1} onChange={e => onChange(e)} label='Sponsor Link' variant="outlined" />
+                <TextField sx={{ mt: 1, mb: 1, width: 300 }} color="neutral" type="text" name="sponsorLinkName1" value={sponsorLinkName1} onChange={e => onChange(e)} label='Sponsor Link' variant="outlined" />
 
-                <TextField type="text" name="sponsorUrl1" value={sponsorUrl1} onChange={e => onChange(e)} label='Sponsor URL 1' variant="outlined" />
+                <TextField sx={{ mt: 1, mb: 1, width: 300 }} color="neutral" type="text" name="sponsorUrl1" value={sponsorUrl1} onChange={e => onChange(e)} label='Sponsor URL 1' variant="outlined" />
 
-                <TextField type={"file"} onChange={handleLogoSelected} name="image" inputProps={{accept:"image/*"}} required />
+                <TextField sx={{ mt: 1, mb: 1, width: 300 }} color="neutral" type={"file"} onChange={handleLogoSelected} name="image" inputProps={{accept:"image/*"}} required />
 
 
-                <Button type="submit" component={Link} to="/sponsors" variant="outlined">Cancel</Button>
+                <Button sx={{ mt: 1, mb: 1, width: 200 }} type="submit" component={Link} to="/sponsors" color="error" variant="outlined">Cancel</Button>
                 
-                <Button type="submit" name="intent" value='add'color="success" variant="contained">Submit</Button>
+                <Button sx={{ mt: 1, mb: 1, width: 200 }} type="submit" name="intent" value='add'color="success" variant="contained">Submit</Button>
             </Stack>
 
           </Form>
