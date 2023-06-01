@@ -10,10 +10,8 @@ const RootRoute = () => {
   return (
     <>
       <Navbar />
-      
       <Landing />
       <SubClub />
-
       <Event />
       <Sponsor />
       <SubClub />
