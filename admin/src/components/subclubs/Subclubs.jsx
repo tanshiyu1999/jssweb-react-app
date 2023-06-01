@@ -24,79 +24,20 @@ function Subclubs() {
 
   const loaderData = useLoaderData();
 
-  const [file, setFile] = useState();
-
-  const [textData, setTextData] = useState({
-    name: "",
-    url: "",
-    desc: ""
-  });
-
-  const { name, url, desc } = textData;
-
-  const [subclubsData, setSubclubsData] = useState([]); 
-
-  const onChange = (e) => {
-    setTextData({ ...textData, [e.target.name]: e.target.value })
-  }
-
-  const fileSelected = event => {
-    const file = event.target.files[0];
-    setFile(file)
-    uploadFile = file;
-  }
-
   
   const listItems = loaderData.map((data) => {
     return <SubclubItem className="subclub-item" key={data.subclub_id} name={data.subclub_name} desc={data.subclub_desc} url={data.imageUrl} cluburl={data.subclub_url} imgName={data.subclub_img} />
   });
 
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    console.log()
-    setOpen(false);
-  };
-
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (open == false) {
-      navigate("/subclubs");
-    }
-  }, [open]);
 
   
 
   return (
     <Box>
-      <Button variant="contained" onClick={handleClickOpen}>
-        Add a subclub
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add a Subclub</DialogTitle>
-        <DialogContent>
-          <Form method="post" style={{width:650}} className="form-submit-input">
-            <TextField  type="text" name="name" value={name} onChange={e => onChange(e)} label="Subclub Name" variant="outlined" />
-            <TextField type="text" name="url" value={url} onChange={e => onChange(e)} label='Subclub URL' variant="outlined" />
-            <TextField type="text" name="desc" value={desc} onChange={e => onChange(e)} label='Description' variant="outlined" multiline rows={4} />
+      <Button sx={{m: 2}} component={Link} to="./addSubclub" variant="contained">Add Subclub</Button>
 
-            {/* <Button variant="contained" component="label">
-              Upload
-            </Button> */}
-
-            <input hidden label='Subclub Image' onChange={fileSelected} type="file" name="image" accept="image/*" required />
-
-            <Button type="submit" name="intent" value='add' color="success" variant="contained">
-              Submit
-            </Button>
-          </Form>
-        </DialogContent>
-      </Dialog>
+      <Outlet />
 
       <div className="subclub-container">
         {listItems}

@@ -2,11 +2,19 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios'
 import { 
   Form, 
-  Outlet, 
   Link,
   useNavigate,
 } from "react-router-dom"
-import { TextField, Input, Button } from '@mui/material';
+import { 
+  TextField, 
+  Input, 
+  Button, 
+  Dialog, 
+  DialogActions,
+  DialogContent, 
+  DialogContentText, 
+  DialogTitle
+} from '@mui/material';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,30 +24,22 @@ import { redirect } from "react-router-dom"
 import { Box, Stack }  from '@mui/material';
 import { bgcolor } from '@mui/system';
 
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-
 let uploadFile = null;
 
 function AddReimbursement() {
 
+
   const [file, setFile] = useState();
 
   const [textData, setTextData] = useState({
-    receiptRef: "Receipt Reference",
-    item: "The item",
-    purpose: "Item purpose",
-    cost: '5544',
-    quantity: "214124",
-    remark: 'this is a remark',
-    reimburseTo: "shiyty"
+    name: "",
+    url: "",
+    desc: ""
   });
 
-  const { receiptRef, item, purpose, cost, quantity, remark, reimburseTo } = textData;
+  const { name, url, desc } = textData;
 
+  const [subclubsData, setSubclubsData] = useState([]); 
 
   const onChange = (e) => {
     setTextData({ ...textData, [e.target.name]: e.target.value })
@@ -51,6 +51,7 @@ function AddReimbursement() {
     uploadFile = file;
   }
 
+
   const [open, setOpen] = React.useState(true);
 
 
@@ -61,7 +62,7 @@ function AddReimbursement() {
   const navigate = useNavigate();
   useEffect(() => {
     if (open == false) {
-      navigate("/reimbursement");
+      navigate("/subclubs");
     }
   }, [open]);
 
@@ -72,24 +73,40 @@ function AddReimbursement() {
       fullWidth={true}
     >
       <DialogContent>
-        <DialogTitle display="flex" justifyContent="center">Add Reimbursement</DialogTitle>
+        <DialogTitle display="flex" justifyContent="center">Add Subclub</DialogTitle>
 
-        <Box>
-          <Form method="post" style={{width:650}} action="./">
-            <TextField  type="text" name="name" value={name} onChange={e => onChange(e)} label="Subclub Name" variant="outlined" />
-            <TextField type="text" name="url" value={url} onChange={e => onChange(e)} label='Subclub URL' variant="outlined" />
-            <TextField type="text" name="desc" value={desc} onChange={e => onChange(e)} label='Description' variant="outlined" multiline rows={4} />
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Form method="post" action="./">
+            <Stack
+                sx={{
+                  display:'flex',
+                  flexDirection: 'column',
+                  width: "300px",
 
-            {/* <Button variant="contained" component="label">
-              Upload
-            </Button> */}
+                }}
+              >
 
-            <input hidden label='Subclub Image' onChange={fileSelected} type="file" name="image" accept="image/*" required />
-            <Button type="submit" name="intent" value="cancel" variant="outlined" >Cancel</Button>
+              <TextField  type="text" name="name" value={name} onChange={e => onChange(e)} label="Subclub Name" variant="outlined" />
+              <TextField type="text" name="url" value={url} onChange={e => onChange(e)} label='Subclub URL' variant="outlined" />
+              <TextField type="text" name="desc" value={desc} onChange={e => onChange(e)} label='Description' variant="outlined" multiline rows={4} />
 
-            <Button type="submit" name="intent" value='add' color="success" variant="contained">
-              Submit
-            </Button>
+              {/* <Button variant="contained" component="label">
+                Upload
+              </Button> */}
+
+              <input hidden label='Subclub Image' onChange={fileSelected} type="file" name="image" accept="image/*" required />
+              <Button type="submit" component={Link} to="/subclubs" color="error" variant="outlined">Cancel</Button>
+
+              <Button type="submit" name="intent" value='add' color="success" variant="contained">
+                Submit
+              </Button>
+            </Stack>
+
           </Form>
         </Box>
       </DialogContent>
@@ -106,12 +123,24 @@ export async function action({request}) {
     let intent = data.get('intent');
     if (intent === 'add') {
       data.append("image", uploadFile);
-      await axios.post("http://localhost:3000/reimbursement", 
+      await axios.post("http://localhost:3000/subclubs", 
         data, 
         { headers: {'Content-Type': 'multipart/form-data'}}
       )
-      return redirect("/reimbursement");
-    } 
+      return redirect("/subclubs");
+    } else if (intent === 'delete') {
+      let imgName = data.get('imgName')
+      const res = await fetch(
+        "http://localhost:3000/subclubs", {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+              url: imgName,
+            })
+        }
+      );
+    }
+    
   } catch (err) {
     console.error(err.message);
   }

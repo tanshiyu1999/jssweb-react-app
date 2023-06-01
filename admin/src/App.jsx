@@ -45,6 +45,9 @@ import EditSubclub, {
   loader as editSubclubLoader,
   action as editSubclubAction,
 } from "./components/subclubs/EditSubclub"
+import AddSubclub, {
+  action as addSubclubAction,
+} from "./components/subclubs/AddSubclub.jsx"
 /* -------------------- Subclubs Import End -------------------- */
 
 /* -------------------- Event Import Start -------------------- */
@@ -228,6 +231,11 @@ function App() {
               element: <EditSubclub />,
               loader: editSubclubLoader,
               action: editSubclubAction,
+            },
+            {
+              path: "addsubclub",
+              element: <AddSubclub />,
+              action: addSubclubAction,
             }
           ]
         },
