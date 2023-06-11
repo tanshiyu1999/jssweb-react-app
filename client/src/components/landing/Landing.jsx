@@ -5,8 +5,14 @@ import jssLogoLarge from './assets/img/logolarge.png';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import { useNavigate } from "react-router-dom";
 
 function Landing() {
+
+  const navigate = useNavigate();
+  const print = () => {
+    console.log("weweawe")
+  }
 
 
   return (
@@ -22,6 +28,9 @@ function Landing() {
             <InstagramIcon />
             <YouTubeIcon />
           </div>
+        </div>
+        <div>
+          <button type="button" onClick={print}>Test</button>
         </div>
     </div>
   )

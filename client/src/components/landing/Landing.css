@@ -26,5 +26,9 @@
 
 .landing-icons {
     display: inline-grid;
+    justify-items: center;
+    align-items: cente;
     grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    border: 2px solid red;
 }

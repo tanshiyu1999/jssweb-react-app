@@ -11,10 +11,10 @@ const RootRoute = () => {
     <>
       <Navbar />
       <Landing />
-      <SubClub />
+      {/* <SubClub />
       <Event />
       <Sponsor />
-      <SubClub />
+      <SubClub /> */}
     </>
   )
 }
