@@ -17,25 +17,33 @@ function Navbar() {
   } 
 
   return (
-    <nav className="nav-main">
-      <div className="nav-spacer-side"></div>
-      <img src={jssLogo} alt="JSS Logo" className="nav-org-logo"></img>
-      <div className="nav-spacer-center"></div>
-      <ul className="nav-menu">
-        <li className="nav-item">About</li>
-        <li className="nav-item">Sub-Club</li>
-        <li className="nav-item">Events</li>
-        <li className="nav-item">Sponsors</li>
-        <li className="nav-item">Contact</li>
-      </ul>
-
-      <div className="nav-spacer-side"></div>
-
-      <div className="nav-burger" onClick={toggleBurger}>
-        <span className="nav-burger-bar"></span>
-        <span className="nav-burger-bar"></span>
-        <span className="nav-burger-bar"></span>
-      </div>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrink" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="img/logo.png" /></a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#aboutCarousel">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#sub">Sub-Clubs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#events">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#sponsors">Sponsors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
   )
