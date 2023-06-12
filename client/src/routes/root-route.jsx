@@ -5,7 +5,10 @@ import Event from "/src/components/events/Event.jsx"
 import Sponsor from "/src/components/sponsors/Sponsor.jsx"
 import SubClub from "/src/components/subclubs/SubClub.jsx"
 import SignUp from "/src/components/signUp/SignUp.jsx"
+import ContactUs from '../components/contactUs/ContactUs';
+import Footer from "/src/components/footer/Footer.jsx"
 import {
+  Outlet,
   useLoaderData,
 } from "react-router-dom";
 
@@ -20,6 +23,8 @@ const RootRoute = () => {
       <SubClub data={data.subclubsData} />
       <Event data={data.eventsData} />
       <Sponsor data={data.sponsorsData} />
+      <ContactUs />
+      <Footer />
     </>
   )
 }

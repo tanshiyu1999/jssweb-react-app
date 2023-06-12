@@ -1,0 +1,70 @@
+.contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(./assets//img//map-image.png);
+  background-color: #212529;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100vw;
+  width: 100vw;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-title {
+  color: white;
+}
+
+.contact-collaborate {
+  margin-bottom: 25px;
+}
+
+.contact-address {
+  margin-top: 25px;
+}
+
+.contact-email a {
+  color: #F596AA;
+}
+
+.pink-color {
+  color: #F596AA;
+}
+
+.map-container {
+  max-width: 80rem;
+  width: 90vw;
+  text-align: center;
+  padding: 30px;
+}
+
+.map {
+  width: 100%;
+  aspect-ratio: 1.8 / 1;
+}
+
+
+@media(max-width: 768px) {
+  .map-container {
+    width: 100vw;
+    padding: 10px 0px;
+  }
+
+  .map {
+    width: 100%;
+    aspect-ratio: 1.5 / 1;
+  }
+
+  .contact-address {
+    font-size: 1rem;
+  }
+}
+
+

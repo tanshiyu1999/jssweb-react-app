@@ -1,46 +1,75 @@
 .subclub {
+    padding: 40px 0px;
     display: flex;
     flex-direction: column;
     justify-content: space;
     align-items: center;
     overflow: hidden;
+    width: 100vw;
+    background-color: aliceblue;
 }
 
 .subclub-container {
     display: flex;
     flex-direction: row;
-    background-color: aliceblue;
-    overflow: auto;
+    /* background-color: aliceblue; */
+    justify-content: space-evenly;
+    align-items: space-evenly;
     width: 80vw;
+    max-width: 1400px;
     flex-wrap: wrap;
-    justify-content: center;
 }
 
+.remove-underline {
+    text-decoration: none;
+}
+
+
+
 .subclub-item {
-    width: 300px;
+    width: 430px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    background-color: red;
-    overflow-x: auto;
+    /* border: 1px solid red; */
     margin: 5px;
 
 }
 
+
 .subclub-item img{
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     object-fit: contain;
-    background-color: pink;
+    /* background-color: pink; */
     margin: 10px;
 }
 
 .subclub-item p {
-    width: 100%;    
+    width: 100%;  
+    text-align: center;  
 }
 
 .subclub-text {
     width: 80vw;
+    text-align: center;
 }
 
+.subclub-item a {
+    color: black;
+}
+
+.subclub-item a:hover {
+    color: red;
+}
+
+
+@media(max-width: 600px) {
+    .subclub-container {
+        width: 95vw;
+    }
+    .subclub-item {
+        width: 100%
+    }
+}

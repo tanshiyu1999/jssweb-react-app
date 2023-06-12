@@ -8,6 +8,7 @@ import backgroundImg from './assets/img/background.jpg';
 import { eventTypeParser } from "./script/parser";
 import EventInfo from "./EventInfo";
 import $ from 'jquery';
+import EventCarousel from "./EventCarousel";
 
 
 
@@ -71,10 +72,13 @@ function Event(props) {
   });
 
   return (
-    <div className="event">  
-      {/* <div className="event-carousell">
-        EVENT CAROUSELL
-      </div> */}
+    <div className="event">
+      <h1>EVENTS</h1>
+      <p>Join our exciting programmes!</p>
+  
+      <div className="event-carousell-container">
+        <EventCarousel />
+      </div>
       <div className="event-main">
         <nav className="event-nav">
           {typesCard}

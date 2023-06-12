@@ -61,13 +61,16 @@ const SponsorCard = (props) => {
         aria-describedby="alert-dialog-slide-description"
         fullWidth={true}
         maxWidth="md"
+        sx={{ overflowY: 'hidden' }}
       >
         <DialogTitle>{sponsor_name}</DialogTitle>
-        <DialogContent dividers>
-          <DialogContentText id="alert-dialog-slide-description">
+        <DialogContent dividers sx={{ overflow: "hidden" }}>
+          <DialogContentText 
+            id="alert-dialog-slide-description"
+          >
             {sponsor_description}
           </DialogContentText>
-          <Button variant="contained" href="#contained-buttons">
+          <Button variant="outlined" href="#contained-buttons">
             Link
           </Button>
         </DialogContent>
@@ -76,7 +79,6 @@ const SponsorCard = (props) => {
         </DialogActions>
       </Dialog>
     </>
-    
   )
 }
 

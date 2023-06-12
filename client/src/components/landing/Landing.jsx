@@ -10,14 +10,12 @@ import { useNavigate } from "react-router-dom";
 function Landing() {
 
   const navigate = useNavigate();
-  const print = () => {
-    console.log("weweawe")
-  }
+
 
 
   return (
     <div className="landing">
-        <img src={backgroundImg} className="landing-img" />
+        {/* <img src={backgroundImg} className="landing-img" /> */}
         <div className="landing-jss-info">
           <img src={jssLogoLarge} alt="" />
           <br/>

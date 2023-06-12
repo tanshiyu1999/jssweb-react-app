@@ -3,11 +3,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -0%);
+    width: 100vw;
 }
+
 
 .sponsor-container {
     background-color: aliceblue;
@@ -69,6 +67,7 @@
 
 .sponsor-card {
     opacity: 0.7;
+    overflow: hidden;
 }
 
 .sponsor-card:hover {
@@ -76,9 +75,6 @@
     opacity: 1;
 }
 
-.absolute-position {
-    position: absolute;
-}
 
 @media(max-width: 800px) {
     .sponsor-container {
