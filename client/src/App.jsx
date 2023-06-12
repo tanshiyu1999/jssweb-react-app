@@ -1,5 +1,8 @@
 import React from "react"
-import RootRoute from "/src/routes/root-route.jsx"
+import RootRoute, {
+  loader as rootLoader,
+} from "/src/routes/root-route.jsx"
+
 
 import {
   createBrowserRouter,
@@ -10,6 +13,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootRoute />,
+    loader: rootLoader, 
     children: [
       {
         path: "event"

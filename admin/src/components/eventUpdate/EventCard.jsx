@@ -18,7 +18,6 @@ function EventCard(props) {
             <Button component={Link} to={`./${props.image}/edit`} variant="contained">Edit</Button>
             <Button type="submit" name="intent" value='delete' variant="contained" color="error">Action Delete</Button>
           </Form>
-     
       </div>
     
     

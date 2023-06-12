@@ -22,7 +22,7 @@ const s3 = new S3Client({
         secretAccessKey: secretAccessKey,
     },
     region: bucketRegion
-})
+});
 
 const randomImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex');
 

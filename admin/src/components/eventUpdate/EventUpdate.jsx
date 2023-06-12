@@ -47,6 +47,8 @@ function EventUpdate() {
     );
   })
 
+  console.log(loaderData)
+
 
   const eventsCards = loaderData.map((event) => {
     if (currentType == "all" || currentType == event.event_type) {

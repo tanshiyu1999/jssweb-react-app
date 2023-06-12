@@ -1,3 +1,5 @@
+
+
 .event {
     display: flex;
     flex-direction: column;
@@ -11,6 +13,7 @@
     height: 100px;
     background-color: aliceblue;
 }
+
 
 .event-nav {
     display: flex;
@@ -28,33 +31,74 @@
 }
 
 .event-nav-item {
-    margin: 10px;
+    margin: 0px 5px;
+    padding: 5px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.event-nav-item:hover {
+    cursor: pointer;
+}
+
+.active-tab {
+    background-color: #3A3226;
+    color: #F5F5F5;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
 .event-content {
     display: grid;
-    border: 1px solid red; 
-    grid-template-columns: 2fr 1fr;
-    height: 400px; 
+    grid-template-columns: 5fr 3fr;
+    height: 400px;
 }
 
 .event-content-card-container {
-    border: 1px solid;
-    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: scroll;
+    border: 1px solid #3A3226;
 }
 
 .event-content-writeup-container {
-    border: 1px solid;
-    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: scroll;
 }
 
 .event-card {
-    border: 1px solid green;
-    margin: 5px;
-    padding: 5px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    background-color: #3A3226;
+    color: #E48D9E;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.event-card:hover {
+    cursor: pointer;
+}
+
+.active-card {
+    background-color: #E16B8C;
+    color: #F5F5F5;
+}
+
+.event-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.event-title span {
+    font-size: 1rem;
+}
+
+.event-date span {
+    font-size: 0.65rem;
+}
+
 
 .event-content-writeup-img {
     width: 100%;
@@ -63,6 +107,28 @@
 .event-content-writeup {
     width: 100%;
 }
+
+.event-content-link {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.event-content-link-button {
+    background-color: #6C757D;
+    flex-grow: 0.9;
+    font-size: 1rem;
+    height: 2.2rem;
+    border-radius: 5px;
+    color: white;
+}
+
+.event-content-link-button:hover {
+    background-color: #6C757D;
+}
+
+
 
 @media(max-width: 768px) {
     .event-main {

@@ -92,7 +92,6 @@ router.patch("/", upload.single('image'), async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         const subclubs = await pool.query("SELECT * FROM subclubs");
-        // console.log(subclubs.rows)
 
         for (const subclub of subclubs.rows) {
             const getObjectParams = {

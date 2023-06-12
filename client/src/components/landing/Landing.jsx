@@ -30,7 +30,7 @@ function Landing() {
           </div>
         </div>
         <div>
-          <button type="button" onClick={print}>Test</button>
+          <button type="button" onClick={() => console.log("test")}>Test</button>
         </div>
     </div>
   )

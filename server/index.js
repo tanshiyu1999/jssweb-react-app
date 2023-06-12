@@ -30,6 +30,8 @@ app.use("/reimbursement", require("./routes/reimbursement"))
 // sponsors
 app.use("/sponsors", require("./routes/sponsors.js"))
 
+app.use("/client", require("./routes/client"))
+
 app.listen(3000, () => {
     console.log("service is listening on port 3000");
 })
