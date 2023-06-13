@@ -1,0 +1,156 @@
+:root {
+  --display-hidden: none;
+  --slider-width: 800px;
+  --carousel-selector-margin: 510px;
+}
+
+.slider {
+  width: var(--slider-width);
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.slides {
+  width: 500%;
+  height: 500px;
+  display: flex;
+  /* border: 3px solid blue; */
+}
+
+.slides input {
+  display: none;
+}
+
+.slide {
+  width: 20%;
+  transition: 0.75s;
+  /* border: 1px solid red; */
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  position: relative;
+  height: 100%;
+  transition: 1s;
+  bottom: 10%;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+.text-container:hover {
+  bottom: 25%;
+}
+
+.text-container:hover {
+  --display-hidden: inline;
+}
+
+/* .text-title {
+
+} */
+
+.text-description {
+  display: var(--display-hidden);
+  animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Fade in and animation guide */
+/* https://blog.hubspot.com/website/css-fade-in#text-transition */
+
+
+/* css for manual slide navigation */
+.navigation-manual {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: var(--slider-width);
+  margin-top: var(--carousel-selector-margin);
+}
+
+.manual-btn {
+  border: 2px solid #40D3Dc;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.manual-btn:not(:last-child) {
+  margin-right: 10px;
+}
+
+.manual-btn:hover {
+  background: #40D3DC;
+  opacity: 0.5;
+}
+
+#radio1:checked ~ .first {
+  margin-left: 0;
+}
+
+#radio2:checked ~ .first {
+  margin-left: -20%;  
+}
+
+#radio3:checked ~ .first {
+  margin-left: -40%;  
+}
+
+#radio4:checked ~ .first {
+  margin-left: -60%;  
+}
+
+/* css for automatic navigation */
+.navigation-auto {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: var(--slider-width);
+  margin-top: var(--carousel-selector-margin);
+
+}
+
+.navigation-auto div {
+  border: 2px solid #40D3DC;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.navigation-auto div:not(:last-child) {
+  margin-right: 10px;
+}
+
+#radio1:checked ~ .navigation-auto .auto-btn1 {
+  background: #40D3DC;
+}
+
+#radio2:checked ~ .navigation-auto .auto-btn2 {
+  background: #40D3DC;
+}
+
+#radio3:checked ~ .navigation-auto .auto-btn3 {
+  background: #40D3DC;
+}
+
+#radio4:checked ~ .navigation-auto .auto-btn4 {
+  background: #40D3DC;
+}
+
+@media(max-width: 800px) {
+  .slider {
+    --slider-width: 100%;
+  }
+}
