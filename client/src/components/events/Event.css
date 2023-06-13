@@ -6,14 +6,12 @@
     width: 100vw;
 }
 .event-carousell-container {
-    border: 1px solid;
-    width: 100%;
+    width: 700px;
     height: 500px;
-    background-color: pink;
     display: flex;
     flex-direction: column;
+    margin-bottom: 50px;
 }
-
 
 .event-nav {
     display: flex;
