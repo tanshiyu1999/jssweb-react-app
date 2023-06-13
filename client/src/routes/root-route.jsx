@@ -18,13 +18,13 @@ const RootRoute = () => {
   
   return (
     <>
-      {/* <Navbar />
+      <Navbar />
       <Landing />
-      <SubClub data={data.subclubsData} /> */}
+      <SubClub data={data.subclubsData} />
       <Event data={data.eventsData} />
-      {/* <Sponsor data={data.sponsorsData} />
+      <Sponsor data={data.sponsorsData} />
       <ContactUs />
-      <Footer /> */}
+      <Footer />
     </>
   )
 }
