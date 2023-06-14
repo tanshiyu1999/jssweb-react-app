@@ -4,7 +4,6 @@ import Landing from "/src/components/landing/Landing.jsx"
 import Event from "/src/components/events/Event.jsx"
 import Sponsor from "/src/components/sponsors/Sponsor.jsx"
 import SubClub from "/src/components/subclubs/SubClub.jsx"
-import SignUp from "/src/components/signUp/SignUp.jsx"
 import ContactUs from '../components/contactUs/ContactUs';
 import Footer from "/src/components/footer/Footer.jsx"
 import {

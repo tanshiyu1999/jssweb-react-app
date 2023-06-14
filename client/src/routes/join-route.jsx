@@ -5,6 +5,7 @@ const JoinRoute = () => {
   return (
     <>
       <SignUp />
+      
     </>
   )
 }

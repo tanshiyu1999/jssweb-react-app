@@ -17,25 +17,15 @@
     width: 60vw;
 }
 
-.signup-instruction-container > * {
+.student-container {
     border: 1px black solid;
     min-width: 400px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     border-radius: 20px;
+    padding: 20px;
 }
 
-.student-container {
-    margin: 20px;
-}
-
-.student-spacetainer {
-    width: 80%;
-    background-color: pink;
-    display: flex;
-    flex-direction: column;
-}
 
 .form-link {
     display: flex;
@@ -57,11 +47,6 @@
     
 }
 
-.faq-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .signup-top-banner {
     width: 100%;
@@ -82,9 +67,20 @@
 
 .no-decor {
     text-decoration: none;
+    width: 100%;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 10px 0px;
+}
+
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60vw;
+    background-color: lightblue;
+    max-width: 1000px;
 }
 

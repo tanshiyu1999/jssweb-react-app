@@ -1,0 +1,66 @@
+.accordion {
+  width: 100%;
+  background-color: red;
+}
+
+.accordion-card {
+  border-radius: .4rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  box-shadow: .5rem 2px .5rem rgba(0, 0, 0, 0.1);
+  background-color: pink;
+}
+
+.accordion-link {
+  font-size: 1.6rem;
+  color: rbga(255,255,255,0.8);
+  text-decoration: none;
+  background-color: lightblue;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.accordion-icon {
+  color: blue;
+} 
+
+.accordion-remove-icon {
+  display: none;
+}
+
+.accordion-answer {
+  max-height: 0;
+  overflow: hidden;
+  background-color: brown;
+  transition: max-height 650ms;
+}
+
+.accordion-answer::before {
+  content: "";
+  position: absolute;
+  width: .6rem;
+  height: 90%;
+  background-color: aliceblue;
+  top:50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.accordion-answer p {
+  font-size: 1.4rem;
+  
+}
+
+.accordion-answer p {
+  color: rgba(255, 255, 255, .6);
+  font-size: 1.4rem;
+  padding: 2rem;
+}
+
+/* target means clicked */
+.accordion-card:target .accordion-answer{
+  max-height: 20rem;
+}
