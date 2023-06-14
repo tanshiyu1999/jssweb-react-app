@@ -1,6 +1,5 @@
 .accordion {
   width: 100%;
-  background-color: red;
 }
 
 .accordion-card {
@@ -21,19 +20,22 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
+  cursor: pointer;
 }
 
 .accordion-icon {
   color: blue;
 } 
 
-.accordion-remove-icon {
+.remove-icon {
   display: none;
 }
 
+
+
 .accordion-answer {
   max-height: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   background-color: brown;
   transition: max-height 650ms;
 }
@@ -49,13 +51,11 @@
   transform: translateY(-50%);
 }
 
-.accordion-answer p {
-  font-size: 1.4rem;
-  
-}
 
 .accordion-answer p {
-  color: rgba(255, 255, 255, .6);
+  /* color: rgba(255, 255, 255, .6); */
+  background-color: red;
+  z-index: 1000;
   font-size: 1.4rem;
   padding: 2rem;
 }

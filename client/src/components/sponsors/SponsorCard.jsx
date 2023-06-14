@@ -43,7 +43,7 @@ const SponsorCard = (props) => {
     imageUrl
   } = props.data
 
-  console.log(imageUrl)
+  // console.log(imageUrl)
 
   const tier = props.tier
 
