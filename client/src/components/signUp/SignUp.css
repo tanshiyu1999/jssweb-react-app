@@ -1,14 +1,20 @@
 .signup-container {
-    background-color: pink;
-
+    /* border: 1px solid red; */
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: antiquewhite;
 }
 
 .signup-instruction-container {
-    background-color: aliceblue;
+    border: 1px solid blue;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
+    width: 60vw;
 }
 
 .signup-instruction-container > * {
@@ -20,9 +26,15 @@
     border-radius: 20px;
 }
 
-.local-student-spacetainer {
-    background-color: antiquewhite;
+.student-container {
+    margin: 20px;
+}
+
+.student-spacetainer {
     width: 80%;
+    background-color: pink;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-link {
@@ -32,7 +44,7 @@
     align-items: center;
     border: 2px black solid;
     border-radius: 10px;
-    width: 100%;
+    width: 80%;
     height: 50px;
     margin-top: -10px;
 }
@@ -42,6 +54,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 }
 
 .faq-container {
@@ -49,3 +62,29 @@
     flex-direction: column;
     align-items: center;
 }
+
+.signup-top-banner {
+    width: 100%;
+    height: 100px;
+    background-color: pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-message {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-decor {
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

@@ -11,6 +11,7 @@ import {
   Outlet,
   useLoaderData,
 } from "react-router-dom";
+import About from '../components/about/About.jsx';
 
 const RootRoute = () => {
 
@@ -20,6 +21,7 @@ const RootRoute = () => {
     <>
       <Navbar />
       <Landing />
+      <About />
       <SubClub data={data.subclubsData} />
       <Event data={data.eventsData} />
       <Sponsor data={data.sponsorsData} />

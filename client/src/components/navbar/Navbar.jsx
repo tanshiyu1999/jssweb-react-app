@@ -18,6 +18,7 @@ function Navbar() {
 
   return (
     <nav className="nav-main">
+      <div className="nav-cover"></div>
       <div className="nav-spacer-side"></div>
       <img src={jssLogo} alt="JSS Logo" className="nav-org-logo"></img>
       <div className="nav-spacer-center"></div>

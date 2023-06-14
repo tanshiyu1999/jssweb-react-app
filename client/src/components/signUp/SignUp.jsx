@@ -5,37 +5,57 @@ import jssLogo from './assets/img/logo.png';
 
 function SignUp() {
 
-  console.log("wooo")
-
-
   return (
     <div className="signup-container">
-        <div>
+        <div className="signup-top-banner">
           <img src="" alt="" />
-          this is a image container
+          banner 1
+        </div>
+
+        <div className="welcome-message">
+          <h2>Join NUS JSS today!</h2>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis quasi sint veritatis error atque nesciunt dolorum laboriosam odit aspernatur excepturi?</p>
         </div>
 
         <div className="signup-instruction-container">
 
-          <div className="local-student-container">
-            <div className="local-student-spacetainer">
-              <h4>Non Exchange Students</h4>
-              <p>Step 1: Click Join in</p>
-              <a className="form-link" href="">NUSync</a>
-              <p>Step 2: fill in the form below:</p>
-              <a className="form-link" href="">SignUp Form</a>
+          <div className="student-container">
+            <div className="student-spacetainer">
+              <h4>Non Exchange Students<sup>*</sup></h4>
+              <p>Step 1: Visit Our NUSync Page Here:</p>
+              <a className="no-decor" href="https://nus.campuslabs.com/engage/organization/jss" target="_blank">
+                <button className="form-link">NUSync</button>
+              </a>
+              <p>Step 2: Press the Blue Join Button in the NUSync Page.</p>
+              <p>Step 3: Fill in the form below & follow the instructions:</p>
+              <a className="no-decor" href="https://nus.campuslabs.com/engage/submitter/form/start/361597" target="_blank">
+                <button className="form-link">SignUp Form</button>
+              </a>
+              <sub>* Example: UG, Post-Graduation, SCALE...</sub>
             </div>
           </div>
 
-          <div className="exchange-student-container">
-            <h4>Exchange Students</h4>
+          <div className="student-container">
+            <div className="student-spacetainer">
+              <h4>Exchange Students</h4>
+              <p>Step 1: Visit Our NUSync Page Here:</p>
+              <a className="no-decor" href="https://nus.campuslabs.com/engage/organization/jss" target="_blank">
+                <button className="form-link">NUSync</button>
+              </a>
+              <p>Step 2: Press the Blue Join Button in the NUSync Page.</p>
+              <p>Step 3: Fill in the form below & follow the instructions:</p>
+              <a className="no-decor" href="https://nus.campuslabs.com/engage/submitter/form/start/364544" target="_blank">
+                <button className="form-link">SignUp Form</button>
+              </a>
+            </div>
+            
             
           </div>
         </div>
 
         <div className="difficulty-container">
           <h4>Facing difficulties? Reach out at:</h4>
-          <a href="https:www.google.com">contact@jss.sg</a>
+          <button>contact@jss.sg</button>
         </div>
 
         <div className="faq-container">

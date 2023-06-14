@@ -1,18 +1,26 @@
 .nav-main {
-    padding: 5px;
-    width: 100vw;
-    height: 60px;
-    background-color: pink;
-    
-    display: flex;
-    flex-direction: row;
-
     position: fixed;
     top:0;
+    z-index: 1000;
+    width: 100vw;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid red;
+}
+
+.nav-cover {
+    background-color: pink;
+    position: fixed;
+    top: 0;
+    height: 60px;
+    width: 100vw;
     z-index: 1;
 }
 
-
+.nav-main > * {
+    /* border: 1px solid red; */
+}
 
 li {
     list-style: none;
@@ -21,7 +29,7 @@ li {
 
 .nav-spacer-center {
     /* background: pink; */
-    flex-grow: 5;
+    flex-grow: 6;
 }
 
 .nav-spacer-side {
@@ -34,7 +42,7 @@ li {
     display: flex;
     flex-direction: row;
     margin: auto;
-    background-color: pink;
+    z-index: 1;
 }
 
 .nav-item {
@@ -53,15 +61,17 @@ li {
 .nav-org-logo {
     height: 50px;
     width: 50px;
+    z-index: 1;
 }
 
 .nav-burger {
     display: none;
-    position: relative;
-    bottom: 38px;
-    left: 45vw;
+    position: absolute;
+    bottom: 19px;
+    left: 90vw;
     cursor: pointer;
     margin: auto;
+    z-index: 1;
 }
 
 .nav-burger-bar {
@@ -88,7 +98,7 @@ li {
 
     .nav-main {
         flex-direction: column;
-        align-items:center;
+        align-items: center;
     }
 
     .nav-burger {
@@ -97,24 +107,27 @@ li {
         justify-content: center;
     }
 
+
     .nav-menu {
-        display: none;
+        width: 100vw;
         margin: 0px;
         padding: 0px;
         flex-direction: column;
-        width: 100vw;
         align-items: center;
-        background-color: red;
         position: relative;
+        top: -300px;
+        background-color: pink;
+        z-index: -1;
+        transition: 0.5s;
     }
 
     .nav-menu.active {
         display: flex;
+        top: 4px;
     }
 
     .nav-item {
         padding: 0.5rem 1rem;
+        z-index: -1;
     }
-    
-
 }
