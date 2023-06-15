@@ -1,36 +1,43 @@
 import React from 'react'
 import './Accordion.css'
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const Accordion = () => {
+
+  const handleClick = (e) => {
+    console.log(e.target)
+  }
+
   return (
-    <div className="accordion" id="question1">
-      <div className="accordion-card" id="question1">
-        <a className="accordion-link">
-          How often do you go to beach?
-          <div className="accordion-icon add-icon">Plus</div>
-          <div className="accordion-icon remove-icon">Minus</div>
-        </a>
-        <div className="accordion-answer">
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum, aliquid?</p>
+    <ul className="accordion">
+
+      <li>
+        <input type="checkbox" name="accordion" id="first" />
+        <div className="accordion-label-container" onClick={(e) => handleClick(e)}>
+          <label className="accordion-label" htmlFor="first">Product</label>
+          <div><i class="accordion-arrow point-up"></i></div>
         </div>
-      </div>
+        
+        <div className="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis a perspiciatis deserunt rerum assumenda ipsam exercitationem error omnis nostrum recusandae!</div>
+      </li>
 
-      
-      <div className="accordion-card" id="question2">
-        <a className="accordion-link">
-          How often do you go to shopping?
-          <div className="accordion-icon add-icon">Plus</div>
-          <div className="accordion-icon remove-icon">Minus</div>
-        </a>
-        <div className="accordion-answer">
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum, aliquid?</p>
-        </div>
-      </div>
+      <li>
+        <input type="checkbox" name="accordion" id="second" />
+        <label htmlFor="second">Product 2</label>
+        <div className="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis a perspiciatis deserunt rerum assumenda ipsam exercitationem error omnis nostrum recusandae!</div>
+      </li>
 
-    </div>
+      <li>
+        <input type="checkbox" name="accordion" id="third" />
+        <label htmlFor="third">Questions</label>
+        <div className="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis a perspiciatis deserunt rerum assumenda ipsam exercitationem error omnis nostrum recusandae!</div>
+      </li>
 
+    </ul>
   )
 }
 

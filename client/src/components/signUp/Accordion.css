@@ -1,66 +1,68 @@
-.accordion {
-  width: 100%;
+/* .accordion {
+  margin: 60px auto;
+  width: 600px;
 }
 
-.accordion-card {
-  border-radius: .4rem;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  box-shadow: .5rem 2px .5rem rgba(0, 0, 0, 0.1);
+.accordion li {
+  list-style: none;
+  width: 100%;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 8px;
   background-color: pink;
+  box-shadow: 6px 6px 10px -1px rbga(0, 0, 0, 0.15);
 }
 
-.accordion-link {
-  font-size: 1.6rem;
-  color: rbga(255,255,255,0.8);
-  text-decoration: none;
-  background-color: lightblue;
-  width: 100%;
+.accordion-label-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: aliceblue;
+}
+
+.accordion-label {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem 0;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 500;
   cursor: pointer;
+  background-color: red;
 }
 
-.accordion-icon {
-  color: blue;
-} 
+.accordion-arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 6px;
+  margin-right: 12px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
 
-.remove-icon {
+
+input[type="checkbox"]{
   display: none;
 }
 
-
-
-.accordion-answer {
+.accordion .content {
+  color: #555;
+  padding: 0 10px;
+  line-height: 26px; 
   max-height: 0;
-  /* overflow: hidden; */
-  background-color: brown;
-  transition: max-height 650ms;
-}
-
-.accordion-answer::before {
-  content: "";
-  position: absolute;
-  width: .6rem;
-  height: 90%;
-  background-color: aliceblue;
-  top:50%;
-  left: 0;
-  transform: translateY(-50%);
+  overflow: hidden;
+  transition: 0.25s;
 }
 
 
-.accordion-answer p {
-  /* color: rgba(255, 255, 255, .6); */
-  background-color: red;
-  z-index: 1000;
-  font-size: 1.4rem;
-  padding: 2rem;
+
+
+.accordion input[type="checkbox"]:checked + div + .content {
+  max-height: 400px;
+  padding: 10px 10px 20px;
 }
 
-/* target means clicked */
-.accordion-card:target .accordion-answer{
-  max-height: 20rem;
-}
+.accordion input[type="checkbox"]:checked + label::before {
+  content: '-';
+} */
