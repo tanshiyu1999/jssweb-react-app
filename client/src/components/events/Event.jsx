@@ -21,6 +21,7 @@ function Event(props) {
   const [currentInfo, setCurrentInfo] = useState(loaderData[0]);
 
   const updateInfo = (str, id, e) => {
+    console.log(e.target)
     $(".active-card").removeClass("active-card")
     $(e.target).addClass("active-card")    
     for (let i = 0; i < loaderData.length; i++) {

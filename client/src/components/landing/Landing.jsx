@@ -3,7 +3,8 @@ import './Landing.css'
 import backgroundImg from './assets/img/background.jpg';
 import jssLogoLarge from './assets/img/logolarge.png';
 import {useNavigate} from "react-router-dom";
-import SocialIcons from "../reusable/SocialIcons";
+import SocialIcons from "../reusable/socialIcons/SocialIcons";
+import Modal from "../reusable/modal/Modal";
 
 function Landing() {
 
@@ -20,6 +21,7 @@ function Landing() {
         <span>NUS Japanese Studies Society</span>
         <br/>
         <SocialIcons />
+        <Modal />
       </div>
       <div>
         <button type="button" className="join-us-btn" onClick={() => navigate("./signup")}>Join Us!</button>

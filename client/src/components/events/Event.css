@@ -88,15 +88,23 @@
     color: #F5F5F5;
 }
 
+
 .event-title {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* God bless */
+    pointer-events: none;
 }
 
 .event-title span {
     font-size: 1rem;
+}
+
+.event-date {
+    pointer-events: none;
+
 }
 
 .event-date span {

@@ -11,6 +11,7 @@ import {
   useLoaderData,
 } from "react-router-dom";
 import About from '../components/about/About.jsx';
+import Test from "../components/reusable/test/Test.jsx"
 
 const RootRoute = () => {
 
@@ -26,6 +27,7 @@ const RootRoute = () => {
       <Sponsor data={data.sponsorsData} />
       <ContactUs />
       <Footer />
+      <Test />
     </>
   )
 }

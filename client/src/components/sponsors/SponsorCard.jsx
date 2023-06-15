@@ -9,6 +9,7 @@ import Slide from '@mui/material/Slide';
 import makeStyles from "@emotion/styled"
 import { Paper } from '@mui/material';
 import { Link } from "react-router-dom";
+import Modal from '@mui/material';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
