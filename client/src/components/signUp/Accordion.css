@@ -10,12 +10,13 @@
   /* border: 1px solid red; */
 }
 
-.accordion li {
+.accordion > li {
   list-style: none;
   margin: 3px 0px;
   padding: 10px;
   border-radius: 8px;
   background-color: pink;
+  width: 100%;
   box-shadow: 4px 2px 2px 1px rgba(0, 0, 255, .2);
 }
 
@@ -44,6 +45,10 @@
   margin-bottom: 10px;
 }
 
+.accordion-separator > ul > li {
+  list-style: square inside;
+}
+
 .accordion-arrow {
   border: solid black;
   border-width: 0 3px 3px 0;
@@ -69,7 +74,7 @@ input[type="checkbox"]{
 }
 
 .accordion input[type="checkbox"]:checked + label + .content {
-  max-height: 400px;
+  max-height: 250px;
   padding: 10px 10px 20px;
 }
 
@@ -81,6 +86,11 @@ input[type="checkbox"]{
 @media(max-width: 768px) {
   .accordion {
     width: 90%;
+  }
+
+  .accordion input[type="checkbox"]:checked + label + .content {
+    max-height: 650px;
+    padding: 10px 10px 20px;
   }
   
 }

@@ -24,13 +24,15 @@
 }
 
 .event-main {
+    width: 90%;
     max-width: 1300px;
-    width: 60%;
+    min-width: 800px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 
 .event-nav-item {
     margin: 0px 5px;
@@ -129,7 +131,6 @@
 .event-content-link-button:hover {
     background-color: #6C757D;
 }
-
 
 
 @media(max-width: 800px) {

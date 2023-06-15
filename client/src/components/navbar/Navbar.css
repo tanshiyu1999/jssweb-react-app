@@ -22,9 +22,7 @@
     /* border: 1px solid red; */
 }
 
-li {
-    list-style: none;
-}
+
 
 
 .nav-spacer-center {
@@ -51,6 +49,8 @@ li {
     font-size: 20px;
     flex-shrink: 0;
     transition: 0.3s ease;
+    list-style: none;
+
 }
 
 .nav-item:hover {

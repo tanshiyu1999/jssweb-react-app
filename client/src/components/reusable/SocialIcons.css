@@ -1,0 +1,33 @@
+.landing-icons-container {
+  display: inline-grid;
+  justify-items: center;
+  align-items: cente;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  /* border: 2px solid red; */
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  aspect-ratio: 1 / 1;
+  background-color: #000;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.social-icon {
+  color: white;
+  transition: 0.25s;
+}
+
+.icon-container:hover {
+  background-color: pink;
+}
+
+.social-icon:hover {
+  color:red;
+}
