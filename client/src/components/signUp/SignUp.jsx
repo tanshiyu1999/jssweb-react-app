@@ -49,14 +49,16 @@ function SignUp() {
             
         </div>
 
-        <div className="difficulty-container">
-          <h4>Facing difficulties? Reach out at:</h4>
-          <button>contact@jss.sg</button>
-        </div>
+
 
         <div className="faq-container">
           <h4>Frequently Asked Questions</h4>
           <Accordion />
+        </div>
+
+        <div className="difficulty-container">
+          <h4>Facing difficulties? Reach out at:</h4>
+          <a href="mailto:contact@jss.sg"><button className="help-contact">contact@jss.sg</button></a>
         </div>
 
     </div>
