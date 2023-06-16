@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -9,18 +9,13 @@ import Slide from '@mui/material/Slide';
 import makeStyles from "@emotion/styled"
 import { Paper } from '@mui/material';
 import { Link } from "react-router-dom";
-import Modal from '@mui/material';
-
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+import Modal from '../reusable/modal/Modal';
 
 const SponsorCard = (props) => {
 
 
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,7 +39,6 @@ const SponsorCard = (props) => {
     imageUrl
   } = props.data
 
-  // console.log(imageUrl)
 
   const tier = props.tier
 
@@ -54,31 +48,18 @@ const SponsorCard = (props) => {
         <img src={imageUrl} alt={`${sponsor_name} Picture`} />
       </div>
 
-      <Dialog
+      <Modal 
         open={open}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description"
-        fullWidth={true}
-        maxWidth="md"
-        sx={{ overflowY: 'hidden' }}
-      >
-        <DialogTitle>{sponsor_name}</DialogTitle>
-        <DialogContent dividers sx={{ overflow: "hidden" }}>
-          <DialogContentText 
-            id="alert-dialog-slide-description"
-          >
-            {sponsor_description}
-          </DialogContentText>
-          <Button variant="outlined" href="#contained-buttons">
-            Link
-          </Button>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-        </DialogActions>
-      </Dialog>
+        onClose={() => handleClose()}
+        name={sponsor_name}
+        description={sponsor_description}
+        urlText1={sponsor_link_text_1}
+        url1={sponsor_link_1}
+        urlText2={sponsor_link_text_2}
+        url2={sponsor_link_2}
+        urlText3={sponsor_link_text_3}
+        url3={sponsor_link_3}
+      />
     </>
   )
 }
