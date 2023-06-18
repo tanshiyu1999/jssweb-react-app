@@ -11,7 +11,7 @@ function EventCard(props) {
 
 
   return (
-    <div className={`event-card ${id} ${active}`} onClick={(e) => props.updateInfo(image, id, e)}>
+    <div className={`event-card ${id} ${active}`} onClick={(e) => props.updateActiveCard(image, id, e)}>
       <div className="event-title .unselectable">
         <span>{props.title}</span>
       </div>

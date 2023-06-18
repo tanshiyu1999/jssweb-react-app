@@ -20,8 +20,8 @@ function Event(props) {
 
   const [currentInfo, setCurrentInfo] = useState(loaderData[0]);
 
-  const updateInfo = (str, id, e) => {
-    console.log(e.target)
+  const updateActiveCard = (str, id, e) => {
+    setHasActiveCard(true)
     $(".active-card").removeClass("active-card")
     $(e.target).addClass("active-card")    
     for (let i = 0; i < loaderData.length; i++) {
@@ -31,8 +31,6 @@ function Event(props) {
       }
     }
   }
-
-
 
   const changeCurrentType = (e) => {
     // Some of my most Jank Code
@@ -51,7 +49,7 @@ function Event(props) {
     );
   })
 
-
+  let [hasActiveCard, setHasActiveCard ] = useState(false);
 
 
   const eventsCards = loaderData.map((event) => {
@@ -64,9 +62,9 @@ function Event(props) {
           type={event.event_type}
           eventStart={event.event_start_date}
           eventEnd={event.event_end_date}
-          updateInfo={updateInfo}
+          updateActiveCard={updateActiveCard}
           id={event.event_id}
-          active={event == loaderData[0] ? "active-card" : ''}
+          active={ !hasActiveCard && event == loaderData[0] ? "active-card" : ''}
         />
         )
     }
