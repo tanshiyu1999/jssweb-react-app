@@ -30,7 +30,7 @@ router.post("/", upload.single('image'), async (req, res) => {
     try {
         // resize image
         console.log(req.body)
-        const buffer = await sharp(req.file.buffer).resize({ height: 1080, width: 1080, fit:"contain", background: "transparent" }).toBuffer();
+        const buffer = await sharp(req.file.buffer).resize({ background: "transparent" }).toBuffer();
 
         const imageName = randomImageName()
         const params = {

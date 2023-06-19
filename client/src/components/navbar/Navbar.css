@@ -50,6 +50,7 @@
     flex-shrink: 0;
     transition: 0.3s ease;
     list-style: none;
+    font-family: var(--nav-bar-font);
 
 }
 

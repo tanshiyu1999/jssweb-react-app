@@ -62,3 +62,7 @@
 #about-radio2:checked ~ .about-first {
   margin-left: -50%;  
 }
+
+.about-slide > div > p {
+  font-family: var(--about-text-font);
+}
